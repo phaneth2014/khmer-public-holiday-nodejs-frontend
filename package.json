@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "start": "node app.js start",
+  "scripts": {    
+    "dev": "node local-dev.js start && netlify dev",
+    "build": "npm --prefix client run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "pg": "^8.20.0",
     "serverless-http": "^4.0.0"
   }
 }
