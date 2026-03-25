@@ -1,14 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
+import heroImg from "./assets/hero.png";
+
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [msg, setMsg] = useState("");
+  let api_url = import.meta.APP_URL;
+  const app_local = import.meta.APP_LOCAL;
+  if (app_local != "production") {
+    api_url = "http://localhost:3000";
+  }
+
+  const callApi = async () => {
+    const res = await fetch(`${api_url}/api`);
+    const data = await res.json();
+    setMsg(data.message);
+  };
 
   return (
     <>
+      <div style={{ padding: 40 }}>
+        <h1>React + Express + Netlify</h1>
+        <button className="counter" onClick={callApi}>
+          Call API
+        </button>
+
+        <p>{msg}</p>
+      </div>
+
       <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
@@ -115,7 +137,7 @@ function App() {
       <div className="ticks"></div>
       <section id="spacer"></section>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

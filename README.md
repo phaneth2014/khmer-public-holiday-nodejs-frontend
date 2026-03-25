@@ -6,7 +6,10 @@
 npm init -y
 npm install express serverless-http cors axios dotenv pg
 ```
-
+## install neon driver portgreSQL
+```bash
+npm install @neondatabase/serverless
+```
 ### netlify.toml
 ```bash
 [build]

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {    
+  "scripts": {
     "dev": "node local-dev.js start && netlify dev",
     "build": "npm --prefix client run build",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend#readme",
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@thyrith/momentkh": "^3.0.3",
     "axios": "^1.13.6",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
