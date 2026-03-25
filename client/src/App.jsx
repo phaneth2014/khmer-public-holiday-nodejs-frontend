@@ -8,6 +8,7 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
   const [msg, setMsg] = useState("");
+  const [backendurl, setBackendurl] = useState("https://khmer-calendar.netlify.app/api");
   let api_url = import.meta.APP_URL;
   const app_local = import.meta.APP_LOCAL;
   if (app_local != "production") {
@@ -20,12 +21,32 @@ function App() {
     setMsg(data.message);
   };
 
+   const callApiBackend = async () => {
+    console.log(backendurl);
+    const backend= backendurl || import.meta.BACKEND_URL + '/api';
+    const res = await fetch(`${backend}`);
+    const data = await res.json();
+    setMsg(data.message);
+  };
+
+
   return (
     <>
       <div style={{ padding: 40 }}>
-        <h1>React + Express + Netlify</h1>
+        <h3>React + Express + Netlify</h3>
         <button className="counter" onClick={callApi}>
           Call API
+        </button>
+
+        <p>{msg}</p>
+      </div>
+
+      <div style={{ padding: 40 }}>
+        <h3>React + Express + Netlify + other side</h3>
+        <input type="text" className="input" onChange={(e)=>setBackendurl(e.target.value)}></input>
+        <br></br>
+        <button className="counter" onClick={callApiBackend}>
+          Call API backend
         </button>
 
         <p>{msg}</p>
