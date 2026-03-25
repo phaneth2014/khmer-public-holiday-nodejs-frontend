@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Phnom Penh",
+			"country": {
+				"code": "KH",
+				"name": "Cambodia"
+			},
+			"subdivision": {
+				"code": "12",
+				"name": "Phnom Penh"
+			},
+			"timezone": "Asia/Phnom_Penh",
+			"latitude": 11.5583,
+			"longitude": 104.9121
+		},
+		"timestamp": 1774438691639
+	}
+}
