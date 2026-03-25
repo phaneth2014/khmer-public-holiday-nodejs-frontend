@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Netlify Express Demo</title>
+</head>
+<body>
+  <h1>Netlify Express + HTML</h1>
+  <button id="btn">Call API</button>
+  <pre id="result"></pre>
+
+  <script>
+    document.getElementById("btn").onclick = async () => {
+      const res = await fetch("/.netlify/functions/api/api/hello");
+      const data = await res.json();
+      document.getElementById("result").textContent =
+        JSON.stringify(data, null, 2);
+    };
+  </script>
+</body>
+</html>
+``

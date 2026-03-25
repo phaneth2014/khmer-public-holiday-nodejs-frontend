@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend/issues"
   },
-  "homepage": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend#readme"
+  "homepage": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend#readme",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "serverless-http": "^4.0.0"
+  }
 }
