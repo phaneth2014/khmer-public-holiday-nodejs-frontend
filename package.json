@@ -1,0 +1,22 @@
+{
+  "name": "khmer-public-holiday-nodejs-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend/issues"
+  },
+  "homepage": "https://github.com/phaneth2014/khmer-public-holiday-nodejs-frontend#readme"
+}
