@@ -2,7 +2,16 @@ import express from "express";
 import cors from "cors";
 import serverless from "serverless-http";
 import dotenv from 'dotenv';
-import routes from '../routes/index.route.js';
+// import routes from '../routes/index.route.js';
+import {
+    getData,
+    getHolidays,
+    getExchangeRate,
+    getUsers,
+    getUsersList,
+    requestHandler
+} from "../controllers/data.controller.js";
+
 
 dotenv.config()
 
@@ -17,6 +26,13 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", routes);
+app.get('/api/dbconnection', requestHandler);
+app.get('/api/users-neon', getUsersList);
+app.get('/api/users', getUsers);
+app.get('/api/data', getData);
+app.post("/api/holiday-data", getHolidays);
+app.post("/api/holidays", getHolidays);
+app.post("/api/exchange-rate", getExchangeRate);
+// app.use("/api", routes);
 
 export const handler = serverless(app);
