@@ -6,16 +6,20 @@ import heroImg from "./assets/hero.png";
 import "./App.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
   const [msg, setMsg] = useState("");
-  const [backendurl, setBackendurl] = useState(
-    "https://khmer-calendar.netlify.app/api",
-  );
-  let api_url = import.meta.APP_URL;
-  const app_local = import.meta.APP_LOCAL;
+  const [backendurl, setBackendurl] = useState("");
+ 
+  let appUrl = import.meta.env.VITE_APP_URL;
+  const appLocal = import.meta.env.VITE_APP_LOCAL;
+  if(appLocal =='local'){
+    appUrl = import.meta.env.VITE_LOCAL_URL;
+  }
 
   const callApi = async () => {
-    const res = await fetch(`${api_url}/api`)
+    setIsLoading(true);
+     await fetch(`${appUrl}/api`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -23,22 +27,19 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log("✅ Success:", data, app_local);
-        setMsg(`${data.message} - ${app_local}`);
+        console.log("✅ Success:", data);
+        setMsg(`${data.status} - ${appLocal}`);
       })
       .catch((error) => {
         console.error("❌ Failed:", error.message);
       });
-
-    const data = res;
-    console.log(data);
-    // setMsg(`${data.message} - ${app_local}`);
+      setIsLoading(true);
   };
 
   const callApiBackend = async () => {
     console.log(backendurl);
     const backend = backendurl || import.meta.BACKEND_URL + "/api";
-    const res = await fetch(`${backend}`)
+    await fetch(`${backend}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -46,32 +47,32 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        setMsg(data.message);
+        
         console.log("✅ Success:", data);
+        setMsg(data.message);
       })
       .catch((error) => {
         console.error("❌ Failed:", error.message);
       });
 
-      console.log(res);
+      
   };
 
   return (
     <>
-      <div style={{ padding: 40 }}>
+      <div style={{ padding: 10 }}>
         <h5>React + Express + Netlify</h5>
-        <button className="counter" onClick={callApi}>
+        <button className="counter" onClick={callApi} disabled={isLoading}>
           Call API
         </button>
-
-        <p>{msg}</p>
       </div>
 
-      <div style={{ padding: 40 }}>
+      <div style={{ padding: 10 }}>
         <h5>React + Express + Netlify + other side</h5>
         <input
           type="text"
           className="input"
+          value={backendurl}
           onChange={(e) => setBackendurl(e.target.value)}
         ></input>
         <br></br>
@@ -79,7 +80,8 @@ function App() {
           Call API backend
         </button>
 
-        <p>{msg}</p>
+      <br />
+      <p className="counter">{msg}</p>  
       </div>
 
       <section id="center">

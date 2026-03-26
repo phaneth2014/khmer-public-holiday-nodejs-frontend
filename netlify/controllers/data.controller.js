@@ -1,15 +1,17 @@
 import pool from '../config/database.js';
 import sql from '../config/neondb.js'
 
-import { khmerNewYear, KhmerLunar, holidays } from './data.js';
+import { khmerNewYear, KhmerLunar, holidays } from './data-api.js';
 
 // console.log(holidays());
 export const requestHandler = async (req, res) => {
     try {
         const result = await sql`SELECT version()`;
         const { version } = result[0];
-        res.writeHead(200, { "Content-Type": "text/plain" });
-        res.end(version);
+        console.log(version);
+        // res.writeHead(200, { "Content-Type": "text/plain" });
+        // res.end(version);
+        res.status(200).json({ data:version, message: "neon db connected successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -27,11 +29,10 @@ export const getData = async (req, res) => {
 
 export const getHolidays = async (req, res) => {
     try {
-        const year = req.body.year
+        const year = req.query.year
         const now = new Date();
         const date = new Date(now.setYear(year));
         const holiday = holidays(date);
-        console.log("body:", req.body);
         console.log("date:", date);
         res.status(200).json({ holidays: holiday, message: "success" });
 
@@ -42,10 +43,15 @@ export const getHolidays = async (req, res) => {
 
 export const getExchangeRate = async (req, res) => {
     try {
-        const { data } = req.body;
+        const date = req.query.date || new Date();
 
-        if (data) {
-            res.status(201).json({ data, message: "response successfully" });
+        if (date) {
+           const data=[{
+                "USD":4001,
+                "BHD": 350,
+                "date": date
+            }];
+            res.status(201).json({ data,source:'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }
