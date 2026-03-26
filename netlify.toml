@@ -1,6 +1,6 @@
 [build]
   command = "npm install && npm --prefix frontend install && npm --prefix frontend run build"
-  publish = "frontend/public"
+  publish = "frontend/dist"
   functions = "netlify/functions"
 
 # backend

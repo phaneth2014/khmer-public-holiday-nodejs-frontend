@@ -21,15 +21,12 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-  <link ref="stylesheet" href="index.css" />
+
 </head>
 
 <body>
-  <div id="root">
-    <nav>
-      <nav class="nav-header" x-data="{
-    isLogon:false,
-}" x-init="$watch('isLogon', value => console.log(value))">
+  
+      <nav class="nav-header">
 
 
         <input type="checkbox" id="menu-toggle">
@@ -82,8 +79,9 @@
         </ul>
       </nav>
 
-    </nav>
-    <div id="main-page"></div>
+    
+  <div id="root">
+   
   </div>
   <script type="module" src="index.js"></script>
 </body>
