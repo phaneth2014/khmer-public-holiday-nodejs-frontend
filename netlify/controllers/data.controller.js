@@ -28,9 +28,9 @@ export const getData = async (req, res) => {
 }
 
 export const getHolidays = async (req, res) => {
-    try {
-        const year = req.query.year
+    try {        
         const now = new Date();
+        const year = req.query.year || now.getFullYear();
         const date = new Date(now.setYear(year));
         const holiday = holidays(date);
         console.log("date:", date);

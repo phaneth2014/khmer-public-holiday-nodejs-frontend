@@ -141,7 +141,24 @@ function checkKhmerHoliday(date) {
         let khday = khmer.khmer;
         addHoliday(khday, day);
     }
-
+    for (let i = 0; i < lastDay9.getDate(); i++) {
+        let day = new Date(mn9.getFullYear(), mn9.getMonth(), i + 1);
+        let khmer = momentkh.fromDate(day);
+        let khday = khmer.khmer;
+        addHoliday(khday, day);
+    }
+    for (let i = 0; i < lastDay10.getDate(); i++) {
+        let day = new Date(mn10.getFullYear(), mn10.getMonth(), i + 1);
+        let khmer = momentkh.fromDate(day);
+        let khday = khmer.khmer;
+        addHoliday(khday, day);
+    }
+    for (let i = 0; i < lastDay11.getDate(); i++) {
+        let day = new Date(mn11.getFullYear(), mn11.getMonth(), i + 1);
+        let khmer = momentkh.fromDate(day);
+        let khday = khmer.khmer;
+        addHoliday(khday, day);
+    }
 }
 
 function holiday_list(date) {
