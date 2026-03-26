@@ -4,17 +4,10 @@ export default function Header() {
   return (
     <nav>
       <input type="checkbox" id="menu-toggle" />
-      <label className="menu-icon">
-        ☰
-      </label>
+      <label className="menu-icon">☰</label>
 
       <ul className="header-menu">
-        <label
-          
-          className="menu-icon"
-          id="menu-close"
-
-        >
+        <label className="menu-icon" id="menu-close">
           X
         </label>
 
@@ -99,18 +92,7 @@ export default function Header() {
           </a>
         </li>
 
-        <li>
-          <a
-            href="/settings"
-            title="settings"
-            component="settings/component"
-            className=""
-          >
-            <i className="bi bi-person-circle"></i> Account
-          </a>
-        </li>
-
-        <li id="account" >
+        <li id="account">
           <a
             href="/settings"
             title="settings"
