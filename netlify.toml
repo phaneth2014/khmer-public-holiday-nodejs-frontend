@@ -3,6 +3,18 @@
   publish = "client/dist"
   functions = "netlify/functions"
 
+# backend
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# fallback for SPA (React/Vue)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
 [dev]
   command = "npm run dev"
   port = 4000
