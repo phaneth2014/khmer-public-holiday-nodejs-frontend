@@ -23,15 +23,16 @@ function App() {
         return response.json();
       })
       .then((data) => {
-        console.log("✅ Success:", data);
+        console.log("✅ Success:", data, app_local);
+        setMsg(`${data.message} - ${app_local}`);
       })
       .catch((error) => {
         console.error("❌ Failed:", error.message);
       });
 
-    const data = await res;
-
-    setMsg(`${data.message} - ${app_local}`);
+    const data = res;
+    console.log(data);
+    // setMsg(`${data.message} - ${app_local}`);
   };
 
   const callApiBackend = async () => {
@@ -45,14 +46,14 @@ function App() {
         return response.json();
       })
       .then((data) => {
+        setMsg(data.message);
         console.log("✅ Success:", data);
       })
       .catch((error) => {
         console.error("❌ Failed:", error.message);
       });
 
-    const data = await res;
-    setMsg(data.message);
+      console.log(res);
   };
 
   return (

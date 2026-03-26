@@ -13,19 +13,30 @@ npm install @neondatabase/serverless
 ### netlify.toml
 ```bash
 [build]
-  publish = "public"
+  command = "npm install && npm --prefix client install && npm --prefix client run build"
+  publish = "client/dist"
   functions = "netlify/functions"
+
+# backend
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# fallback for SPA (React/Vue)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+[dev]
+  command = "npm run dev"
+  port = 4000
 ```
 
 ### test locally
 ```bash
-npm install -g netlify-cli@latest
-npm install -g netlify-cli@22.2.0
-
-netlify dev
-netlify dev --port 8888
-
-netlify dev --debug
+npm install -D concurrently
 
 ```
 

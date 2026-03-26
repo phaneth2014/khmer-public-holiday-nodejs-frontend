@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node local-dev.js start && netlify dev",
+    "dev": "concurrently \"node local-dev.js start\" \"npm run dev --prefix client\"",
     "build": "npm --prefix client run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,5 +29,8 @@
     "express": "^5.2.1",
     "pg": "^8.20.0",
     "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
