@@ -94,6 +94,24 @@ console.log(listEndpoints(app));
   port = 4000
 ```
 
+```bash
+[build]
+  command = "npm install && npm --prefix frontend install --save-dev vite && npm --prefix frontend install && npm --prefix frontend run build"
+  publish = "frontend/dist"
+  functions = "netlify/functions"
+
+# backend
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# fallback for SPA 
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
 ### test locally
 ```bash
 npm install -D concurrently
