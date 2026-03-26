@@ -8,27 +8,52 @@ import "./App.css";
 function App() {
   const [count, setCount] = useState(0);
   const [msg, setMsg] = useState("");
-  const [backendurl, setBackendurl] = useState("https://khmer-calendar.netlify.app/api");
+  const [backendurl, setBackendurl] = useState(
+    "https://khmer-calendar.netlify.app/api",
+  );
   let api_url = import.meta.APP_URL;
   const app_local = import.meta.APP_LOCAL;
-  if (app_local != "production") {
-    api_url = "http://localhost:3000";
-  }
 
   const callApi = async () => {
-    const res = await fetch(`${api_url}/api`);
+    const res = await fetch(`${api_url}/api`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("✅ Success:", data);
+      })
+      .catch((error) => {
+        console.error("❌ Failed:", error.message);
+      });
+
     const data = await res.json();
+
     setMsg(`${data.message} - ${app_local}`);
   };
 
-   const callApiBackend = async () => {
+  const callApiBackend = async () => {
     console.log(backendurl);
-    const backend= backendurl || import.meta.BACKEND_URL + '/api';
-    const res = await fetch(`${backend}`);
+    const backend = backendurl || import.meta.BACKEND_URL + "/api";
+    const res = await fetch(`${backend}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("✅ Success:", data);
+      })
+      .catch((error) => {
+        console.error("❌ Failed:", error.message);
+      });
+
     const data = await res.json();
     setMsg(data.message);
   };
-
 
   return (
     <>
@@ -43,7 +68,11 @@ function App() {
 
       <div style={{ padding: 40 }}>
         <h5>React + Express + Netlify + other side</h5>
-        <input type="text" className="input" onChange={(e)=>setBackendurl(e.target.value)}></input>
+        <input
+          type="text"
+          className="input"
+          onChange={(e) => setBackendurl(e.target.value)}
+        ></input>
         <br></br>
         <button className="counter" onClick={callApiBackend}>
           Call API backend
@@ -157,6 +186,7 @@ function App() {
 
       <div className="ticks"></div>
       <section id="spacer"></section>
+      <div>version 1.0.2</div>
     </>
   );
 }
