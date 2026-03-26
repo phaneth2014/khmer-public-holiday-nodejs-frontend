@@ -1,7 +1,7 @@
 {
   "name": "khmer-public-holiday-nodejs-frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "```bash\r project-root/\r │\r ├── src/\r │   ├── config/\r │   │   └── db.js              # Database connection (pg Pool/Client)\r │   │\r │   ├── migrations/            # Migration files (SQL or JS with node-pg-migrate/Knex)\r │   │   ├── 001-create-users.sql\r │   │   └── 002-create-posts.sql\r │   │\r │   ├── models/                # Database models (plain classes or query wrappers)\r │   │   ├── user.js\r │   │   └── post.js\r │   │\r │   ├── routes/                # Express route handlers\r │   │   ├── users.js\r │   │   └── posts.js\r │   │\r │   ├── controllers/           # Business logic (separate from routes)\r │   │   ├── userController.js\r │   │   └── postController.js\r │   │\r │   ├── services/              # Reusable service functions (auth, email, etc.)\r │   │   └── authService.js\r │   │\r │   ├── utils/                 # Helper functions (validation, error handling)\r │   │   └── logger.js\r │   │\r │   ├── app.js                 # Express app setup\r │   └── server.js              # Entry point (starts server)\r │\r ├── .env                       # Environment variables (DB_URL, secrets)\r ├── package.json\r └── README.md",
   "main": "index.js",
   "scripts": {
     "migrate": "node netlify/migrations/migrate.js",
@@ -24,7 +24,6 @@
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "@thyrith/momentkh": "^3.0.3",
-    "axios": "^1.13.6",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
