@@ -6,17 +6,17 @@ const route = (event) => {
 }
 
 const routes ={
-    404:"/frontend/public/pages/404.html",
-    "/":"/frontend/public/pages/index.html",
-    "/about":"/frontend/public/pages/about.html",
-    "/holiday":"/frontend/public/pages/exchange.html"
+    404:"./src/pages/404.html",
+    "/":"./src/pages/index.html",
+    "/about":"./src/pages/about.html",
+    "/holiday":"./src/pages/exchange.html"
 }
 
 const handleLocation = async ()=>{
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data)=>data.text());
-    document.getElementById("main-page").innerHTML = html;
+    document.getElementById("app").innerHTML = html;
 }
 
 window.onpopstate = handleLocation;

@@ -2,88 +2,24 @@
 <html lang="en">
 
 <head>
-  <meta name="author" content="khmer-calendar">
-  <meta name="base-domain" content="khmer-calendar.netlify.app">
-  <meta name="apple-mobile-web-app-title" content="khmer-calendar">
-  <meta name="application-name" content="khmer-calendar">
-  <meta name="msapplication-TileColor" content="#000">
-  <meta name="theme-color" content="#000">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="khmer-calendar">
-  <meta name="description" content="គេហទំព័រនេះត្រូវបានបង្កើតឡើង ដើម្បីផ្តល់ព័ត៌មានអំពី កាលបរិច្ឆែកថ្ងៃឈប់សម្រាកប្រចាំខែ និង ឆ្នាំនីមួយៗ ក៏ដូចជា
-    ផ្តល់តម្លៃ អត្រាប្តូរប្រាក់ប្រចាំថ្ងៃ ដោយយោង និង ដកស្រង់ពី គេហទំព័ររបស់ ធនាគារជាតិ នៃកម្ពុជា https://www.nbc.gov.kh/
-    អនុឡោមទៅតាម ក្រសួងពន្ធដា និង តម្លៃហាងឆេង ជាប្រចាំ ដោយឥតគិតថ្លៃ សម្រាប់ប្រជាពលរដ្ឋ និងអាជីវកម្មនៅក្នុងប្រទេសកម្ពុជា។
-    លោកអ្នកក៏អាចចូលប្រើប្រាស់សេវា API ដោយឥតគិតថ្លៃដើម្បីទទួលបានព័ត៌មានអត្រាប្តូរប្រាក់ផ្លូវការ និងតម្លៃហាងឆេង។">
-  <title>Khmer Calendar App</title>
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+
+    <title>Khmer Calendar App</title>
 
 </head>
 
 <body>
-  
-      <nav class="nav-header">
-
-
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">☰</label>
-
-        <ul class="header-menu">
-          <label for="menu-toggle" class="menu-icon" id="menu-close" style="margin-top: -13px;">X</label>
-
-          <li><a href="/" title="home" id="pg-home" component="home/component"
-              class=""><i class="bi bi-house"></i> ប្រតិទិន</a></li>
-          <li><a href="/holiday" title="holidays" component="holiday/component"
-              class=""><i class="bi bi-calendar"></i>
-              ថ្ងៃឈប់សម្រាក</a></li>
-
-          <li><a href="/exchange-rate" title="exchange rate" component="exchange-rate/component"
-              class=""><i class="bi bi-currency-exchange"></i>
-              អត្រាប្តូរប្រាក់</a></li>
-          <li><a href="/market" title="market" component="market/component"
-              class=""><i class="bi bi-cart"></i> ទីផ្សារ/ហាងឆេង</a>
-          </li>
-
-
-          <li><a href="/api-data" title="api-data" component="api-data/component"
-              class=""><i class="bi bi-database"></i> ទិន្ន័យ
-              API</a></li>
-          <li><a href="/about" title="about" component="about/component"
-              class=""><i class="bi bi-info-circle"></i> អំពីយើង</a>
-          </li>
-          <li><a href="/terms" title="terms" component="terms/component"
-              class=""><i class="bi bi-key"></i>
-              លក្ខខណ្ឌប្រើប្រាស់</a></li>
-
-
-        </ul>
-        <ul class="header-menu-right">
-          <li><a href="javascript:;" id="language-toggle" data-lang="en">EN</a></li>
-          <li><a href="#" id="theme-toggle" data-mode="light"><i class="bi bi-moon" id="theme-icon"></i></a>
-          </li>
-
-          <li id="account" style="display:none"><a href="/settings" title="settings" component="settings/component"
-              class="{{ request()->path() == 'settings' ? 'active' : '' }}"><i class="bi bi-person-circle"></i>
-              Account</a></li>
-          <li id="account-login"><a href="/register" title="Register" component="register/component" id="register-link"
-              class="{{ request()->path() == 'register' ? 'active' : '' }}"><i class="bi bi-person"></i> ចុះឈ្មោះ</a>
-          </li>
-
-          <li id="account-register"><a href="/login" title="Login" component="login/component" id="login-link"
-              class="{{ request()->path() == 'login' ? 'active' : '' }}"><i class="bi bi-lock"></i> ចូល</a></li>
-
-        </ul>
-      </nav>
-
-    
-  <div id="root">
-   
-  </div>
-  <script type="module" src="index.js"></script>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" component="pages/home">Home</a></li>
+                <li><a href="/about" component="pages/about">about</a></li>
+                <li><a href="/holiday" component="pages/holiday">holidays</a></li>
+                <li><a href="/exchange-rate" component="pages/exchage">Exchange Rate</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="app"></div>
+    <script type="module" src="index.js"></script>
 </body>
 
 </html>

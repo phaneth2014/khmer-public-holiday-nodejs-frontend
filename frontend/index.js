@@ -6,17 +6,17 @@ const route = (event) => {
 }
 
 const routes ={
-    404:"/frontend/src/pages/404.html",
-    "/":"/frontend/src/pages/index.html",
-    "/about":"/frontend/src/pages/about.html",
-    "/holiday":"/frontend/src/pages/exchange.html"
+    404:"./src/pages/404.html",
+    "/":"./src/pages/index.html",
+    "/about":"./src/pages/about.html",
+    "/holiday":"./src/pages/exchange.html"
 }
 
 const handleLocation = async ()=>{
     const path = window.location.pathname;
     const route = routes[path] || routes[404];
     const html = await fetch(route).then((data)=>data.text());
-    document.getElementById("root").innerHTML = html;
+    document.getElementById("app").innerHTML = html;
 }
 
 window.onpopstate = handleLocation;
@@ -27,6 +27,6 @@ handleLocation();
 document.querySelectorAll('[component]').forEach((a) => {
     a.addEventListener('click', function () {
         route();
-        console.log(a.href);
+        console.log(a.href,a.getAttribute('component'));
     })
 });
