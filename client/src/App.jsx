@@ -18,7 +18,7 @@ function App() {
   const callApi = async () => {
     const res = await fetch(`${api_url}/api`);
     const data = await res.json();
-    setMsg(data.message);
+    setMsg(`${data.message} - ${app_local}`);
   };
 
    const callApiBackend = async () => {
@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <div style={{ padding: 40 }}>
-        <h3>React + Express + Netlify</h3>
+        <h5>React + Express + Netlify</h5>
         <button className="counter" onClick={callApi}>
           Call API
         </button>
@@ -42,7 +42,7 @@ function App() {
       </div>
 
       <div style={{ padding: 40 }}>
-        <h3>React + Express + Netlify + other side</h3>
+        <h5>React + Express + Netlify + other side</h5>
         <input type="text" className="input" onChange={(e)=>setBackendurl(e.target.value)}></input>
         <br></br>
         <button className="counter" onClick={callApiBackend}>
