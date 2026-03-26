@@ -31,8 +31,8 @@ app.get('/api/users-neon', getUsersList);
 app.get('/api/users', getUsers);
 app.get('/api/data', getData);
 app.post("/api/holiday-data", getHolidays);
-app.post("/api/holidays", getHolidays);
-app.post("/api/exchange-rate", getExchangeRate);
+app.get("/api/holidays", getHolidays);
+app.get("/api/exchange-rate", getExchangeRate);
 // app.use("/api", routes);
 
 export const handler = serverless(app);

@@ -6,7 +6,7 @@ import { khmerNewYear, KhmerLunar, holidays } from './data-api.js';
 // console.log(holidays());
 export const requestHandler = async (req, res) => {
     try {
-        const result = await sql`SELECT version()`;
+        const result = await sql `SELECT version()`;
         const { version } = result[0];
         console.log(version);
         // res.writeHead(200, { "Content-Type": "text/plain" });
