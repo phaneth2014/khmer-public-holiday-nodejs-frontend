@@ -100,28 +100,57 @@ export const convertToKhmerDate = (date) => {
     return `ថ្ងៃ${daily[dayOfWeek]} ទី${khDate} ខែ${lunarMonth[mm]} ឆ្នាំ${khYear}`;
 }
 
-function convertNumString(num){
-    if(num.length>1){
+function convertNumString(num) {
+    if (num.length > 1) {
         return num;
-    }else{
+    } else {
         return `0${num}`;
     }
 }
+
 function addHoliday(data, day) {
+    const dd = `${day.getFullYear()}-${convertNumString(day.getMonth() + 1)}-${convertNumString(day.getDate())}`;
     if (data.monthIndex == 5 && data.day == 4 && data.moonPhase == 1) {
-        let dd = `${day.getFullYear()}-${convertNumString(day.getMonth() + 1)}-${convertNumString(day.getDate())}`;
         khmer_holidays.push({
             day: dd,
             desc: "ពិធីច្រក់ព្រះនង្គ័ល (Royal Ploughing Ceremony)"
         });
     } else if (data.monthIndex == 5 && data.day == 15 && data.moonPhase == 0) {
-        let dd = `${day.getFullYear()}-${convertNumString(day.getMonth() + 1)}-${convertNumString(day.getDate())}`;
         khmer_holidays.push({
             day: dd,
             desc: "ពិធីបុណ្យវិសាខបូជា (Visakh Bochea Day)"
         });
+    } else if (data.monthIndex == 9 && data.day == 14 && data.moonPhase == 1) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី១ (Pchum Ben Day one)"
+        });
+    } else if (data.monthIndex == 9 && data.day == 15 && data.moonPhase == 1) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី២ (Pchum Ben Day two)"
+        });
+    } else if (data.monthIndex == 10 && data.day == 1 && data.moonPhase == 0) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី៣ (Pchum Ben Day three)"
+        });
+    } else if (data.monthIndex == 11 && data.day == 14 && data.moonPhase == 0) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី១ (Water Festival Day one)"
+        });
+    } else if (data.monthIndex == 11 && data.day == 15 && data.moonPhase == 0) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី២ (Water Festival Day two)"
+        });
+    } else if (data.monthIndex == 11 && data.day == 1 && data.moonPhase == 1) {
+        khmer_holidays.push({
+            day: dd,
+            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី៣ (Water Festival Day three)"
+        });
     }
-
 }
 
 function checkKhmerHoliday(date) {
@@ -192,18 +221,18 @@ export const convertToKhmerNumber = (number) => {
     return khNumber;
 }
 
-export function khmerNewYear (year) {
+export function khmerNewYear(year) {
     var today = new Date();
     const newYear = momentkh.getNewYear(year || today.getFullYear());
     return newYear || today;
 }
 
-export function holidays(date){
+export function holidays(date) {
     return holiday_list(date || new Date());
 }
 
 export function KhmerLunar(date) {
     // your logic here
-    var khmer = momentkh.fromDate( date || new Date());
+    var khmer = momentkh.fromDate(date || new Date());
     return khmer; // example only
 }
