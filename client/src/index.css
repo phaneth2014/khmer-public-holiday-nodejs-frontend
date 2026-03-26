@@ -1,8 +1,5 @@
-@import "./assets/progressbar.min.css";
-
 @import "bootstrap-icons/font/bootstrap-icons";
 
-@import "./assets/controlls.css";
 
 :root {
     --primary-color: #e10020;

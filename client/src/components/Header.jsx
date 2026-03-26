@@ -92,17 +92,7 @@ export default function Header() {
           </a>
         </li>
 
-        <li id="account">
-          <a
-            href="/settings"
-            title="settings"
-            component="settings/component"
-            className=""
-          >
-            <i className="bi bi-person-circle"></i> Account
-          </a>
-        </li>
-        <li id="account-login">
+              <li id="account-login">
           <a
             href="/register"
             title="Register"
