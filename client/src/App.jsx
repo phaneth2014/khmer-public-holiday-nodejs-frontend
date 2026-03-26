@@ -29,7 +29,7 @@ function App() {
         console.error("❌ Failed:", error.message);
       });
 
-    const data = await res.json();
+    const data = await res;
 
     setMsg(`${data.message} - ${app_local}`);
   };
@@ -51,7 +51,7 @@ function App() {
         console.error("❌ Failed:", error.message);
       });
 
-    const data = await res.json();
+    const data = await res;
     setMsg(data.message);
   };
 
