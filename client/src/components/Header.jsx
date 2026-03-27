@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import ThemeToggle from "./themeToggle";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function Header() {
   const [sidebar, setSidebar] = useState(false);
