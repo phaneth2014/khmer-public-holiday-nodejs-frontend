@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { holidays } from "../services/data-api.js";
 
 export default function Home() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const now = new Date();
+    const getData = async () => {
+      const ph = await holidays(now);
+      setData(ph);
+    };
+
+    getData();
+  }, []);
+
   return (
     <main className="main">
       <section className="section-calendar">
@@ -33,7 +46,19 @@ export default function Home() {
               <th className="last-day">SAT</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.day}{item.desc}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <div id="today-text" className="text-today"></div>
       </section>

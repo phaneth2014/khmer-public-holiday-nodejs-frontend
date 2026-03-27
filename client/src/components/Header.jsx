@@ -1,138 +1,128 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
+import {  NavLink } from "react-router-dom";
+import ThemeToggle from "./themeToggle";
 
 export default function Header() {
   const [sidebar, setSidebar] = useState(false);
-  const [theme, setTheme] = useState("light-mode");
+ 
   const menuToggle = () => {
     setSidebar(!sidebar);
   };
-  const themeMode = () => {
-    const body = document.getElementById("body");
-    if (theme == "light-mode") {
-      setTheme('dark-mode');
-      body.classList.add("dark-mode");
-    } else {
-      body.classList.remove("dark-mode");
-      setTheme('light-mode');
-    }
-
-    console.log(theme);
-  };
+  
+  
   return (
-    <nav className="nav-header">
-      <input type="checkbox" id="menu-toggle" />
+    <nav className="nav-header">     
       <label className="menu-icon" onClick={menuToggle}>
         ☰
       </label>
 
       <ul className={`${sidebar ? "sidebar" : "header-menu"}`}>
-        <label className="menu-icon" id="menu-close" onClick={menuToggle}>
+        <label className="menu-icon" onClick={menuToggle}>
           X
         </label>
 
         <li>
-          <a
-            href="/"
+          <NavLink
+            to="/"
             title="home"
             id="pg-home"
             component="home/component"
             className=""
+            
           >
             <i className="bi bi-house"></i> ប្រតិទិន
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/holiday"
+          <NavLink
+            to="/holiday"
             title="holidays"
             component="holiday/component"
             className=""
           >
             <i className="bi bi-calendar"></i> ថ្ងៃឈប់សម្រាក
-          </a>
+          </NavLink>
         </li>
 
         <li>
-          <a
-            href="/exchange-rate"
+          <NavLink
+            to="/exchange-rate"
             title="exchange rate"
             component="exchange-rate/component"
             className=""
           >
             <i className="bi bi-currency-exchange"></i> អត្រាប្តូរប្រាក់
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/market"
+          <NavLink
+            to="/market"
             title="market"
             component="market/component"
             className=""
           >
             <i className="bi bi-cart"></i> ទីផ្សារ/ហាងឆេង
-          </a>
+          </NavLink>
         </li>
 
         <li>
-          <a
-            href="/api-data"
+          <NavLink
+            to="/api-data"
             title="api-data"
             component="api-data/component"
             className=""
           >
             <i className="bi bi-database"></i> ទិន្ន័យ API
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/about"
+          <NavLink
+            to="/about"
             title="about"
             component="about/component"
             className=""
           >
             <i className="bi bi-info-circle"></i> អំពីយើង
-          </a>
+          </NavLink>
         </li>
         <li>
-          <a
-            href="/terms"
+          <NavLink
+            to="/terms"
             title="terms"
             component="terms/component"
             className=""
           >
             <i className="bi bi-key"></i> លក្ខខណ្ឌប្រើប្រាស់
-          </a>
+          </NavLink>
         </li>
       </ul>
       <ul className="header-menu-right">
         <li>
-          <a href="#" id="theme-toggle" data-mode="light" onClick={themeMode}>
-            <i className="bi bi-moon" id="theme-icon"></i>
-          </a>
+          <ThemeToggle/>
         </li>
 
         <li id="account-login">
-          <a
-            href="/register"
+          <NavLink
+            to="/register"
             title="Register"
             component="register/component"
             id="register-link"
             className=""
           >
             <i className="bi bi-person"></i> ចុះឈ្មោះ
-          </a>
+          </NavLink>
         </li>
 
         <li id="account-register">
-          <a
-            href="/login"
+          <NavLink
+            to="/login"
             title="Login"
             component="login/component"
             id="login-link"
             className=""
           >
             <i className="bi bi-lock"></i> ចូល
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>

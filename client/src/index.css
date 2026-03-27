@@ -442,34 +442,10 @@ input {
 .holiday-list li div:first-child {
   width: 80px;
 }
-.sidebar {
-  padding: 20px;
-  display: flex;
-  position: fixed;
-  left: 0;
-  top: -14px;
-  height: 100vh;
-  width: 320px;
-  flex-direction: column;
-  background: #fff;
-  border-right: 1px solid #ddd;
-  z-index: 999;
-  transition: max-width 0.5s ease;
-}
 
-.sidebar li{
-    padding: 10px;
-    background: #eee;
-    margin-bottom: 10px;
-    border-radius: 8px;  
-     list-style-type: none;
+a:hover{
+  cursor: pointer;
 }
-
-.sidebar li a{
-    text-decoration: none;
-    color: #222;
-}
-
 @media only screen and (max-width: 1000px) {
   /* Your mobile-specific styles go here */
   body {
