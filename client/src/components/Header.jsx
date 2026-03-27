@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Header() {
-  return (
-    <nav>
-      <input type="checkbox" id="menu-toggle" />
-      <label className="menu-icon">☰</label>
+  const [sidebar, setSidebar] = useState(false);
+  const [theme, setTheme] = useState("light-mode");
+  const menuToggle = () => {
+    setSidebar(!sidebar);
+  };
+  const themeMode = () => {
+    const body = document.getElementById("body");
+    if (theme == "light-mode") {
+      setTheme('dark-mode');
+      body.classList.add("dark-mode");
+    } else {
+      body.classList.remove("dark-mode");
+      setTheme('light-mode');
+    }
 
-      <ul className="header-menu">
-        <label className="menu-icon" id="menu-close">
+    console.log(theme);
+  };
+  return (
+    <nav className="nav-header">
+      <input type="checkbox" id="menu-toggle" />
+      <label className="menu-icon" onClick={menuToggle}>
+        ☰
+      </label>
+
+      <ul className={`${sidebar ? "sidebar" : "header-menu"}`}>
+        <label className="menu-icon" id="menu-close" onClick={menuToggle}>
           X
         </label>
 
@@ -87,12 +106,12 @@ export default function Header() {
       </ul>
       <ul className="header-menu-right">
         <li>
-          <a href="#" id="theme-toggle" data-mode="light">
+          <a href="#" id="theme-toggle" data-mode="light" onClick={themeMode}>
             <i className="bi bi-moon" id="theme-icon"></i>
           </a>
         </li>
 
-              <li id="account-login">
+        <li id="account-login">
           <a
             href="/register"
             title="Register"

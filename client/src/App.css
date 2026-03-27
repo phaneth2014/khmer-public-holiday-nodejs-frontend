@@ -1,0 +1,6 @@
+@import "./assets/css/controlls.css";
+@import "./assets/css/progressbar.min.css";
+
+main{
+    padding-top: 20px;
+}
