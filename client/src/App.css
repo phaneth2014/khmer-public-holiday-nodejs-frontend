@@ -1,8 +1,17 @@
 @import "./assets/css/controlls.css";
 @import "./assets/css/progressbar.min.css";
 
+.nav-header{
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    margin-bottom: 10px;
+}
+.dark-mode .nav-header{
+    border-color: #222;
+    background: #000;
+}
 main{
-    padding-top: 20px;
+    padding-top: 0px;
 }
 
 .sidebar {

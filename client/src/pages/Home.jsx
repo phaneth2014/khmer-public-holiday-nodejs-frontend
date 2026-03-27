@@ -49,8 +49,8 @@ export default function Home() {
           <tbody>
             {data.map((item, index) => (
               <tr key={index}>
-                <td>{item.day}{item.desc}</td>
-                <td></td>
+                <td>{item.day} </td>
+                <td>{item.desc}</td>
                 <td></td>
                 <td></td>
                 <td></td>

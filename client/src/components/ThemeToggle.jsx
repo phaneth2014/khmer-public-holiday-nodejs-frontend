@@ -1,10 +1,12 @@
-import React, {  useState } from "react";
+import React, {   useState } from "react";
 import { useTheme } from "./ThemeProvider";
 
+
 export default function ThemeToggle() {
-  const [themeMode, setThemeMode] = useState(localStorage.getItem('theme'));
-    const { setTheme } = useTheme()
+  const [themeMode, setThemeMode] = useState(localStorage.getItem('vite-ui-theme'));
+    const { setTheme } = useTheme('');
   const HandlethemeMode = () => {
+   
     if (themeMode != "dark-mode") {
       setThemeMode("dark-mode");
       setTheme("dark-mode");

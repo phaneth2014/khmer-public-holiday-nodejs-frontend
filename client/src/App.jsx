@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Exchange from "./pages/Exchange";
 import Market from "./pages/Market";
 import Terms from './pages/Terms';
+import DataApi from './pages/DataApi';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Footer from "./components/FooterPage";
@@ -18,17 +19,19 @@ function App() {
   return (
     <ThemeProvider>
       <Header />
-      <Footer />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/holiday" element={<Holiday />} />
-        <Route path="/exchange-rage" element={<Exchange />} />
+        <Route path="/exchange-rate" element={<Exchange />} />        
         <Route path="/market" element={<Market />} />
+        <Route path="/api-data" element={<DataApi />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+      <Footer />
     </ThemeProvider>
   );
 }

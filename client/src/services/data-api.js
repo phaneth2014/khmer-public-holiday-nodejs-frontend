@@ -97,7 +97,7 @@ export const convertToKhmerDate = (date) => {
 }
 
 function convertNumString(num) {
-    if (num.length > 1) {
+    if (num.length > 0) {
         return num;
     } else {
         return `0${num}`;
@@ -153,8 +153,8 @@ function checkKhmerHoliday(date) {
     let now = date;
     let mn5 = new Date(now.getFullYear(), 4, 1);
     let mn9 = new Date(now.getFullYear(), 9, 1);
-    let mn10 = new Date(now.getFullYear(), 9, 1);
-    let mn11 = new Date(now.getFullYear(), 10, 1);
+    let mn10 = new Date(now.getFullYear(), 10, 1);
+    let mn11 = new Date(now.getFullYear(), 11, 1);
     let lastDay5 = new Date(mn5.getFullYear(), mn5.getMonth() + 1, 0);
     let lastDay9 = new Date(mn9.getFullYear(), mn9.getMonth() + 1, 0);
     let lastDay10 = new Date(mn10.getFullYear(), mn10.getMonth() + 1, 0);
@@ -215,6 +215,17 @@ export const convertToKhmerNumber = (number) => {
         khNumber += khnum[parseInt(numStr[i])];
     }
     return khNumber;
+}
+
+export const converToKhmerMonth = (num)=>{
+    const lunarMonth = ["មករា", "កុម្ភៈ", "មីនា", "មេសា", "ឧសភា", "មិថុនា", "កក្កដា", "សីហា", "កញ្ញា", "តុលា", "វិច្ឆិកា", "ធ្នូ"];
+
+    return lunarMonth[num];
+}
+
+export const converToKhmerDay =(num)=>{
+    const daily = ["អាទិត្យ", "ច័ន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
+    return daily[num];
 }
 
 export function khmerNewYear(year) {
