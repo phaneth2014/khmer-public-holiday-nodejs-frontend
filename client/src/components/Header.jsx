@@ -25,10 +25,7 @@ export default function Header() {
           <NavLink
             to="/"
             title="home"
-            id="pg-home"
-            component="home/component"
-            className=""
-            
+            id="pg-home" 
           >
             <i className="bi bi-house"></i> ប្រតិទិន
           </NavLink>
@@ -37,8 +34,7 @@ export default function Header() {
           <NavLink
             to="/holiday"
             title="holidays"
-            component="holiday/component"
-            className=""
+           
           >
             <i className="bi bi-calendar"></i> ថ្ងៃឈប់សម្រាក
           </NavLink>
@@ -48,8 +44,7 @@ export default function Header() {
           <NavLink
             to="/exchange-rate"
             title="exchange rate"
-            component="exchange-rate/component"
-            className=""
+            
           >
             <i className="bi bi-currency-exchange"></i> អត្រាប្តូរប្រាក់
           </NavLink>
@@ -58,8 +53,7 @@ export default function Header() {
           <NavLink
             to="/market"
             title="market"
-            component="market/component"
-            className=""
+           
           >
             <i className="bi bi-cart"></i> ទីផ្សារ/ហាងឆេង
           </NavLink>
@@ -69,8 +63,7 @@ export default function Header() {
           <NavLink
             to="/api-data"
             title="api-data"
-            component="api-data/component"
-            className=""
+            
           >
             <i className="bi bi-database"></i> ទិន្ន័យ API
           </NavLink>
@@ -79,8 +72,7 @@ export default function Header() {
           <NavLink
             to="/about"
             title="about"
-            component="about/component"
-            className=""
+           
           >
             <i className="bi bi-info-circle"></i> អំពីយើង
           </NavLink>
@@ -89,8 +81,7 @@ export default function Header() {
           <NavLink
             to="/terms"
             title="terms"
-            component="terms/component"
-            className=""
+           
           >
             <i className="bi bi-key"></i> លក្ខខណ្ឌប្រើប្រាស់
           </NavLink>
@@ -105,9 +96,7 @@ export default function Header() {
           <NavLink
             to="/register"
             title="Register"
-            component="register/component"
-            id="register-link"
-            className=""
+           
           >
             <i className="bi bi-person"></i> ចុះឈ្មោះ
           </NavLink>
@@ -117,9 +106,7 @@ export default function Header() {
           <NavLink
             to="/login"
             title="Login"
-            component="login/component"
-            id="login-link"
-            className=""
+           
           >
             <i className="bi bi-lock"></i> ចូល
           </NavLink>
