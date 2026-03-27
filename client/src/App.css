@@ -68,3 +68,63 @@ main{
   color: red;
   font-weight: bold;
 }
+
+.card {
+            background: #eee;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            padding: 3px 6px;
+        }
+
+        code {
+            background: var(--bg-color);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .code-block {
+            position: relative;
+            background: #eef2f7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .dark-mode pre,
+        .dark-mode code {
+            background: #000;
+            border-color: #333;
+
+        }
+
+        .dark-mode .card {
+            background: #222;
+            border-color: #333;
+            color: #fff;
+        }
