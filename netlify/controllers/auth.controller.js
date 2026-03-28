@@ -49,7 +49,7 @@ export async function register(req, res) {
 
   } catch (err) {
     console.error("Register Error:", err);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error", message: err });
   }
 }
 
@@ -76,14 +76,14 @@ export async function login(req, res) {
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1D" }
+      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
     delete user.password;
     res.status(200).json({ data: user, token, message: "Logon your user successed" });
 
   } catch (err) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Internal Server Error", message:err });
   }
 }
 
