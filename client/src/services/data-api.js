@@ -97,11 +97,7 @@ export const convertToKhmerDate = (date) => {
 }
 
 function convertNumString(num) {
-    if (num.length > 0) {
-        return num;
-    } else {
-        return `0${num}`;
-    }
+   return String(num).padStart(2, '0');
 }
 
 function addHoliday(data, day) {

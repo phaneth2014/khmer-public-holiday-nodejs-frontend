@@ -34,7 +34,7 @@ export const getHolidays = async (req, res) => {
         const date = new Date(now.setYear(year));
         const holiday = holidays(date);
         console.log("date:", date);
-        res.status(200).json({ holidays: holiday, message: "success" });
+        res.status(200).json({ year:parseInt(year),holidays: holiday, message: "success" });
 
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -15,63 +15,63 @@ function getHoliday(year) {
     khmer_holidays = [
 
         {
-            day: `${year}-01-01`,
-            desc: "បុណ្យចូលឆ្នាំសាកល International New Year's Day"
+            date: `${year}-01-01`,
+            description: "បុណ្យចូលឆ្នាំសាកល International New Year's Day"
         },
         {
-            day: `${year}-01-07`,
-            desc: "ទិវា​ជ័យ​ជម្នះ​លើ​របប​ប្រល័យ​ពូជ​សាសន៍ Victory Day"
+            date: `${year}-01-07`,
+            description: "ទិវា​ជ័យ​ជម្នះ​លើ​របប​ប្រល័យ​ពូជ​សាសន៍ Victory Day"
         },
         {
-            day: `${year}-03-08`,
-            desc: "ទិវាសិទ្ធនារី ៨មីនា International Women's Day"
+            date: `${year}-03-08`,
+            description: "ទិវាសិទ្ធនារី ៨មីនា International Women's Day"
         },
         {
-            day: `${year}-04-14`,
-            desc: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+            date: `${year}-04-14`,
+            description: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
         },
         {
-            day: `${year}-04-15`,
-            desc: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+            date: `${year}-04-15`,
+            description: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
         },
         {
-            day: `${year}-04-16`,
-            desc: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
-        },
-
-        {
-            day: `${year}-05-01`,
-            desc: "ទិវាពលកម្មអន្តរជាតិ (International Labor Day)"
-        },
-        {
-            day: `${year}-05-14`,
-            desc: "ព្រះ​រាជ​ពិធី​បុណ្យ​ចម្រើន​ព្រះ​ជន្ម ព្រះបាទនរោត្តមសីហមុនី (King Sihamoni's Birthday)"
-        },
-        {
-            day: `${year}-06-18`,
-            desc: "ព្រះ​រាជ​ពិធី​បុណ្យ​ចម្រើន​ព្រះ​ជន្ម សម្តេច​ព្រះ​មហាក្សត្រីនរោត្តម មុនិនាថ សីហនុ (Queen Mother's Birthday)"
-        },
-        {
-            day: `${year}-09-24`,
-            desc: "ទិវារដ្ឋធម្មនុញ្ញ (Constitution Day)"
+            date: `${year}-04-16`,
+            description: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
         },
 
         {
-            day: `${year}-10-15`,
-            desc: "រំលឹកវិញ្ញាណក្ខន្ធ សម្តេចឪ (Commemoration of Late King Father)"
+            date: `${year}-05-01`,
+            description: "ទិវាពលកម្មអន្តរជាតិ (International Labor Day)"
         },
         {
-            day: `${year}-10-29`,
-            desc: "ព្រះរាជពិធីឡើងគ្រងរាជ្យរបស់ព្រះបាទនរោត្តមសីហមុនី (King Norodom Sihamoni’s Coronation Day)"
+            date: `${year}-05-14`,
+            description: "ព្រះ​រាជ​ពិធី​បុណ្យ​ចម្រើន​ព្រះ​ជន្ម ព្រះបាទនរោត្តមសីហមុនី (King Sihamoni's Birthday)"
         },
         {
-            day: `${year}-11-09`,
-            desc: "ទិវាឯករាជ្យ (Independence Day)"
+            date: `${year}-06-18`,
+            description: "ព្រះ​រាជ​ពិធី​បុណ្យ​ចម្រើន​ព្រះ​ជន្ម សម្តេច​ព្រះ​មហាក្សត្រីនរោត្តម មុនិនាថ សីហនុ (Queen Mother's Birthday)"
+        },
+        {
+            date: `${year}-09-24`,
+            description: "ទិវារដ្ឋធម្មនុញ្ញ (Constitution Day)"
         },
 
         {
-            day: `${year}-12-29`,
-            desc: "ទិវាសន្តិភាព (Peace Day)"
+            date: `${year}-10-15`,
+            description: "រំលឹកវិញ្ញាណក្ខន្ធ សម្តេចឪ (Commemoration of Late King Father)"
+        },
+        {
+            date: `${year}-10-29`,
+            description: "ព្រះរាជពិធីឡើងគ្រងរាជ្យរបស់ព្រះបាទនរោត្តមសីហមុនី (King Norodom Sihamoni’s Coronation Day)"
+        },
+        {
+            date: `${year}-11-09`,
+            description: "ទិវាឯករាជ្យ (Independence Day)"
+        },
+
+        {
+            date: `${year}-12-29`,
+            description: "ទិវាសន្តិភាព (Peace Day)"
         },
     ]
 }
@@ -101,54 +101,50 @@ export const convertToKhmerDate = (date) => {
 }
 
 function convertNumString(num) {
-    if (num.length > 1) {
-        return num;
-    } else {
-        return `0${num}`;
-    }
+    return String(num).padStart(2, '0');
 }
 
 function addHoliday(data, day) {
     const dd = `${day.getFullYear()}-${convertNumString(day.getMonth() + 1)}-${convertNumString(day.getDate())}`;
     if (data.monthIndex == 5 && data.day == 4 && data.moonPhase == 1) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីច្រក់ព្រះនង្គ័ល (Royal Ploughing Ceremony)"
+            date: dd,
+            description: "ពិធីច្រក់ព្រះនង្គ័ល (Royal Ploughing Ceremony)"
         });
     } else if (data.monthIndex == 5 && data.day == 15 && data.moonPhase == 0) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យវិសាខបូជា (Visakh Bochea Day)"
+            date: dd,
+            description: "ពិធីបុណ្យវិសាខបូជា (Visakh Bochea Day)"
         });
     } else if (data.monthIndex == 9 && data.day == 14 && data.moonPhase == 1) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី១ (Pchum Ben Day one)"
+            date: dd,
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី១ (Pchum Ben Day one)"
         });
     } else if (data.monthIndex == 9 && data.day == 15 && data.moonPhase == 1) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី២ (Pchum Ben Day two)"
+            date: dd,
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី២ (Pchum Ben Day two)"
         });
     } else if (data.monthIndex == 10 && data.day == 1 && data.moonPhase == 0) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី៣ (Pchum Ben Day three)"
+            date: dd,
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី៣ (Pchum Ben Day three)"
         });
     } else if (data.monthIndex == 11 && data.day == 14 && data.moonPhase == 0) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី១ (Water Festival Day one)"
+            date: dd,
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី១ (Water Festival Day one)"
         });
     } else if (data.monthIndex == 11 && data.day == 15 && data.moonPhase == 0) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី២ (Water Festival Day two)"
+            date: dd,
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី២ (Water Festival Day two)"
         });
     } else if (data.monthIndex == 11 && data.day == 1 && data.moonPhase == 1) {
         khmer_holidays.push({
-            day: dd,
-            desc: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី៣ (Water Festival Day three)"
+            date: dd,
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី៣ (Water Festival Day three)"
         });
     }
 }

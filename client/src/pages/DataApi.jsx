@@ -1,110 +1,139 @@
 import React from "react";
 
-import CodeDisplay from "../components/CodeDisplay";
+import CodeBlock from "../components/CodeBlock";
 
 export default function DataApi() {
-  const codeSnippet = `fetch("https://api.example.com")
-  .then(res => res.json())
-  .then(data => console.log(data));`;
-  const guideline = `import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+  const now = new Date();
+  const codeSnippet = `
+  async function getHoliday (){
+    const res = await fetch("https://khmer-calendar.netlify.app/api/holidays")
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }`;
+  const api_url = `GET https://khmer-calendar.netlify.app/api/holidays`;
+  const api_param = `https://khmer-calendar.netlify.app/api/holidays?year=${now.getFullYear()+1}`;
+  
+  const holiday = `
+  {
+    "year": ${now.getFullYear()+1},
+    "holidays": [
+      {
+        "date":"${now.getFullYear()+1}-01-01",
+        "description":"បុណ្យចូលឆ្នាំសាកល International New Year's Day"
+      },
+      {
+        "date":"${now.getFullYear()+1}-04-14",
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+      },
+      {
+        "date":"${now.getFullYear()+1}-04-15",
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+      },
+      {
+        "date":"${now.getFullYear()+1}-04-16",
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+      }
+    ]
+  }`;
+  const exchange =`
+  {
+    "date": "2026-03-23",
+    "currency": "KHR",
+    "exchange_rates": {
+      "USD": 4100,
+      "EUR": 4450,
+      "THB": 120
+    },
+    "source": "National Bank of Cambodia"
+  }`;
+  const guideline = `
+  async function getHoliday (){
+    const res = await fetch("https://khmer-calendar.netlify.app/api/holidays")
+      .then(res => res.json())
+      .then(data => console.log(data));
+  }
+  `;
+  const guidelinePhp = `
+<?php
 
-function CodeDisplay() {
-  const codeString = fetch("https://khmer-calendar.netlify.app/api/exchange-rate")
-  .then(res => res.json())
-  .then(data => console.log(data));
+use Illuminate\\Support\\Facades\\Http;
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h3>API Fetch Example</h3>
-      <SyntaxHighlighter 
-        language="javascript" 
-        style={dracula}
-        showLineNumbers={true}
-        customStyle={{ borderRadius: '8px', fontSize: '14px' }}
-      >
-        {codeString}
-      </SyntaxHighlighter>
-    </div>
-  );
-}`;
+public function getHoliday(Request $req)
+{
+  $promise = Http::async()->withoutVerifying()->get('https://khmer-calendar.netlify.app/api/holidays');
+  $res = $promise->wait(); // Wait and get the response when ready
+  dd($res)
+}
+`;
+
   return (
     <section>
       <header>
-        <h4>📖 Khmer Public Holiday API</h4>
+        <h4>Khmer Calendar app Holiday API</h4>
         <p>សេវា API សម្រាប់ថ្ងៃឈប់សម្រាក និងអត្រាប្តូរប្រាក់រៀលកម្ពុជា</p>
       </header>
 
       <div className="container">
-        <div className="card">
-          <pre>
-            <code className="language-javascript">
-              const serverless = require("serverless-http");
-            </code>
-          </pre>
-        </div>
-        <div className="card">
-          <h4>1. Authentication</h4>
+        <div>
+          <h4>Authentication</h4>
           <p>API មិនទាមទារការចូលប្រើដោយ Token។ អាចប្រើបានភ្លាមៗ។</p>
         </div>
 
-        <div className="card">
-          <h4>2. Endpoints</h4>
-
-          <h3>📅 Public Holidays</h3>
-          <pre>
-            <code className="language-javascript">
-              GET https://khmer-calendar.netlify.app/api/holidays
-            </code>
-          </pre>
+        <h4>Endpoints</h4>
+        <p> Public Holidays ថ្ងៃឈប់សម្រាកប្រចាំឆ្នាំ</p>
+        <div>
+          <CodeBlock code={api_url} language={"javascript"} />
+        </div>
+        <div>
           <p>
-            <strong>Description:</strong> ទាញយកថ្ងៃឈប់សម្រាកជាតិប្រចាំឆ្នាំ
+            <strong>ទាញយកថ្ងៃឈប់សម្រាកជាតិប្រចាំឆ្នាំ សម្រាប់ឆ្នាំបច្ចុប្បន្ន</strong> 
           </p>
           <p>
-            <strong>Parameters:</strong>{" "}
-            <code className="language-javascript">year</code> (optional)
+            <strong>Parameters:  year (optional) ប្រសិនបើលោកអ្នកចង់ទាញយក ប្រចាំឆ្នាំនីមួយៗ លោកគ្រាន់តែផ្លាស់ប្តូរឆ្នាំដូចឩទាហរណ៍ខាងក្រោមៈ</strong>           
           </p>
-          <pre>
-            <code className="language-javascript"></code>
-          </pre>
+          <div>
+            <CodeBlock code={api_param} language={"javascript"} /> 
+          </div>
+          <div>
+            <div>ចម្លង URL ខាងលើទៅក្នុងកម្មវិធីរុករកបណ្ដាញណាមួយរបស់អ្នក វានឹងបង្ហាញលទ្ធផលជា data [Object] ដូចខាងក្រោម</div>
+            <CodeBlock code={holiday} language={"javascript"} /> 
+          </div>
+          <h4>Exchange Rate</h4>
+          <div>
+            <CodeBlock code={exchange} language="javascript" />
+          </div>
 
-          <h3>💱 Exchange Rate</h3>
-          <pre>
-            <code className="language-javascript">
-              GET https://khmer-calendar.netlify.app/api/exchange-rate
-            </code>
-          </pre>
           <p>
             <strong>Description:</strong> ទាញយកអត្រាប្តូរប្រាក់រៀលកម្ពុជា
           </p>
+
+          <strong>Parameters: year=2026</strong>
+          <div><CodeBlock code={exchange} language={"javascript"} /></div>
+          
+        </div>
+
+        <div>
+          <h4>Rate Limit</h4>
+          <p>Unlimited requests (Free Access)</p>
+
+          <CodeBlock code={guideline} language={"javascript"}/>
+        </div>
+
+        <div>
+          <h4>Usage Guide</h4>
+          <h4>Javascript, ReactJS, VueJs, ValinaJs, AgolaJS...</h4>
+          <CodeBlock code={codeSnippet} language={"javascript"} />
+
+          <h4>Laravel PHP</h4>
+          <CodeBlock code={guidelinePhp} language={"php"} />
+
+        </div>
+
+        <div>
+          <h4>Support</h4>
           <p>
-            <strong>Parameters:</strong>{" "}
-            <code className="language-javascript">date</code> (optional)
+            <i className="bi bi-envelope"></i> phaneth2014@gmail.com
           </p>
-          <pre>
-            <code className="language-javascript"></code>
-          </pre>
-        </div>
-
-        <div className="card">
-          <h4>3. Rate Limit</h4>
-          <p>🚀 Unlimited requests (Free Access)</p>
-
-          <CodeDisplay code={guideline} />
-        </div>
-
-        <div className="card">
-          <h4>4. Usage Guide</h4>
-          <pre>
-            <code className="language-javascript">
-              <CodeDisplay code={codeSnippet} />
-            </code>
-          </pre>
-        </div>
-
-        <div className="card">
-          <h4>5. Support</h4>
-          <p>📧 phaneth2014@gmail.com</p>
         </div>
       </div>
     </section>
