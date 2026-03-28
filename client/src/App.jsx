@@ -1,36 +1,44 @@
-import { Routes, Route, Link } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Exchange from "./pages/Exchange";
-import Market from "./pages/Market";
-import Terms from './pages/Terms';
-import DataApi from './pages/DataApi';
-import Register from './pages/auth/Register';
-import Login from './pages/auth/Login';
 import Footer from "./components/FooterPage";
+import { ThemeProvider } from "./components/ThemeProvider";
 import "./App.css";
 
-import { ThemeProvider } from "./components/ThemeProvider";
-import Holiday from "./pages/Holiday";
+// Lazy loading all page components
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Holiday = lazy(() => import('./pages/Holiday'));
+const Exchange = lazy(() => import('./pages/Exchange'));
+const Market = lazy(() => import('./pages/Market'));
+const DataApi = lazy(() => import('./pages/DataApi'));
+const Terms = lazy(() => import('./pages/Terms'));
+const Register = lazy(() => import('./pages/auth/Register'));
+const Login = lazy(() => import('./pages/auth/Login'));
 
 function App() {
-  
   return (
     <ThemeProvider>
       <Header />
       
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/holiday" element={<Holiday />} />
-        <Route path="/exchange-rate" element={<Exchange />} />        
-        <Route path="/market" element={<Market />} />
-        <Route path="/api-data" element={<DataApi />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      {/* Suspense handles the waiting state for any lazy route */}
+      <Suspense fallback={<div className="loader">Loading Page...</div>}>
+        <main style={{ minHeight: '85vh' }}> {/* Keeps layout stable */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/holiday" element={<Holiday />} />
+            <Route path="/exchange-rate" element={<Exchange />} />
+            <Route path="/market" element={<Market />} />
+            <Route path="/api-data" element={<DataApi />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<div>404 - Not Found</div>} />
+          </Routes>
+        </main>
+      </Suspense>
+
       <Footer />
     </ThemeProvider>
   );
