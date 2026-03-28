@@ -20,7 +20,6 @@ function App() {
   return (
     <ThemeProvider>
       <Header />
-      
       {/* Suspense handles the waiting state for any lazy route */}
       <Suspense fallback={<div className="loader">Loading Page...</div>}>
         <main style={{ minHeight: '85vh' }}> {/* Keeps layout stable */}

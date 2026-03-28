@@ -1,6 +1,7 @@
 import express from "express";
 
 import cors from "cors";
+import { verifyToken } from "./netlify/middleware/auth.middleware.js";
 import {
     getData,
     getHolidays,
@@ -10,18 +11,25 @@ import {
     requestHandler
 } from "./netlify/controllers/data.controller.js";
 
+import { register,login,checkToken } from "./netlify/controllers/auth.controller.js";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/dbconnection', requestHandler);
-app.get('/api/users-neon', getUsersList);
-app.get('/api/users', getUsers);
-app.get('/api/data', getData);
-app.post("/api/holiday-data", getHolidays);
 app.get("/api/holidays", getHolidays);
 app.get("/api/exchange-rate", getExchangeRate);
+
+app.post('/api/register', register);
+app.post('/api/login', login);
+
+app.get('/api/dbconnection', requestHandler);
+app.get('/api/users-neon',verifyToken, getUsersList);
+app.get('/api/users',verifyToken, getUsers);
+app.get('/api/data', verifyToken, getData);
+app.post("/api/holiday-data",verifyToken, getHolidays);
+app.post('/api/check-token',verifyToken, checkToken);
 
 app.listen(3000, () => {
     console.log("Local test server running on http://localhost:3000");

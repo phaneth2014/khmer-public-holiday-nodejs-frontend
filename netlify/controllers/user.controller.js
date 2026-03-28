@@ -1,4 +1,6 @@
+
 import User from '../models/user.js';
+import pool from '../config/database.js';
 
 export async function createUser(req, res) {
   try {
@@ -25,3 +27,4 @@ export async function getCheck(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
