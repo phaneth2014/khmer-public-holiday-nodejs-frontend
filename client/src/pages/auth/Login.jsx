@@ -66,11 +66,7 @@ export default function Login() {
               className="form-control"
               onChange={handleChange}
             />
-            {errors && (
-              <p style={{ color: "red" }}>
-                {errors.message || JSON.stringify(errors)}
-              </p>
-            )}
+            
           </div>
           <div className="form-group">
             <label>លេខសំងាត់</label>
