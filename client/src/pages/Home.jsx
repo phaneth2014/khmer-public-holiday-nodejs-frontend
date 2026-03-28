@@ -19,15 +19,12 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="main">
-      <section className="section-calendar">
-        
-   
+    <div className="calendar-container">
+      <section >          
         <Calendar />
-
       </section>
 
-      <section className="section-holiday">
+      <section className="calendar-container">
         <div>
           <div className="calendar-title">
             <h4 id="holiday-title">
@@ -43,6 +40,6 @@ export default function Home() {
           </ul>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
