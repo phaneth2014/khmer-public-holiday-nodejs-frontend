@@ -8,6 +8,7 @@
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+  
 # Content Security Policy (SCP)
 [[headers]]
   for = "/*"
