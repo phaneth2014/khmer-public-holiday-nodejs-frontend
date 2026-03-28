@@ -8,6 +8,11 @@
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
+# Content Security Policy (SCP)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src nounce-yadke784jfmf84955jmf; connect-src 'self' https://khmer-calendar.netlify.app;"
 
 # fallback for SPA 
 [[redirects]]

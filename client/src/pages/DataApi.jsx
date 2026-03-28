@@ -1,6 +1,6 @@
-import React from "react";
+import React, {lazy} from "react";
 
-import CodeBlock from "../components/CodeBlock";
+const CodeBlock = lazy(() => import ("../components/CodeBlock"));
 
 export default function DataApi() {
   const now = new Date();
@@ -48,9 +48,17 @@ export default function DataApi() {
   }`;
   const guideline = `
   async function getHoliday (){
-    const res = await fetch("https://khmer-calendar.netlify.app/api/holidays")
-      .then(res => res.json())
-      .then(data => console.log(data));
+    try{
+      const res = await fetch("https://khmer-calendar.netlify.app/api/holidays");
+      if (!response.ok) {
+        throw new Error('HTTP error! status:'+ response.status );
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Fetch failed:", error.message);
+      return null; // Return a safe fallback value
+    }
   }
   `;
   const guidelinePhp = `
@@ -62,7 +70,7 @@ public function getHoliday(Request $req)
 {
   $promise = Http::async()->withoutVerifying()->get('https://khmer-calendar.netlify.app/api/holidays');
   $res = $promise->wait(); // Wait and get the response when ready
-  dd($res)
+  dd($res); //check output
 }
 `;
 

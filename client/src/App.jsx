@@ -15,9 +15,9 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import Holiday from "./pages/Holiday";
 
 function App() {
-
+  const nonce = window.__nonce__ || 'yadke784jfmf84955jmf';
   return (
-    <ThemeProvider>
+    <ThemeProvider nonce={nonce}>
       <Header />
       
       <Routes>
