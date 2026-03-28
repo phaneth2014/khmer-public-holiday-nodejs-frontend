@@ -13,7 +13,7 @@ import {
     requestHandler
 } from "../controllers/data.controller.js";
 
-import { register,login } from "../controllers/auth.controller.js";
+import { register,login,checkToken } from "../controllers/auth.controller.js";
 
 dotenv.config()
 
