@@ -1,0 +1,53 @@
+.calendar-container {
+  width: 100%;
+  background: #fff;
+  padding: 0px;
+  font-family: sans-serif;
+}
+
+.dark-mode .calendar-container{
+    background: #000;
+    color: #eee;
+}
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 equal columns */
+  text-align: center;
+}
+
+.day-name {
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.day {
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* Today highlight (matches your blue box) */
+.day.today {
+  background-color: #f80303;
+  color: white;
+  border-radius: 4px;
+}
+
+/* Sundays and Saturdays in red */
+.calendar-grid .day:nth-child(7n+1), 
+.calendar-grid .day:nth-child(7n) {
+  color: #eee;
+}
+
+.day.empty {
+  color: #ccc;
+}

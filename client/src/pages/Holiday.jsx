@@ -15,7 +15,7 @@ export default function Holiday() {
   },[])
   return (
 <main>
-  <ul className='holiday-list' style={{ "width":"100%","padding":"10px" }}>
+  <ul className='holiday-list' style={{ "width":"100%","padding":"0px" }}>
     {data.map((item,index)=>(
       <li key={index}><div><b>{convertToKhmerNumber(new Date(item.day).getDate())} </b><br/>{converToKhmerMonth(new Date(item.day).getMonth())}</div><div>: {item.desc}</div></li>
     ))}
