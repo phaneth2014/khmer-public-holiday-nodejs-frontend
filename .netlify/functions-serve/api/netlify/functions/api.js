@@ -20583,7 +20583,7 @@ var require_route = __commonJS({
         sync = 0;
       }
     };
-    Route.prototype.all = function all(handler3) {
+    Route.prototype.all = function all(handler2) {
       const callbacks = flatten.call(slice.call(arguments), Infinity);
       if (callbacks.length === 0) {
         throw new TypeError("argument handler is required");
@@ -20601,7 +20601,7 @@ var require_route = __commonJS({
       return this;
     };
     methods.forEach(function(method) {
-      Route.prototype[method] = function(handler3) {
+      Route.prototype[method] = function(handler2) {
         const callbacks = flatten.call(slice.call(arguments), Infinity);
         if (callbacks.length === 0) {
           throw new TypeError("argument handler is required");
@@ -20804,17 +20804,17 @@ var require_router = __commonJS({
         }
       }
     };
-    Router.prototype.use = function use(handler3) {
+    Router.prototype.use = function use(handler2) {
       let offset = 0;
       let path = "/";
-      if (typeof handler3 !== "function") {
-        let arg = handler3;
+      if (typeof handler2 !== "function") {
+        let arg = handler2;
         while (Array.isArray(arg) && arg.length !== 0) {
           arg = arg[0];
         }
         if (typeof arg !== "function") {
           offset = 1;
-          path = handler3;
+          path = handler2;
         }
       }
       const callbacks = flatten.call(slice.call(arguments, offset), Infinity);
@@ -34049,7 +34049,7 @@ var require_lib5 = __commonJS({
 // netlify/functions/api.js
 var api_exports = {};
 __export(api_exports, {
-  handler: () => handler2
+  handler: () => handler
 });
 module.exports = __toCommonJS(api_exports);
 var import_express = __toESM(require_express2(), 1);
@@ -40532,7 +40532,7 @@ var requestHandler = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-var handler = async (event, context) => {
+var pgconnection = async (event, context) => {
   try {
     const pool2 = database_default.query ? database_default : database_default.default;
     const { rows } = await pool2.query("SELECT NOW()");
@@ -40592,8 +40592,8 @@ var getExchangeRate = async (req, res) => {
 };
 var getUsers = async (req, res) => {
   try {
-    const dbquery = database_default.query ? database_default : database_default.default;
-    const result = await dbquery.query("SELECT * FROM users");
+    const pool2 = database_default.query ? database_default : database_default.default;
+    const result = await pool2.query("SELECT * FROM users");
     res.json(result.rows);
   } catch (err) {
     console.error("Database Error:", err);
@@ -42438,14 +42438,14 @@ app.post("/api/register", register);
 app.post("/api/login", login);
 app.post("/api/login-user", loginUser);
 app.get("/api/check-env", checkEnv);
-app.get("/api/pgconnection", handler);
+app.get("/api/pgconnection", pgconnection);
 app.get("/api/neoconnection", requestHandler);
 app.get("/api/users-neon", getUsersList);
 app.get("/api/users", getUsers);
 app.get("/api/data", verifyToken, getData);
 app.post("/api/holiday-data", verifyToken, getHolidays);
 app.post("/api/check-token", verifyToken, checkToken);
-var handler2 = (0, import_serverless_http.default)(app);
+var handler = (0, import_serverless_http.default)(app);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   handler

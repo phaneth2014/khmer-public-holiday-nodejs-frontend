@@ -11,7 +11,7 @@ import {
     getUsersList,
     requestHandler,
     checkEnv,
-    handler as dbHandler
+   pgconnection
 } from "../controllers/data.controller.js";
 
 import { register,login,checkToken,loginUser } from "../controllers/auth.controller.js";
@@ -38,7 +38,7 @@ app.post('/api/login', login);
 app.post('/api/login-user', loginUser);
 
 app.get('/api/check-env', checkEnv);
-app.get('/api/pgconnection', dbHandler);
+app.get('/api/pgconnection', pgconnection);
 app.get('/api/neoconnection', requestHandler);
 app.get('/api/users-neon', getUsersList);
 app.get('/api/users', getUsers);

@@ -1,4 +1,3 @@
-import pool from '../config/database.js';
 import db from '../config/database.js';
 import sql from '../config/db.js'
 import dotenv from 'dotenv';
@@ -21,7 +20,7 @@ export const requestHandler = async (req, res) => {
 
 };
 
-export const handler = async (event, context) => {
+export const pgconnection = async (event, context) => {
     try {
         // If 'db' was imported as a module object instead of the pool,
         // we extract the query function safely:
@@ -94,9 +93,9 @@ export const getExchangeRate = async (req, res) => {
 
 export const getUsers = async (req, res) => {
     try {
-        const dbquery = db.query ? db : db.default;
+        const pool = db.query ? db : db.default;
 
-        const result = await dbquery.query('SELECT * FROM users');
+        const result = await pool.query('SELECT * FROM users');
         res.json(result.rows);
     } catch (err) {
         console.error("Database Error:", err);
