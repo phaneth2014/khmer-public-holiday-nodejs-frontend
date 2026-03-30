@@ -90,6 +90,7 @@ export default function Login() {
           <p>
             មិនមានគណនីរួចហើយ? <Link to="/register"> បង្កើតគណនី</Link>
           </p>
+          <p>{import.meta.env.VITE_APP_URL}</p>
         </form>
       </div>
     </section>
