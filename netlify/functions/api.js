@@ -3,6 +3,7 @@ import cors from "cors";
 import serverless from "serverless-http";
 import dotenv from 'dotenv';
 import {verifyToken} from '../middleware/auth.middleware.js';
+// import routes from "../routes/api.routes.js";
 import {
     getData,
     getHolidays,

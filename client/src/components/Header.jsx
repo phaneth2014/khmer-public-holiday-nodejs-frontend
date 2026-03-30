@@ -57,11 +57,11 @@ export default function Header() {
             <i className="bi bi-info-circle"></i> អំពីយើង
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="/terms" onClick={hideSidebar} title="terms">
             <i className="bi bi-key"></i> លក្ខខណ្ឌប្រើប្រាស់
           </NavLink>
-        </li>
+        </li> */}
       </ul>
       <ul className="header-menu-right">
         <li>

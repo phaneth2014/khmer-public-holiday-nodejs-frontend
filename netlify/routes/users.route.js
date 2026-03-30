@@ -1,10 +1,14 @@
 import express from 'express';
-import { createUser, getUsers, getCheck } from '../controllers/user.controller.js';
+import {verifyToken} from '../middleware/auth.middleware.js';
+import { register,login, createUser, getUsers, getCheck } from '../controllers/auth.controller.js';
 
 const router = express.Router();
 
-router.post('/', createUser);
-router.get('/', getUsers);
-router.get('/check', getCheck);
+router.post('/register', register);
+router.post('/login', login);
+
+router.post('/create', verifyToken, createUser);
+router.get('/users',  getUsers);
+router.get('/check', verifyToken, getCheck);
 
 export default router;

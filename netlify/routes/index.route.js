@@ -4,7 +4,7 @@ import dataRoutes from "./data.route.js";
 
 const router = express.Router();
 
-router.use("/users", userRoutes);
+router.use("/", userRoutes);
 router.use("/data", dataRoutes);
 
 export default router;

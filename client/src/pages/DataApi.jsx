@@ -1,6 +1,6 @@
-import React, {lazy} from "react";
+import React from "react";
 
-const CodeBlock = lazy(() => import ("../components/CodeBlock"));
+import CodeBlock from "../components/CodeBlock";
 
 export default function DataApi() {
   const now = new Date();
