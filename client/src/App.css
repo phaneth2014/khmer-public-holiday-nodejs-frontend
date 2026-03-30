@@ -37,7 +37,7 @@
   border-bottom: 1px solid #ddd;
   background: #fff;
   margin-bottom: 10px;
-  z-index: 9999;
+  z-index: 999;
 }
 .dark-mode .nav-header {
   border-color: #222;
