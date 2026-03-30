@@ -34091,7 +34091,7 @@ var esm_default = import_lib.default;
 var import_dotenv2 = __toESM(require_main(), 1);
 var { Pool: Pool2 } = esm_default;
 import_dotenv2.default.config();
-var connectionString = process.env.DB_URL || `postgresql://portgresql:gTyCwggH5J650xVHKswV4U0DDAHE4ecS@dpg-d6ul7vsr85hc738tfok0-a.singapore-postgres.render.com/khmer_public_holiday_db`;
+var connectionString = `postgresql://portgresql:gTyCwggH5J650xVHKswV4U0DDAHE4ecS@dpg-d6ul7vsr85hc738tfok0-a.singapore-postgres.render.com/khmer_public_holiday_db`;
 var pool = new Pool2({
   connectionString,
   ssl: { rejectUnauthorized: false }
