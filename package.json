@@ -4,6 +4,7 @@
   "description": "```bash\r project-root/\r │\r ├── src/\r │   ├── config/\r │   │   └── db.js              # Database connection (pg Pool/Client)\r │   │\r │   ├── migrations/            # Migration files (SQL or JS with node-pg-migrate/Knex)\r │   │   ├── 001-create-users.sql\r │   │   └── 002-create-posts.sql\r │   │\r │   ├── models/                # Database models (plain classes or query wrappers)\r │   │   ├── user.js\r │   │   └── post.js\r │   │\r │   ├── routes/                # Express route handlers\r │   │   ├── users.js\r │   │   └── posts.js\r │   │\r │   ├── controllers/           # Business logic (separate from routes)\r │   │   ├── userController.js\r │   │   └── postController.js\r │   │\r │   ├── services/              # Reusable service functions (auth, email, etc.)\r │   │   └── authService.js\r │   │\r │   ├── utils/                 # Helper functions (validation, error handling)\r │   │   └── logger.js\r │   │\r │   ├── app.js                 # Express app setup\r │   └── server.js              # Entry point (starts server)\r │\r ├── .env                       # Environment variables (DB_URL, secrets)\r ├── package.json\r └── README.md",
   "main": "index.js",
   "scripts": {
+    "postinstall": "patch-package",
     "migrate": "node netlify/migrations/migrate.js",
     "dev": "concurrently \"node local-dev.js\" \"npm run dev --prefix client\"",
     "build": "npm --prefix client run build",
@@ -38,6 +39,8 @@
     "serverless-http": "^4.0.0"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "patch-package": "^8.0.1",
+    "serverless-offline": "^14.5.0"
   }
 }

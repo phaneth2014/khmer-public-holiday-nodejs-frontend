@@ -1,4 +1,4 @@
-import momentkh from "@thyrith/momentkh";
+import momentkh from "../services/momentkh.js";
 
 const today = new Date();
 
