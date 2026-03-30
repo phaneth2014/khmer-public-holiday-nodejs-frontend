@@ -15260,7 +15260,7 @@ var require_mimeScore = __commonJS({
 var require_mime_types = __commonJS({
   "node_modules/mime-types/index.js"(exports2) {
     "use strict";
-    var db2 = require_mime_db();
+    var db = require_mime_db();
     var extname = require("path").extname;
     var mimeScore = require_mimeScore();
     var EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/;
@@ -15279,7 +15279,7 @@ var require_mime_types = __commonJS({
         return false;
       }
       var match = EXTRACT_TYPE_REGEXP.exec(type);
-      var mime = match && db2[match[1].toLowerCase()];
+      var mime = match && db[match[1].toLowerCase()];
       if (mime && mime.charset) {
         return mime.charset;
       }
@@ -15324,8 +15324,8 @@ var require_mime_types = __commonJS({
       return exports2.types[extension2] || false;
     }
     function populateMaps(extensions, types2) {
-      Object.keys(db2).forEach(function forEachMimeType(type) {
-        var mime = db2[type];
+      Object.keys(db).forEach(function forEachMimeType(type) {
+        var mime = db[type];
         var exts = mime.extensions;
         if (!exts || !exts.length) {
           return;
@@ -15346,14 +15346,14 @@ var require_mime_types = __commonJS({
       });
     }
     function _preferredType(ext, type0, type1) {
-      var score0 = type0 ? mimeScore(type0, db2[type0].source) : 0;
-      var score1 = type1 ? mimeScore(type1, db2[type1].source) : 0;
+      var score0 = type0 ? mimeScore(type0, db[type0].source) : 0;
+      var score1 = type1 ? mimeScore(type1, db[type1].source) : 0;
       return score0 > score1 ? type0 : type1;
     }
     function _preferredTypeLegacy(ext, type0, type1) {
       var SOURCE_RANK = ["nginx", "apache", void 0, "iana"];
-      var score0 = type0 ? SOURCE_RANK.indexOf(db2[type0].source) : 0;
-      var score1 = type1 ? SOURCE_RANK.indexOf(db2[type1].source) : 0;
+      var score0 = type0 ? SOURCE_RANK.indexOf(db[type0].source) : 0;
+      var score1 = type1 ? SOURCE_RANK.indexOf(db[type1].source) : 0;
       if (exports2.types[extension] !== "application/octet-stream" && (score0 > score1 || score0 === score1 && exports2.types[extension]?.slice(0, 12) === "application/")) {
         return type0;
       }
@@ -40534,7 +40534,7 @@ var requestHandler = async (req, res) => {
 };
 var handler = async (event, context) => {
   try {
-    const pool2 = db.query ? db : db.default;
+    const pool2 = database_default.query ? database_default : database_default.default;
     const { rows } = await pool2.query("SELECT NOW()");
     return {
       statusCode: 200,
@@ -40592,10 +40592,12 @@ var getExchangeRate = async (req, res) => {
 };
 var getUsers = async (req, res) => {
   try {
-    const result = await database_default.query("SELECT * FROM users");
-    res.status(201).json(result.rows);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const dbquery = database_default.query ? database_default : database_default.default;
+    const result = await dbquery.query("SELECT * FROM users");
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Database Error:", err);
+    res.status(500).json({ error: err.message });
   }
 };
 var getUsersList = async (req, res) => {

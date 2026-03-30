@@ -1,4 +1,5 @@
 import pool from '../config/database.js';
+import db from '../config/database.js';
 import sql from '../config/db.js'
 import dotenv from 'dotenv';
 import { khmerNewYear, KhmerLunar, holidays } from './data-api.js';
@@ -93,11 +94,13 @@ export const getExchangeRate = async (req, res) => {
 
 export const getUsers = async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users');
-        res.status(201).json(result.rows);
+        const dbquery = db.query ? db : db.default;
 
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        const result = await dbquery.query('SELECT * FROM users');
+        res.json(result.rows);
+    } catch (err) {
+        console.error("Database Error:", err);
+        res.status(500).json({ error: err.message });
     }
 };
 
