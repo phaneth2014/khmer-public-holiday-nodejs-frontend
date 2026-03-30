@@ -36,8 +36,8 @@ app.post('/api/login', login);
 app.post('/api/login-user', loginUser);
 
 app.get('/api/dbconnection', requestHandler);
-app.get('/api/users-neon',verifyToken, getUsersList);
-app.get('/api/users',verifyToken, getUsers);
+app.get('/api/users-neon', getUsersList);
+app.get('/api/users', getUsers);
 app.get('/api/data', verifyToken, getData);
 app.post("/api/holiday-data",verifyToken, getHolidays);
 app.post('/api/check-token',verifyToken, checkToken);
