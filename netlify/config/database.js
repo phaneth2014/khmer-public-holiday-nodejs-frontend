@@ -1,9 +1,10 @@
-import { Pool } from  'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 import dotenv from 'dotenv';
 
 dotenv.config()
 
-const connectionString = process.env.DB_URL || "postgresql://portgresql:gTyCwggH5J650xVHKswV4U0DDAHE4ecS@dpg-d6ul7vsr85hc738tfok0-a.singapore-postgres.render.com/khmer_public_holiday_db";
+const connectionString = process.env.DB_URL;
 
 const pool = new Pool({
   connectionString: connectionString,

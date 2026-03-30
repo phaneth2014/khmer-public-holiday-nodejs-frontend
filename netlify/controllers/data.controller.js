@@ -8,22 +8,42 @@ dotenv.config();
 // console.log(holidays());
 export const requestHandler = async (req, res) => {
     try {
-        const result = await sql `SELECT version()`;
+        const result = await sql`SELECT version()`;
         const { version } = result[0];
         console.log(version);
         // res.writeHead(200, { "Content-Type": "text/plain" });
         // res.end(version);
-        res.status(200).json({ data:version, message: "neon db connected successfully", APP_URL: process.env.APP_URL });
+        res.status(200).json({ data: version, message: "neon db connected successfully", APP_URL: process.env.APP_URL });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 
 };
 
+export const handler = async (event, context) => {
+    try {
+        // If 'db' was imported as a module object instead of the pool,
+        // we extract the query function safely:
+        const pool = db.query ? db : db.default;
+
+        const { rows } = await pool.query('SELECT NOW()');
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify(rows),
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: error.message }),
+        };
+    }
+};
+
 export const checkEnv = async (req, res) => {
     try {
         const now = new Date();
-        res.status(200).json({ data:now, message: "env successfully", APP_URL: process.env.APP_URL });
+        res.status(200).json({ data: now, message: "env successfully", APP_URL: process.env.APP_URL });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -39,13 +59,13 @@ export const getData = async (req, res) => {
 }
 
 export const getHolidays = async (req, res) => {
-    try {        
+    try {
         const now = new Date();
         const year = req.query.year || now.getFullYear();
         const date = new Date(now.setYear(year));
         const holiday = holidays(date);
         console.log("date:", date);
-        res.status(200).json({ year:parseInt(year),holidays: holiday, message: "success" });
+        res.status(200).json({ year: parseInt(year), holidays: holiday, message: "success" });
 
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -57,12 +77,12 @@ export const getExchangeRate = async (req, res) => {
         const date = req.query.date || new Date();
 
         if (date) {
-           const data=[{
-                "USD":4001,
+            const data = [{
+                "USD": 4001,
                 "BHD": 350,
                 "date": date
             }];
-            res.status(201).json({ data,source:'Nation Bank of Cambodia', message: "response successfully" });
+            res.status(201).json({ data, source: 'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }
