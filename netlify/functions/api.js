@@ -3,7 +3,6 @@ import cors from "cors";
 import serverless from "serverless-http";
 import dotenv from 'dotenv';
 import {verifyToken} from '../middleware/auth.middleware.js';
-// import routes from '../routes/index.route.js';
 import {
     getData,
     getHolidays,
@@ -12,7 +11,7 @@ import {
     getUsersList,
     requestHandler,
     checkEnv,
-    handler
+    handler as dbHandler
 } from "../controllers/data.controller.js";
 
 import { register,login,checkToken,loginUser } from "../controllers/auth.controller.js";
@@ -38,7 +37,7 @@ app.post('/api/login', login);
 app.post('/api/login-user', loginUser);
 
 app.get('/api/check-env', checkEnv);
-app.get('/api/pgconnection', handler);
+app.get('/api/pgconnection', dbHandler);
 app.get('/api/neoconnection', requestHandler);
 app.get('/api/users-neon', getUsersList);
 app.get('/api/users', getUsers);
