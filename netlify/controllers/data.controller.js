@@ -1,7 +1,9 @@
 import pool from '../config/database.js';
 import sql from '../config/neondb.js'
-
+import dotenv from 'dotenv';
 import { khmerNewYear, KhmerLunar, holidays } from './data-api.js';
+
+dotenv.config();
 
 // console.log(holidays());
 export const requestHandler = async (req, res) => {
@@ -11,7 +13,7 @@ export const requestHandler = async (req, res) => {
         console.log(version);
         // res.writeHead(200, { "Content-Type": "text/plain" });
         // res.end(version);
-        res.status(200).json({ data:version, message: "neon db connected successfully" });
+        res.status(200).json({ data:version, message: "neon db connected successfully", APP_URL: process.env.APP_URL });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
