@@ -1,5 +1,5 @@
 import pool from '../config/database.js';
-import sql from '../config/neondb.js'
+import sql from '../config/db.js'
 import dotenv from 'dotenv';
 import { khmerNewYear, KhmerLunar, holidays } from './data-api.js';
 

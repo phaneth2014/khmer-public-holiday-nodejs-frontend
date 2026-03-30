@@ -24,7 +24,7 @@ app.get("/api/exchange-rate", getExchangeRate);
 app.post('/api/register', register);
 app.post('/api/login', login);
 
-app.get('/api/dbconnection', requestHandler);
+app.get('/api/neoconnection', requestHandler);
 app.get('/api/users-neon',verifyToken, getUsersList);
 app.get('/api/users',verifyToken, getUsers);
 app.get('/api/data', verifyToken, getData);
