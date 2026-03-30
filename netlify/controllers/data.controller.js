@@ -20,6 +20,15 @@ export const requestHandler = async (req, res) => {
 
 };
 
+export const checkEnv = async (req, res) => {
+    try {
+        const now = new Date();
+        res.status(200).json({ data:now, message: "env successfully", APP_URL: process.env.APP_URL });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+}
 export const getData = async (req, res) => {
 
     const lunar = KhmerLunar(new Date());
