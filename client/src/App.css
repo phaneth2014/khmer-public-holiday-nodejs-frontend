@@ -1,6 +1,37 @@
 @import "./assets/css/controlls.css";
 @import "./assets/css/progressbar.min.css";
 
+/* Global Styles */
+/* 1. Change the main bar color */
+#nprogress .bar {
+  background: #f80303 !important; /* Your custom color here */
+  height: 3px !important;        /* You can also make it thicker */
+}
+
+/* 2. Change the glowing shadow effect */
+#nprogress .peg {
+  box-shadow: 0 0 10px #f80303, 0 0 5px #f80303 !important;
+}
+
+/* 3. Change the spinning wheel color (top right) */
+#nprogress .spinner-icon {
+  border-top-color: #f80303 !important;
+  border-left-color: #f80303 !important;
+}
+
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #f80303 !important;
+  position: fixed; /* Ensures it stays at the top of the browser window */
+  z-index: 9999;   /* Sits on top of everything else */
+  top: 0;
+  left: 0;
+  width: 100%;     /* Forces full width */
+  height: 4px !important;
+}
 
 .nav-header {
   border-bottom: 1px solid #ddd;

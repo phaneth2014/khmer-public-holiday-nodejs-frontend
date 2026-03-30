@@ -1,9 +1,10 @@
-import React, { Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { Suspense, lazy, useEffect, useState } from "react";
+import { Routes, Route,useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/FooterPage";
 import { ThemeProvider } from "./components/ThemeProvider";
 import "./App.css";
+import TopBarLoader from "./components/TopBarLoader";
 
 // Lazy loading all page components
 const Home = lazy(() => import('./pages/Home'));
@@ -17,11 +18,24 @@ const Register = lazy(() => import('./pages/auth/Register'));
 const Login = lazy(() => import('./pages/auth/Login'));
 
 function App() {
+  const location = useLocation();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  useEffect(() => {
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsNavigating(true);
+
+    // 2. Hide the loader after a short delay (simulating a transition)
+    const timer = setTimeout(() => setIsNavigating(false), 300);
+    return () => clearTimeout(timer);
+  }, [location]);
   return (
     <ThemeProvider>
+      {isNavigating && <TopBarLoader/>}
       <Header />
       {/* Suspense handles the waiting state for any lazy route */}
-      <Suspense fallback={<div className="loader">Loading Page...</div>}>
+      <Suspense fallback={<TopBarLoader/>}>
         <main style={{ minHeight: '85vh' }}> {/* Keeps layout stable */}
           <Routes>
             <Route path="/" element={<Home />} />

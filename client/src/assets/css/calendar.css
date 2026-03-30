@@ -45,7 +45,7 @@
 /* Sundays and Saturdays in red */
 .calendar-grid .day:nth-child(7n+1), 
 .calendar-grid .day:nth-child(7n) {
-  color: #eee;
+  color: #f80303;
 }
 
 .day.empty {
