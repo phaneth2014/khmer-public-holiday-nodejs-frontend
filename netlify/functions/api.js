@@ -13,7 +13,7 @@ import {
     requestHandler
 } from "../controllers/data.controller.js";
 
-import { register,login,checkToken } from "../controllers/auth.controller.js";
+import { register,login,checkToken,loginUser } from "../controllers/auth.controller.js";
 
 dotenv.config()
 
@@ -33,6 +33,7 @@ app.get("/api/exchange-rate", getExchangeRate);
 
 app.post('/api/register', register);
 app.post('/api/login', login);
+app.post('/api/login-user', loginUser);
 
 app.get('/api/dbconnection', requestHandler);
 app.get('/api/users-neon',verifyToken, getUsersList);

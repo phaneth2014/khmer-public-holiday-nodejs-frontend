@@ -36,7 +36,7 @@ export async function register(req, res) {
     // 5. Sign Token (Using the data from 'user')
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
@@ -75,7 +75,7 @@ export async function login(req, res) {
     // Success...
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
     );
 
@@ -128,13 +128,13 @@ export const loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1D" }
-    );
+    // const token = jwt.sign(
+    //   { id: user.id, email: user.email, role: user.role },
+    //   process.env.JWT_SECRET,
+    //   { expiresIn: process.env.JWT_EXPIRES_IN || "1D" }
+    // );
 
-    res.json({ message: "Login successful", token });
+    res.json({ message: "Login successful", user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
