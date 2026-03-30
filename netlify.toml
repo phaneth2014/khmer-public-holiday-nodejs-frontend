@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --legacy-peer-deps && npm --prefix client install --legacy-peer-deps && npm --prefix client install react-is --save && npm --prefix client run build"
+  command = "npm --prefix client install --legacy-peer-deps && npm --prefix client install react-is --save && npm --prefix client run build"
   publish = "client/dist"
   functions = "netlify/functions"
 
