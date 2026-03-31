@@ -44,7 +44,7 @@ export default function Holiday() {
               <li key={index} className="khmer-font">
                 <span className="holiday-date">
                   {convertToKhmerNumerals(new Date(holiday.date).getDate())}<br/>
-                  {khMonths[new Date(holiday.date).getMonth()]}
+                  {converToKhmerMonth(new Date(holiday.date).getMonth())}
                 </span>
                 <span className="holiday-name">{holiday.description}</span>
             </li>
