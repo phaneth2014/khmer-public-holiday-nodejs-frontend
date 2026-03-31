@@ -19,37 +19,39 @@ export default function Holiday() {
     getData()
   },[year,month])
   return (
-<div className="holiday-container">
-  <div className="calendar-header">
-          <button onClick={() => setCurrentDate(new Date(year - 1, month))}>
+  <div className="holiday-container">
+     <div className="calendar-header">
+        <button onClick={() => setCurrentDate(new Date(year - 1, month))}>
             <i className="bi bi-caret-left-fill"></i>
-          </button>
-          <div className="calendar-title">
+        </button>
+        <div className="calendar-title">
             <p className="khmer-font">
               តារាងឈប់សម្រាក ឆ្នាំ{convertToKhmerNumerals(year)}{" "}
             </p>
             <p style={{ fontSize: "14px", color: "#666",marginTop:"-20px" }}>
               Holiday for year {year}
             </p>
-          </div>
+        </div>
 
-          <button onClick={() => setCurrentDate(new Date(year + 1, month))}>
+        <button onClick={() => setCurrentDate(new Date(year + 1, month))}>
             <i className="bi bi-caret-right-fill"></i>
-          </button>
+        </button>
+      </div>
+      <div className="holiday-list-ui">
+          <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
+          <div className="holiday-list">
+            {monthlyHolidays.map((holiday, index) => (
+              <li key={index} className="khmer-font">
+                <span className="holiday-date">
+                  {convertToKhmerNumerals(new Date(holiday.date).getDate())}<br/>
+                  {khMonths[new Date(holiday.date).getMonth()]}
+                </span>
+                <span className="holiday-name">{holiday.description}</span>
+            </li>
+          ))}
+            
         </div>
-  <ul className='holiday-list' style={{ "width":"100%","padding":"0px" }}>
-    {holidays.map((holiday, index) => (
-      <li key={index}>
-        <div>
-          <b>{convertToKhmerNumerals(new Date(holiday.date).getDate())} </b>
-          <br/>
-          {converToKhmerMonth(new Date(holiday.date).getMonth())}
-        </div>
-        <div>: {holiday.description}</div>
-      </li>
-    ))}
-  </ul>
-</div>
+   </div>
     
   )
 }
