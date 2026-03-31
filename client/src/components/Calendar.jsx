@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
+import { convertToKhmerNumerals } from "../services/convertToKhmerNum";
 import momentkh from "@thyrith/momentkh";
 
 const Calendar = () => {
@@ -45,20 +46,14 @@ const Calendar = () => {
     return (    holidayDate.getMonth() === month &&
       holidayDate.getFullYear() === year);
   });
-  const convertToKhmerNumerals = (num) => {
-    const khmerDigits = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"];
-    return num
-      .toString()
-      .split("")
-      .map((digit) => khmerDigits[parseInt(digit)])
-      .join("");
-  };
+
 
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(
         `https://khmer-calendar.netlify.app/api/holidays?year=${year}&month=${month + 1}`,
       ).then((res) => res.json());
+      res.holidays.sort((a, b) => new Date(a.date) - new Date(b.date));
       setHolidays(res.holidays);
     };
 
@@ -136,7 +131,7 @@ const Calendar = () => {
           {days}
         </div>
       </div>
-      {monthlyHolidays.length > 0 && (
+      
         <div className="holiday-list-ui">
           <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
           <div className="holiday-list">
@@ -145,7 +140,7 @@ const Calendar = () => {
                 <span className="holiday-date">
                   {convertToKhmerNumerals(new Date(holiday.date).getDate())}{" "}
                   {khMonths[new Date(holiday.date).getMonth()]}{" "}
-                </span>
+                </span><br/>
               <span className="holiday-name">{holiday.description}</span>
             </li>
           ))}
@@ -153,7 +148,7 @@ const Calendar = () => {
         </div>
 
       </div>
-      )}
+      
     </section>
   );
 };
