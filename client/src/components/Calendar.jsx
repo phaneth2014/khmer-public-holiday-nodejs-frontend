@@ -88,14 +88,14 @@ const Calendar = () => {
       days.push(
         <div key={d} className={`day holiday `} style={{ color:"green" }}>
           {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          {d} <p className="moonPhase">{khmerDate.khmer.day} {khmerDate.khmer.moonPhaseName}</p>          
+          {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>          
         </div>
       );
     } else {
       days.push(
         <div key={d} className={`day ${isToday ? "today" : ""}`}>
           {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          {d} <p className="moonPhase">{khmerDate.khmer.day} {khmerDate.khmer.moonPhaseName}</p>
+          {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>
         </div>,
       );
     }
@@ -110,7 +110,7 @@ const Calendar = () => {
           </button>
           <div className="calendar-title">
             <p className="khmer-font">
-              {khMonths[month]} {convertToKhmerNumerals(year)}{" "}
+              ខែ{khMonths[month]} ឆ្នាំ{convertToKhmerNumerals(year)}{" "}
             </p>
             <p style={{ fontSize: "14px", color: "#666",marginTop:"-20px" }}>
               {currentDate.toLocaleString("default", { month: "long" })} {year}
