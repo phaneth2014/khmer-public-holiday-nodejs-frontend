@@ -64,6 +64,7 @@ export const getHolidays = async (req, res) => {
         const year = req.query.year || now.getFullYear();
         const date = new Date(now.setYear(year));
         const holiday = holidays(date);
+        holiday.sort((a, b) => new Date(a.day) - new Date(b.day));
         console.log("date:", date);
         res.status(200).json({ year: parseInt(year), holidays: holiday, message: "success" });
 
