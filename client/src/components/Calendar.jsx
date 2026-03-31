@@ -107,7 +107,7 @@ const Calendar = () => {
   }
 
   return (
-    <section>
+    <section className="calendar-main">
       <div className="calendar-container">
         <div className="calendar-header">
           <button onClick={() => setCurrentDate(new Date(year, month - 1))}>
@@ -137,9 +137,9 @@ const Calendar = () => {
         </div>
       </div>
       {monthlyHolidays.length > 0 && (
-        <div className="holiday-list">
+        <div className="holiday-list-ui">
           <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
-          <ul>
+          <div className="holiday-list">
             {monthlyHolidays.map((holiday) => (
               <li key={holiday.date} className="khmer-font">
                 <span className="holiday-date">
@@ -150,7 +150,7 @@ const Calendar = () => {
             </li>
           ))}
             
-        </ul>
+        </div>
 
       </div>
       )}

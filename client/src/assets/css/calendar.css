@@ -1,3 +1,7 @@
+.calendar-main {
+  display: flex;
+  margin: 0 auto;
+}
 .calendar-container {
   width: 100%;
   background: #fff;
@@ -73,3 +77,56 @@
 .day.empty {
   color: #ccc;
 }
+
+.holiday-list-ui {
+  margin-top: 0px;
+  padding-left: 20px;
+  border-radius: 8px;
+  margin-left: 20px;
+  border-left: 1px solid #eee;
+}
+
+.dark-mode .holiday-list-ui {
+  border-color: #444;
+}
+
+.holiday-list {
+  margin-top: 0;
+  padding: 10px 4px;
+  margin: 0;
+}
+
+.holiday-date {
+  font-weight: bold;
+  color: #333;
+  padding: 5px 5px;
+  text-align: center;
+}
+.dark-mode .holiday-date {
+  color: #aaa;
+}
+.holiday-name{
+  display: block;
+  color: #333;
+  margin-top: 2px;
+  padding: 5px 10px;
+  border-left: 1px solid #eee;
+}
+
+.dark-mode .holiday-name{
+  border-color: #444;
+  color: #aaa;
+}
+
+@media screen and (max-width: 480px) {
+  .calendar-main{
+    flex-direction: column;
+  }
+
+  .holiday-list-ui {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+  } 
+    
+} 
