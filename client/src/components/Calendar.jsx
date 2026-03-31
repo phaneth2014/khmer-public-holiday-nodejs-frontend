@@ -72,7 +72,7 @@ const Calendar = () => {
 
   // 2. Add actual days of the month
   for (let d = 1; d <= daysInMonth; d++) {
-    const khmerDate = momentkh.fromDate(new Date(`${year}-${month}-${d}`));
+    const khmerDate = momentkh.fromDate(new Date(`${year}-${month+1}-${d}`));
    
     const isToday =
       d === new Date().getDate() &&
