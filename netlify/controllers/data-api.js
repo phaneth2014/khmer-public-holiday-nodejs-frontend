@@ -153,8 +153,8 @@ function checkKhmerHoliday(date) {
     let now = date;
     let mn5 = new Date(now.getFullYear(), 4, 1);
     let mn9 = new Date(now.getFullYear(), 9, 1);
-    let mn10 = new Date(now.getFullYear(), 9, 1);
-    let mn11 = new Date(now.getFullYear(), 10, 1);
+    let mn10 = new Date(now.getFullYear(), 10, 1);
+    let mn11 = new Date(now.getFullYear(), 11, 1);
     let lastDay5 = new Date(mn5.getFullYear(), mn5.getMonth() + 1, 0);
     let lastDay9 = new Date(mn9.getFullYear(), mn9.getMonth() + 1, 0);
     let lastDay10 = new Date(mn10.getFullYear(), mn10.getMonth() + 1, 0);
