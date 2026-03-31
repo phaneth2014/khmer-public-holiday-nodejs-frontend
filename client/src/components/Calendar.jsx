@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
+import momentkh from "@thyrith/momentkh";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -71,6 +72,8 @@ const Calendar = () => {
 
   // 2. Add actual days of the month
   for (let d = 1; d <= daysInMonth; d++) {
+    const khmerDate = momentkh.fromDate(new Date(`${year}-${month}-${d}`));
+   
     const isToday =
       d === new Date().getDate() &&
       month === new Date().getMonth() &&
@@ -88,26 +91,16 @@ const Calendar = () => {
     ) {
 
       days.push(
-        <div key={d} className={`day holiday ${isToday ? "today" : ""}`}>
-          {d}
-          <span className="holiday-name">
-            {
-              holidays.find((holiday) => {
-                const holidayDate = new Date(holiday.date);
-                return (
-                  holidayDate.getDate() === d &&
-                  holidayDate.getMonth() === month &&
-                  holidayDate.getFullYear() === year
-                );
-              }).name_kh
-            }
-          </span>
-        </div>,
+        <div key={d} className={`day holiday `} style={{ color:"green" }}>
+          {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
+          {d} <p className="moonPhase">{khmerDate.khmer.day} {khmerDate.khmer.moonPhaseName}</p>          
+        </div>
       );
     } else {
       days.push(
         <div key={d} className={`day ${isToday ? "today" : ""}`}>
-          {d}
+          {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
+          {d} <p className="moonPhase">{khmerDate.khmer.day} {khmerDate.khmer.moonPhaseName}</p>
         </div>,
       );
     }
@@ -134,7 +127,7 @@ const Calendar = () => {
           </button>
         </div>
 
-        <div className="calendar-grid">
+        <div className="calendar-grid ">
           {daysOfWeek.map((day, index) => (
             <div key={index} className="day-name khmer-font">
               {khDayOfWeek[index]} <br /> {day} 

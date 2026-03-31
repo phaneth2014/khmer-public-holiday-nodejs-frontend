@@ -5,6 +5,11 @@
   font-family: sans-serif;
 }
 
+.moonPhase{
+  font-family: KhmerOSSiemreap;
+  font-size: 12px;
+  margin-top: -4px;
+}
 .dark-mode .calendar-container{
     background: #000;
     color: #eee;
@@ -22,10 +27,23 @@
   text-align: center;
 }
 
+.buddha{
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: rgb(238, 255, 0);
+  background-image: url('../images/buddha-1.png');
+  background-size: cover;
+
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
 .day-name {
   font-weight: bold;
   font-size: 0.8rem;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
   border-bottom: 1px solid #ccc;
 }
 
@@ -34,7 +52,7 @@
 }
 
 .day {
-  padding: 15px 0;
+  padding: 4px 2px;
   cursor: pointer;
   font-size: 1.1rem;
 }
