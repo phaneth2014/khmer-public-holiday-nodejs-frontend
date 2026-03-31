@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
+import ProfileMenu from "../components/ProfileMenu";
 
 export default function Header() {
   const [sidebar, setSidebar] = useState(false);
@@ -68,17 +69,7 @@ export default function Header() {
           <ThemeToggle />
         </li>
 
-        <li id="account-login">
-          <NavLink to="/register" title="Register">
-            <i className="bi bi-person"></i> ចុះឈ្មោះ
-          </NavLink>
-        </li>
-
-        <li id="account-register">
-          <NavLink to="/login" title="Login">
-            <i className="bi bi-lock"></i> ចូល
-          </NavLink>
-        </li>
+        <ProfileMenu/>
       </ul>
     </nav>
   );

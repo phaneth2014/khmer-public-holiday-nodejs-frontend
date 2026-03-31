@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { Routes, Route,useLocation } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/FooterPage";
+import Header from "./layouts/Header";
+import Footer from "./layouts/FooterPage";
 import { ThemeProvider } from "./components/ThemeProvider";
 import "./App.css";
 import TopBarLoader from "./components/TopBarLoader";
