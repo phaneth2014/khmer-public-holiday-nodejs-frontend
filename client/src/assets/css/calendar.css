@@ -9,10 +9,17 @@
   font-family: sans-serif;
 }
 
+.calendar-title {
+  padding-top: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
 .moonPhase{
   font-family: KhmerOSSiemreap;
   font-size: 12px;
-  margin-top: -4px;
+  margin-top: -3px;
 }
 .dark-mode .calendar-container{
     background: #000;
@@ -46,8 +53,7 @@
 .day-name {
   font-weight: bold;
   font-size: 0.8rem;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  margin-bottom: 15px;
   border-bottom: 1px solid #ccc;
 }
 

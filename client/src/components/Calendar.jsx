@@ -113,11 +113,11 @@ const Calendar = () => {
           <button onClick={() => setCurrentDate(new Date(year, month - 1))}>
             <i className="bi bi-caret-left-fill"></i>
           </button>
-          <div className="">
+          <div className="calendar-title">
             <p className="khmer-font">
               {khMonths[month]} {convertToKhmerNumerals(year)}{" "}
             </p>
-            <p style={{ fontSize: "12px", color: "#666",marginTop:"-16px" }}>
+            <p style={{ fontSize: "14px", color: "#666",marginTop:"-20px" }}>
               {currentDate.toLocaleString("default", { month: "long" })} {year}
             </p>
           </div>
@@ -130,7 +130,7 @@ const Calendar = () => {
         <div className="calendar-grid ">
           {daysOfWeek.map((day, index) => (
             <div key={index} className="day-name khmer-font">
-              {khDayOfWeek[index]} <br /> <span style={{ fontSize:"10px" }}>{day}</span> 
+              {khDayOfWeek[index]}  <p style={{ fontSize:"10px",marginTop:"-1px" }}>{day}</p> 
             </div>
           ))}
           {days}
