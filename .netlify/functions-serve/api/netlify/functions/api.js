@@ -35343,8 +35343,8 @@ function checkKhmerHoliday(date) {
   let now = date;
   let mn5 = new Date(now.getFullYear(), 4, 1);
   let mn9 = new Date(now.getFullYear(), 9, 1);
-  let mn10 = new Date(now.getFullYear(), 9, 1);
-  let mn11 = new Date(now.getFullYear(), 10, 1);
+  let mn10 = new Date(now.getFullYear(), 10, 1);
+  let mn11 = new Date(now.getFullYear(), 11, 1);
   let lastDay5 = new Date(mn5.getFullYear(), mn5.getMonth() + 1, 0);
   let lastDay9 = new Date(mn9.getFullYear(), mn9.getMonth() + 1, 0);
   let lastDay10 = new Date(mn10.getFullYear(), mn10.getMonth() + 1, 0);
@@ -35381,12 +35381,12 @@ function holiday_list(date) {
   const newyear = khmerNewYear(dd.getFullYear());
   if (newyear.day == 13) {
     khmer_holidays.push({
-      day: `${newyear.year}-0${newyear.month}-${newyear.day}`,
-      desc: "\u1794\u17BB\u178E\u17D2\u1799\u1785\u17BC\u179B\u1786\u17D2\u1793\u17B6\u17C6\u1794\u17D2\u179A\u1796\u17C3\u178E\u17B8\u1781\u17D2\u1798\u17C2\u179A (Khmer New Year's Day)"
+      date: `${newyear.year}-0${newyear.month}-${newyear.day}`,
+      description: "\u1794\u17BB\u178E\u17D2\u1799\u1785\u17BC\u179B\u1786\u17D2\u1793\u17B6\u17C6\u1794\u17D2\u179A\u1796\u17C3\u178E\u17B8\u1781\u17D2\u1798\u17C2\u179A (Khmer New Year's Day)"
     });
   }
   return khmer_holidays.sort(
-    (a2, b2) => new Date(a2.day) - new Date(b2.day)
+    (a2, b2) => new Date(a2.date) - new Date(b2.date)
   );
 }
 function khmerNewYear(year) {
@@ -35449,8 +35449,9 @@ var getHolidays = async (req, res) => {
     const year = req.query.year || now.getFullYear();
     const date = new Date(now.setYear(year));
     const holiday = holidays(date);
-    console.log("date:", date);
-    res.status(200).json({ year: parseInt(year), holidays: holiday, message: "success" });
+    const countholiday = holiday.length;
+    console.log("date:", date, countholiday);
+    res.status(200).json({ year: parseInt(year), holidays: holiday, count: countholiday, message: "success" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -35458,13 +35459,22 @@ var getHolidays = async (req, res) => {
 var getExchangeRate = async (req, res) => {
   try {
     const date = req.query.date || /* @__PURE__ */ new Date();
+    const month = req.query.month;
+    const year = req.query.year || (/* @__PURE__ */ new Date()).getFullYear();
     if (date) {
-      const data = [{
+      const pool2 = database_default.query ? database_default : database_default.default;
+      let result = await pool2.query("SELECT * FROM exchange_rates WHERE date = $1", [date]);
+      let data = result.rows;
+      if (month) {
+        result = await pool2.query("SELECT * FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2", [month, year]);
+        data = result.rows;
+      }
+      const exchangeRateData = [{
         "USD": 4001,
         "BHD": 350,
         "date": date
       }];
-      res.status(201).json({ data, source: "Nation Bank of Cambodia", message: "response successfully" });
+      res.status(201).json({ year, month: month || date.getMonth() + 1, data, source: "Nation Bank of Cambodia", message: "response successfully" });
     } else {
       res.status(500).json({ message: "data not found" });
     }
@@ -37312,7 +37322,7 @@ var publicCors = (0, import_cors.default)({
   credentials: false
 });
 var privateCors = (0, import_cors.default)({
-  origin: ["localhost:4000", "https://khmer-calendar.netlify.app"],
+  origin: ["https://khmer-calendar.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 });
@@ -37326,11 +37336,11 @@ app.post("/api/login-user", privateCors, loginUser);
 app.get("/api/check-env", privateCors, checkEnv);
 app.get("/api/pgconnection", privateCors, pgconnection);
 app.get("/api/neoconnection", privateCors, requestHandler);
-app.get("/api/users-neon", privateCors, getUsersList);
-app.get("/api/users", privateCors, getUsers);
-app.get("/api/data", verifyToken, getData);
-app.post("/api/holiday-data", verifyToken, getHolidays);
-app.post("/api/check-token", verifyToken, checkToken);
+app.get("/api/users-neon", privateCors, verifyToken, getUsersList);
+app.get("/api/users", privateCors, verifyToken, getUsers);
+app.get("/api/data", privateCors, verifyToken, getData);
+app.post("/api/holiday-data", privateCors, verifyToken, getHolidays);
+app.post("/api/check-token", privateCors, verifyToken, checkToken);
 var handler = (0, import_serverless_http.default)(app);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
