@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { holidays } from "../services/data-api.js";
 import Calendar from "../components/Calendar.jsx";
 export default function Home() {
   const [data, setData] = useState([]);
@@ -9,8 +8,13 @@ export default function Home() {
     const now = new Date();
 
     const getData = async () => {
-      const ph = await holidays(now);
-      setData(ph);
+      const res = await fetch("https://khmer-calendar.netlify.app/api/holidays")
+      .then(res => res.json())
+      .then(data => console.log(data));
+      setData(res.filter(holiday => {
+        const holidayDate = new Date(holiday.date);
+        return holidayDate.getFullYear() === now.getFullYear();
+      }));
 
     };
 
@@ -24,11 +28,12 @@ export default function Home() {
         <Calendar />
       </section>
 
-      <section className="calendar-container">
-        <div>
-          <div className="calendar-title">
-            <h4 id="holiday-title">
-              <i className="bi bi-calendar-check"></i> ថ្ងៃឈប់សម្រាក
+      {data.length > 0 && (
+        <section className="calendar-container">
+          <div>
+            <div className="calendar-title">
+              <h4 id="holiday-title">
+                <i className="bi bi-calendar-check"></i> ថ្ងៃឈប់សម្រាក
             </h4>
           </div>
 
@@ -40,6 +45,7 @@ export default function Home() {
           </ul>
         </div>
       </section>
+      )}
     </div>
   );
 }

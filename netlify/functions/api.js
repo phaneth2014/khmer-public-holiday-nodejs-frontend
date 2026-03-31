@@ -21,28 +21,35 @@ dotenv.config()
 
 const app = express();
 
-app.use(cors({
-  origin: ["https://khmer-calendar.netlify.app", "https://khmer-public-holiday.onrender.com"], // allow your React frontend
+const publicCors = cors({
+  origin: "*",
+  methods: ["GET"],
+  credentials: false
+});
+
+const privateCors = cors({
+  origin: ["https://khmer-calendar.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+  credentials: true
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Use public configuration
+app.get("/api/holidays", publicCors, getHolidays);
+app.get("/api/exchange-rate", publicCors, getExchangeRate);
 
-app.get("/api/holidays", getHolidays);
-app.get("/api/exchange-rate", getExchangeRate);
+// Use private configuration
+app.post('/api/register', privateCors, register);
+app.post('/api/login', privateCors, login);
+app.post('/api/login-user', privateCors, loginUser);
 
-app.post('/api/register', register);
-app.post('/api/login', login);
-app.post('/api/login-user', loginUser);
-
-app.get('/api/check-env', checkEnv);
-app.get('/api/pgconnection', pgconnection);
-app.get('/api/neoconnection', requestHandler);
-app.get('/api/users-neon', getUsersList);
-app.get('/api/users', getUsers);
+app.get('/api/check-env',privateCors, checkEnv);
+app.get('/api/pgconnection', privateCors, pgconnection);
+app.get('/api/neoconnection', privateCors, requestHandler);
+app.get('/api/users-neon', privateCors, getUsersList);
+app.get('/api/users', privateCors, getUsers);
 app.get('/api/data', verifyToken, getData);
 app.post("/api/holiday-data",verifyToken, getHolidays);
 app.post('/api/check-token',verifyToken, checkToken);
