@@ -40,7 +40,7 @@ export default function Holiday() {
       <div className="holiday-list-ui">
           <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
           <div className="holiday-list">
-            {monthlyHolidays.map((holiday, index) => (
+            {holidays.map((holiday, index) => (
               <li key={index} className="khmer-font">
                 <span className="holiday-date">
                   {convertToKhmerNumerals(new Date(holiday.date).getDate())}<br/>
