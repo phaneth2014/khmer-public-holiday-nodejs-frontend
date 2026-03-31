@@ -197,13 +197,13 @@ function holiday_list(date) {
     if (newyear.day == 13) {
 
         khmer_holidays.push({
-            day: `${newyear.year}-0${newyear.month}-${newyear.day}`,
-            desc: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+            date: `${newyear.year}-0${newyear.month}-${newyear.day}`,
+            description: "បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
         })
     }
 
     return khmer_holidays.sort(
-        (a, b) => new Date(a.day) - new Date(b.day)
+        (a, b) => new Date(a.date) - new Date(b.date)
     );
 }
 
