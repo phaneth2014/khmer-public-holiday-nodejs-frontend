@@ -28,7 +28,7 @@ const publicCors = cors({
 });
 
 const privateCors = cors({
-  origin: ["localhost:4000","https://khmer-calendar.netlify.app"],
+  origin: ["https://khmer-calendar.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 });
@@ -48,11 +48,11 @@ app.post('/api/login-user', privateCors, loginUser);
 app.get('/api/check-env',privateCors, checkEnv);
 app.get('/api/pgconnection', privateCors, pgconnection);
 app.get('/api/neoconnection', privateCors, requestHandler);
-app.get('/api/users-neon', privateCors, getUsersList);
-app.get('/api/users', privateCors, getUsers);
-app.get('/api/data', verifyToken, getData);
-app.post("/api/holiday-data",verifyToken, getHolidays);
-app.post('/api/check-token',verifyToken, checkToken);
+app.get('/api/users-neon', privateCors,verifyToken, getUsersList);
+app.get('/api/users', privateCors,verifyToken, getUsers);
+app.get('/api/data',privateCors, verifyToken, getData);
+app.post("/api/holiday-data",privateCors, verifyToken, getHolidays);
+app.post('/api/check-token',privateCors, verifyToken, checkToken);
 // app.use("/api", routes);
 
 export const handler = serverless(app);
