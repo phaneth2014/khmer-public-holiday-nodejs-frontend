@@ -39,7 +39,11 @@ const Calendar = () => {
 
   // Create an array for the grid
   const days = [];
-
+  const monthlyHolidays = holidays.filter((holiday) => {
+    const holidayDate = new Date(holiday.date);
+    return (    holidayDate.getMonth() === month &&
+      holidayDate.getFullYear() === year);
+  });
   const convertToKhmerNumerals = (num) => {
     const khmerDigits = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"];
     return num
@@ -139,25 +143,20 @@ const Calendar = () => {
           {days}
         </div>
       </div>
-      {holidays.length > 0 && (
+      {monthlyHolidays.length > 0 && (
         <div className="holiday-list">
           <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
           <ul>
-            {holidays.filter((holiday) => {
-              const holidayDate = new Date(holiday.date);
-            return (
-              holidayDate.getMonth() === month &&
-              holidayDate.getFullYear() === year
-            );
-          }).map((holiday) => (
-            <li key={holiday.date} className="khmer-font">
-              <span className="holiday-date">
-                {convertToKhmerNumerals(new Date(holiday.date).getDate())}{" "}
-                {khMonths[new Date(holiday.date).getMonth()]}{" "}
-              </span>
+            {monthlyHolidays.map((holiday) => (
+              <li key={holiday.date} className="khmer-font">
+                <span className="holiday-date">
+                  {convertToKhmerNumerals(new Date(holiday.date).getDate())}{" "}
+                  {khMonths[new Date(holiday.date).getMonth()]}{" "}
+                </span>
               <span className="holiday-name">{holiday.description}</span>
             </li>
           ))}
+            
         </ul>
 
       </div>
