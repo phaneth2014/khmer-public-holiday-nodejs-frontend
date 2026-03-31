@@ -76,14 +76,25 @@ export const getHolidays = async (req, res) => {
 export const getExchangeRate = async (req, res) => {
     try {
         const date = req.query.date || new Date();
+        const month = req.query.month;
+        const year = req.query.year || new Date().getFullYear();
 
         if (date) {
-            const data = [{
+            const pool = db.query ? db : db.default;
+
+            let result = await pool.query('SELECT * FROM exchange_rates WHERE date = $1', [date]);
+            let data = result.rows;
+
+            if (month) {
+               result = await pool.query('SELECT * FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
+                data = result.rows;
+            }
+            const exchangeRateData = [{
                 "USD": 4001,
                 "BHD": 350,
                 "date": date
             }];
-            res.status(201).json({ data, source: 'Nation Bank of Cambodia', message: "response successfully" });
+            res.status(201).json({ year,month:month||date.getMonth()+1,data, source: 'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }

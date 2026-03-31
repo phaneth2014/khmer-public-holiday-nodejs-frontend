@@ -46,6 +46,7 @@ export default function DataApi() {
     },
     "source": "National Bank of Cambodia"
   }`;
+  const exchange_month = `https://khmer-calendar.netlify.app/api/exchange-rate?month=3&year=2026`;
   const guideline = `
   async function getHoliday (){
     try{
@@ -112,8 +113,10 @@ public function getHoliday(Request $req)
           </div>
 
           <p>
-            <strong>Description:</strong> ទាញយកអត្រាប្តូរប្រាក់រៀលកម្ពុជា
+            <strong>Description:</strong> ទាញយកអត្រាប្តូរប្រាក់រៀលកម្ពុជា សម្រាប់ថ្ងៃណាមួយ ឬប្រចាំខែណាមួយ។ ប្រសិនបើអ្នកចង់ទាញយកអត្រាប្តូរប្រាក់រៀលកម្ពុជា សម្រាប់ថ្ងៃណាមួយ អ្នកអាចប្រើ URL ខាងក្រោមនេះបាន៖
           </p>
+          <div> <CodeBlock code={exchange_month} language={"javascript"} /></div>
+      
 
           <strong>Parameters: year=2026</strong>
           <div><CodeBlock code={exchange} language={"javascript"} /></div>
