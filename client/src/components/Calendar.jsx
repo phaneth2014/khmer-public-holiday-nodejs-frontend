@@ -117,7 +117,7 @@ const Calendar = () => {
             <p className="khmer-font">
               {khMonths[month]} {convertToKhmerNumerals(year)}{" "}
             </p>
-            <p>
+            <p style={{ fontSize: "12px", color: "#666",marginTop:"-16px" }}>
               {currentDate.toLocaleString("default", { month: "long" })} {year}
             </p>
           </div>
@@ -130,7 +130,7 @@ const Calendar = () => {
         <div className="calendar-grid ">
           {daysOfWeek.map((day, index) => (
             <div key={index} className="day-name khmer-font">
-              {khDayOfWeek[index]} <br /> {day} 
+              {khDayOfWeek[index]} <br /> <span style={{ fontSize:"10px" }}>{day}</span> 
             </div>
           ))}
           {days}
