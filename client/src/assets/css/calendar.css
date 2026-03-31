@@ -40,8 +40,8 @@
 
 .buddha{
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background-color: rgb(238, 255, 0);
   background-image: url('../images/buddha-1.png');
   background-size: cover;
@@ -65,6 +65,7 @@
   padding: 4px 2px;
   cursor: pointer;
   font-size: 1.1rem;
+  font-weight: bold;
 }
 
 /* Today highlight (matches your blue box) */

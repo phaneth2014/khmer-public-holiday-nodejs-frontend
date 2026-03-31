@@ -37306,24 +37306,28 @@ var loginUser = async (req, res) => {
 // netlify/functions/api.js
 import_dotenv6.default.config();
 var app = (0, import_express.default)();
-app.use((0, import_cors.default)({
-  origin: ["https://khmer-calendar.netlify.app", "https://khmer-public-holiday.onrender.com"],
-  // allow your React frontend
+var publicCors = (0, import_cors.default)({
+  origin: "*",
+  methods: ["GET"],
+  credentials: false
+});
+var privateCors = (0, import_cors.default)({
+  origin: ["localhost:4000", "https://khmer-calendar.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
-}));
+});
 app.use(import_express.default.json());
 app.use(import_express.default.urlencoded({ extended: true }));
-app.get("/api/holidays", getHolidays);
-app.get("/api/exchange-rate", getExchangeRate);
-app.post("/api/register", register);
-app.post("/api/login", login);
-app.post("/api/login-user", loginUser);
-app.get("/api/check-env", checkEnv);
-app.get("/api/pgconnection", pgconnection);
-app.get("/api/neoconnection", requestHandler);
-app.get("/api/users-neon", getUsersList);
-app.get("/api/users", getUsers);
+app.get("/api/holidays", publicCors, getHolidays);
+app.get("/api/exchange-rate", publicCors, getExchangeRate);
+app.post("/api/register", privateCors, register);
+app.post("/api/login", privateCors, login);
+app.post("/api/login-user", privateCors, loginUser);
+app.get("/api/check-env", privateCors, checkEnv);
+app.get("/api/pgconnection", privateCors, pgconnection);
+app.get("/api/neoconnection", privateCors, requestHandler);
+app.get("/api/users-neon", privateCors, getUsersList);
+app.get("/api/users", privateCors, getUsers);
 app.get("/api/data", verifyToken, getData);
 app.post("/api/holiday-data", verifyToken, getHolidays);
 app.post("/api/check-token", verifyToken, checkToken);

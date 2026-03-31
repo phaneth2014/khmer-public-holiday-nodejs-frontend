@@ -140,8 +140,8 @@ const Calendar = () => {
         <div className="holiday-list-ui">
           <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
           <div className="holiday-list">
-            {monthlyHolidays.map((holiday) => (
-              <li key={holiday.date} className="khmer-font">
+            {monthlyHolidays.map((holiday, index) => (
+              <li key={index} className="khmer-font">
                 <span className="holiday-date">
                   {convertToKhmerNumerals(new Date(holiday.date).getDate())}{" "}
                   {khMonths[new Date(holiday.date).getMonth()]}{" "}

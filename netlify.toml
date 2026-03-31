@@ -27,5 +27,5 @@
   status = 200
 
   [dev]
-  port = 8888
+  port = 3000
   publish = "public"
