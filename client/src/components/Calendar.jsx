@@ -92,7 +92,6 @@ const Calendar = () => {
       days.push(
         <div key={d} className={`day holiday `} style={{ color:"green" }} onClick={() => handleOpenModal(d)}>
           { khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          { khmerDate.khmer.day == 14 && khmerDate.khmer.moonPhaseName === "Full Moon" ? <span className="buddha"></span> : null}
           {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>          
         </div>
       );
@@ -100,7 +99,6 @@ const Calendar = () => {
       days.push(
         <div key={d} className={`day ${isToday ? "today" : ""}`} onClick={() => handleOpenModal(d)}>
           {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          { khmerDate.khmer.day == 14 && khmerDate.khmer.moonPhaseName === "Full Moon" ? <span className="buddha"></span> : null}
           {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>
         </div>,
       );
