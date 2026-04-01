@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
 import {
   convertToKhmerNumerals,
-  checkOddEvenNum,holyDayDates
+  checkOddEvenNum
 } from "../services/convertToKhmerNum";
 import momentkh from "@thyrith/momentkh";
 import SliderModel from "./SliderModel";
