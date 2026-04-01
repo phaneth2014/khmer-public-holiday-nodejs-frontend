@@ -36,7 +36,7 @@ function App() {
       <Header />
       {/* Suspense handles the waiting state for any lazy route */}
       <Suspense fallback={<TopBarLoader/>}>
-        <main style={{ minHeight: '85vh' }}> {/* Keeps layout stable */}
+        <div className="main-content"> {/* Keeps layout stable */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -49,7 +49,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<div>404 - Not Found</div>} />
           </Routes>
-        </main>
+        </div>
       </Suspense>
 
       <Footer />
