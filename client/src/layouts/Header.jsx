@@ -33,10 +33,14 @@ export default function Header() {
         </li>
         <li>
           <NavLink onClick={hideSidebar} to="/holiday" title="holidays">
-            <i className="bi bi-calendar"></i> ថ្ងៃឈប់សម្រាក
+            <i className="bi bi-clock"></i> ព្រឹត្តិការណ៍ផ្សេងៗ
           </NavLink>
         </li>
-
+        <li>
+          <NavLink onClick={hideSidebar} to="/holys" title="holys">
+            <i className="bi bi-calendar"></i> ថ្ងៃសីល៍
+          </NavLink>
+        </li>
         <li>
           <NavLink to="/exchange-rate" onClick={hideSidebar} title="exchange rate">
             <i className="bi bi-currency-exchange"></i> អត្រាប្តូរប្រាក់

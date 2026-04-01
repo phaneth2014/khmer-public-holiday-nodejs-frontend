@@ -4,12 +4,13 @@ import "../assets/css/BottomSheet.css";
 export default function SliderModel({ isOpen, onClose, children }) {
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      // document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      // document.body.style.overflow = 'auto';
     }
+    
   }, [isOpen]);
-  
+
   return (
     <div 
       className={`slider-overlay ${isOpen ? 'active' : ''}`} 

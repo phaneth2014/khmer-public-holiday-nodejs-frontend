@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
-import { convertToKhmerNumerals } from "../services/convertToKhmerNum";
+import {
+  convertToKhmerNumerals,
+  checkOddEvenNum,holyDayDates
+} from "../services/convertToKhmerNum";
 import momentkh from "@thyrith/momentkh";
 import SliderModel from "./SliderModel";
 
@@ -47,10 +50,10 @@ const Calendar = () => {
   const days = [];
   const monthlyHolidays = holidays.filter((holiday) => {
     const holidayDate = new Date(holiday.date);
-    return ( holidayDate.getMonth() === month &&
-      holidayDate.getFullYear() === year);
+    return (
+      holidayDate.getMonth() === month && holidayDate.getFullYear() === year
+    );
   });
-
 
   useEffect(() => {
     const getData = async () => {
@@ -71,12 +74,18 @@ const Calendar = () => {
 
   // 2. Add actual days of the month
   for (let d = 1; d <= daysInMonth; d++) {
-    const khmerDate = momentkh.fromDate(new Date(`${year}-${month+1}-${d}`));
-   
+    const khmerDate = momentkh.fromDate(new Date(`${year}-${month + 1}-${d}`));
+
     const isToday =
       d === new Date().getDate() &&
       month === new Date().getMonth() &&
       year === new Date().getFullYear();
+
+    let buddaDay = khmerDate.khmer.day == 8 || khmerDate.khmer.day == 15;
+    if(checkOddEvenNum(khmerDate.khmer.monthIndex + khmerDate.khmer.sak) === "Even" && khmerDate.khmer.moonPhase ==1 && khmerDate.khmer.day == 14){
+      buddaDay = 14;
+      console.log("Even day: ", khmerDate.khmer.day);
+    } 
 
     if (
       holidays.some((holiday) => {
@@ -88,33 +97,49 @@ const Calendar = () => {
         );
       })
     ) {
-
       days.push(
-        <div key={d} className={`day holiday `} style={{ color:"green" }} onClick={() => handleOpenModal(d)}>
-          { khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>          
-        </div>
+        <div
+          key={d}
+          className={`day holiday `}
+          style={{ color: "green" }}
+          onClick={() => handleOpenModal(d)}
+        >
+          {buddaDay ? <span className="buddha"></span> : null}
+          {d}{" "}
+          <p className="moonPhase">
+            {convertToKhmerNumerals(khmerDate.khmer.day)}{" "}
+            {khmerDate.khmer.moonPhaseName}
+          </p>
+        </div>,
       );
     } else {
       days.push(
-        <div key={d} className={`day ${isToday ? "today" : ""}`} onClick={() => handleOpenModal(d)}>
-          {khmerDate.khmer.day ==8 || khmerDate.khmer.day == 15 ? <span className="buddha"></span> : null}
-          {d} <p className="moonPhase">{convertToKhmerNumerals(khmerDate.khmer.day)} {khmerDate.khmer.moonPhaseName}</p>
+        <div
+          key={d}
+          className={`day ${isToday ? "today" : ""}`}
+          onClick={() => handleOpenModal(d)}
+        >
+          {buddaDay ? <span className="buddha"></span> : null}
+          {d}{" "}
+          <p className="moonPhase">
+            {convertToKhmerNumerals(khmerDate.khmer.day)}{" "}
+            {khmerDate.khmer.moonPhaseName}
+          </p>
         </div>,
       );
     }
   }
 
   const handleOpenModal = (day) => {
-    const newDate = new Date(`${year}-${month+1}-${day}`);
+    const newDate = new Date(`${year}-${month + 1}-${day}`);
     const khmerDate = momentkh.fromDate(newDate || new Date());
     const fullDate = momentkh.format(khmerDate);
     console.log(khmerDate.khmer);
+    console.log(checkOddEvenNum(khmerDate.khmer.day));
     setFulldate(fullDate);
     setSelectedDay(day);
     setIsOpen(true);
   };
-
 
   return (
     <section className="calendar-main">
@@ -127,7 +152,7 @@ const Calendar = () => {
             <p className="khmer-font">
               ខែ{khMonths[month]} ឆ្នាំ{convertToKhmerNumerals(year)}{" "}
             </p>
-            <p style={{ fontSize: "14px", color: "#666",marginTop:"-20px" }}>
+            <p style={{ fontSize: "14px", color: "#666", marginTop: "-20px" }}>
               {currentDate.toLocaleString("default", { month: "long" })} {year}
             </p>
           </div>
@@ -140,54 +165,63 @@ const Calendar = () => {
         <div className="calendar-grid ">
           {daysOfWeek.map((day, index) => (
             <div key={index} className="day-name khmer-font">
-              {khDayOfWeek[index]}  <p style={{ fontSize:"10px",marginTop:"-1px" }} >{day}</p> 
+              {khDayOfWeek[index]}{" "}
+              <p style={{ fontSize: "10px", marginTop: "-1px" }}>{day}</p>
             </div>
           ))}
           {days}
         </div>
       </div>
-      
-        <div className="holiday-list-ui">
-          <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
-          <div className="holiday-list">
-            {monthlyHolidays.map((holiday, index) => (
-              <li key={index} className="khmer-font">
-                <span className="holiday-date">
-                  {convertToKhmerNumerals(new Date(holiday.date).getDate())}<br/>
-                  {khMonths[new Date(holiday.date).getMonth()]}
-                </span>
-                <span className="holiday-name">{holiday.description}</span>
+
+      <div className="holiday-list-ui">
+        <h3 className="khmer-font">បញ្ជីថ្ងៃឈប់សម្រាក</h3>
+        <div className="holiday-list">
+          {monthlyHolidays.map((holiday, index) => (
+            <li key={index} className="khmer-font">
+              <span className="holiday-date">
+                {convertToKhmerNumerals(new Date(holiday.date).getDate())}
+                <br />
+                {khMonths[new Date(holiday.date).getMonth()]}
+              </span>
+              <span className="holiday-name">{holiday.description}</span>
             </li>
           ))}
-            
         </div>
-
       </div>
-      {isOpen && <SliderModel isOpen={isOpen} onClose={() => setIsOpen(false)}  >
-        {selectedDay && (
-          <div className="khmer-font">
-            <h4>ព័ត៌មានលម្អិត</h4>
-            <p>{fulldate} ត្រូវនឹង ថ្ងៃទី{convertToKhmerNumerals(selectedDay)} ខែ{khMonths[month]} ឆ្នាំ{convertToKhmerNumerals(year)}</p>
-            {monthlyHolidays.some((holiday) => {
-              const holidayDate = new Date(holiday.date);
-              return (
-                holidayDate.getDate() === selectedDay &&
-                holidayDate.getMonth() === month &&
-                holidayDate.getFullYear() === year
-              );
-            }) && (
-              <p className="holiday-info">{monthlyHolidays.find((holiday) => {
+      {isOpen && (
+        <SliderModel isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          {selectedDay && (
+            <div className="khmer-font">
+              <h4>ព័ត៌មានលម្អិត</h4>
+              <p>
+                {fulldate} ត្រូវនឹង ថ្ងៃទី{convertToKhmerNumerals(selectedDay)}{" "}
+                ខែ{khMonths[month]} ឆ្នាំ{convertToKhmerNumerals(year)}
+              </p>
+              {monthlyHolidays.some((holiday) => {
                 const holidayDate = new Date(holiday.date);
                 return (
                   holidayDate.getDate() === selectedDay &&
                   holidayDate.getMonth() === month &&
                   holidayDate.getFullYear() === year
                 );
-              }).description}</p>
-            )}
-          </div>  
-        )}
-        </SliderModel>}
+              }) && (
+                <p className="holiday-info">
+                  {
+                    monthlyHolidays.find((holiday) => {
+                      const holidayDate = new Date(holiday.date);
+                      return (
+                        holidayDate.getDate() === selectedDay &&
+                        holidayDate.getMonth() === month &&
+                        holidayDate.getFullYear() === year
+                      );
+                    }).description
+                  }
+                </p>
+              )}
+            </div>
+          )}
+        </SliderModel>
+      )}
     </section>
   );
 };
