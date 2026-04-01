@@ -1,0 +1,55 @@
+/* The background dim effect */
+.slider-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* Hidden by default */
+  z-index: 1000;
+}
+
+/* The actual slider panel */
+.slider-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 20px;
+  box-sizing: border-box;
+  
+  /* Start off-screen (100% down) */
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+}
+
+/* Visual handle for the slider */
+.slider-handle {
+  width: 40px;
+  height: 5px;
+  background: #ccc;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+}
+
+/* Active State */
+.slider-overlay.active {
+  display: block;
+}
+
+.slider-overlay.active .slider-content {
+  transform: translateY(0);
+}
+
+.dark-mode .slider-content {
+  background: #333;
+  color: #ccc;
+}
+
+.dark-mode .slider-handle {
+  background: #555;
+
+}

@@ -112,21 +112,19 @@
   color: #333;
   padding: 5px 5px;
   text-align: center;
+   border-right: 1px solid #eee;
 }
 .dark-mode .holiday-date {
   color: #aaa;
+  border-color: #444;
 }
 .holiday-name{
   display: block;
   color: #333;
   margin-top: 2px;
   padding: 5px 10px;
-  margin-left: 20px;
-  border-left: 1px solid #eee;
 }
-
-.dark-mode .holiday-name{
-  border-color: #444;
+.dark-mode .holiday-name {
   color: #aaa;
 }
 
@@ -145,10 +143,13 @@
     margin: 0px;
     border: none;
   } 
-  
-  .holiday-date{
-    width:25px;
-    min-width:25px;
+
+  .holiday-list{
+    padding: 5px 0px;
+  }
+  .holiday-name{
+    margin-left: 0px;
+    padding: 5px 10px;
   }
     
 } 

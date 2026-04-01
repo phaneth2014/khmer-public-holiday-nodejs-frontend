@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 export default function ProfileMenu() {
-    const user = localStorage.getItem('token') ? jwtDecode(localStorage.getItem('token')) : null;
+    const user = localStorage.getItem('token') ;
     useEffect(() => {
       const token = localStorage.getItem('token');
       if (token) {
