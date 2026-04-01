@@ -107,7 +107,7 @@
 .holiday-date {
   display: block;
   width:40px;
-  min-width:45px;
+  min-width:40px;
   font-weight: bold;
   color: #333;
   padding: 5px 5px;
@@ -145,5 +145,10 @@
     margin: 0px;
     border: none;
   } 
+  
+  .holiday-date{
+    width:30px;
+    min-width:30px;
+  }
     
 } 
