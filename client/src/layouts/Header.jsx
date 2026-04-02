@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <nav className="nav-header">
       <label className="menu-icon" onClick={menuToggle}>
-        ☰
+        ᯓ
       </label>
 
       <ul className={`${sidebar ? "sidebar" : "header-menu"}`}>
@@ -36,11 +36,7 @@ export default function Header() {
             <i className="bi bi-clock"></i> ព្រឹត្តិការណ៍ផ្សេងៗ
           </NavLink>
         </li>
-        <li>
-          <NavLink onClick={hideSidebar} to="/holys" title="holys">
-            <i className="bi bi-calendar"></i> ថ្ងៃសីល៍
-          </NavLink>
-        </li>
+   
         <li>
           <NavLink to="/exchange-rate" onClick={hideSidebar} title="exchange rate">
             <i className="bi bi-currency-exchange"></i> អត្រាប្តូរប្រាក់

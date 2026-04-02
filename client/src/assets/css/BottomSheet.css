@@ -49,14 +49,14 @@
 }
 
 .dark-mode .slider-handle {
-  background: #222;
+  background: #555;
 }
 
 @media screen and (max-width: 480px) {
   .slider-content {
-    min-height: 250px;
+    min-height: 220px;
     padding: 8px 10px;
-    width: 100%;
+    width: 95%;
   }
   
 }
