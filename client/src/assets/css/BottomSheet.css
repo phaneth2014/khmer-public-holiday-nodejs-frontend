@@ -44,12 +44,12 @@
 }
 
 .dark-mode .slider-content {
-  background: #333;
+  background: #222;
   color: #ccc;
 }
 
 .dark-mode .slider-handle {
-  background: #555;
+  background: #222;
 }
 
 @media screen and (max-width: 480px) {

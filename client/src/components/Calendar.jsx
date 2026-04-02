@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
 import {
   convertToKhmerNumerals,
-  checkOddEvenNum
+  checkOddEvenNum,
+  checkBuddhaDay,
 } from "../services/convertToKhmerNum";
 import momentkh from "@thyrith/momentkh";
 import SliderModel from "./SliderModel";
@@ -82,10 +83,12 @@ const Calendar = () => {
       year === new Date().getFullYear();
 
     let buddaDay = khmerDate.khmer.day == 8 || khmerDate.khmer.day == 15;
-    if(checkOddEvenNum(khmerDate.khmer.monthIndex + khmerDate.khmer.sak) === "Even" && khmerDate.khmer.moonPhase ==1 && khmerDate.khmer.day == 14){
-      buddaDay = 14;
-      console.log("Even day: ", khmerDate.khmer.day);
-    } 
+    if (khmerDate.khmer.moonPhase == 1 && khmerDate.khmer.day == 14) {
+      const isBuddhaDay = checkBuddhaDay(new Date(`${year}-${month + 1}-${d}`));
+      if (isBuddhaDay.day === 1) {
+        buddaDay = 14;
+      }
+    }
 
     if (
       holidays.some((holiday) => {

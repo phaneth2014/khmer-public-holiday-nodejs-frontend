@@ -1,3 +1,5 @@
+  import momentkh from "@thyrith/momentkh";
+
   const khMonths = [
     "មករា",
     "កុម្ភៈ",
@@ -27,8 +29,18 @@ export const convertToKhmerNumerals = (num) => {
 }
 
 export const checkOddEvenNum =(num)=>{
+  
   const result = (num % 2 === 0) ? "Even" : "Odd";
   return result;
+}
+
+export const checkBuddhaDay = (date) => {
+  let dd = date.getDate();
+  dd = (date.setDate(dd + 1));
+  const khmerDate = momentkh.fromDate(new Date(dd));
+
+  const isBuddhaDay = khmerDate.khmer;
+  return isBuddhaDay;
 }
 
 export const holyDayDates = () => {

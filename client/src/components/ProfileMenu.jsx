@@ -3,14 +3,16 @@ import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 export default function ProfileMenu() {
-    const user = localStorage.getItem('token') ;
+    const [user, setUser] = React.useState(null);
     useEffect(() => {
       const token = localStorage.getItem('token');
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setUser(token ? jwtDecode(token) : null);
       if (token) {
         const decodedToken = jwtDecode(token);
         if (decodedToken.exp * 1000 < Date.now()) {
           localStorage.removeItem('token');
-          this.user = null;
+          setUser(null);
         }
       }
     }, [user]);
