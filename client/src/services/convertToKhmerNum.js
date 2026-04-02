@@ -15,6 +15,25 @@
     "ធ្នូ",
   ];
 
+  const enMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+export const convertEngToKhmerMonth = (month) => {
+  return khMonths[enMonths.indexOf(month)] || "";
+}
+
  export const converToKhmerMonth = (monthIndex) => {
   return khMonths[monthIndex] || "";
 };

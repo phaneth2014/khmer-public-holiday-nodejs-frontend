@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Plus, ChevronRight, TrendingUp, TrendingDown } from "lucide-react";
+import CryptoPrice from "../components/CryptoPrice";
 
 // Mock data for the chart
 const data = [
@@ -27,6 +28,7 @@ const data = [
 export default function Market() {
   return (
     <div className="dashboard-container">
+
       {/* Top Summary Cards */}
       <div className="stats-grid">
         {[
