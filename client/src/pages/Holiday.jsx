@@ -58,7 +58,7 @@ export default function Holiday() {
         <div className="holiday-list-container">
           {Object.entries(holidays).map(([month, date]) => (
             <div key={month}>
-              <h3 className="khmer-font">{convertEngToKhmerMonth(month)} {convertToKhmerNumerals(year)}</h3>
+              <h3 className="khmer-font">{(month)} {(year)}</h3>
               <ul className="holiday-list">
                 {date.map((d, index) => (
                   <li key={index} style={{ background:"transparent" }}>
