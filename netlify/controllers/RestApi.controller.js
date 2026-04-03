@@ -2,9 +2,26 @@ import db from '../config/database.js';
 
 export const fetchExchangeRates = async (req, res) => {
     try {
-        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        const data = await response.json();
-        res.json(data);
+        const { date, rate } = req.query;
+        if (!date || !rate) {
+            console.error("Missing date or rate parameter");
+            return res.status(400).json({ error: "Missing date or rate parameter" });
+        }
+        // Further processing with the provided date and rate
+       const row = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates ORDER BY date DESC LIMIT 1');
+            const latestRate = (rate.rows[0].date);
+
+            if (latestRate === today) {
+                console.log("found:", rate.rows[0]);
+               res.status(200).json({ ...response[0], message: "Exchange rate found for today" });
+            } else {
+                console.log("not found", rate.rows[0], today, latestRate);                
+                const query = await db.query(`
+                    INSERT INTO exchange_rates (currency, rate, date, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *;
+                `, [response[0].currency, response[0].rate, today]);                
+                console.log(`Inserted ${query.rowCount} rows.`);                
+            }
+            res.status(200).json({ ...response[0], message: "Exchange rate fetched and stored successfully" });
     } catch (error) {
         console.error("Error fetching exchange rates:", error);
         res.status(500).json({ error: "Failed to fetch exchange rates" });

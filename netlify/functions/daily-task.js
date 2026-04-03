@@ -27,5 +27,5 @@ export default async (request, context) => {
 
 // Netlify Cron Config
 export const config = {
-  schedule: "0 * * * *" //Run every hour or hourly 0 * * * * # Runs every day at midnight UTC 0 0 * * *
+  schedule: "0 0 * * *" //Run every hour or hourly 0 * * * * # Runs every day at midnight UTC 0 0 * * *
 };
