@@ -1,5 +1,5 @@
 import db from '../config/database.js';
-import { fetchAndStoreNBCRates } from "./netlify/controllers/RestApi.controller.js";
+import { fetchAndStoreNBCRates } from "../controllers/RestApi.controller.js";
 
 export default async (request, context) => {
   try {
