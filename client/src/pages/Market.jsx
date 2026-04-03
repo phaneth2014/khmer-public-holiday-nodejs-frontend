@@ -87,7 +87,7 @@ export default function Market() {
                 <XAxis dataKey="day" hide />
                 <YAxis hide />
                 <Tooltip />
-                <Line type="monotone" dataKey="value" stroke="#10b981" strokeWidth={3} dot={false} />
+                <Line type="monotone" dataKey="value" stroke="#10b981" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>

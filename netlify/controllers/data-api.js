@@ -124,42 +124,50 @@ function addHoliday(data, day) {
     if (data.monthIndex == 5 && data.day == 4 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីច្រក់ព្រះនង្គ័ល (Royal Ploughing Ceremony)"
+            description: "ពិធីច្រក់ព្រះនង្គ័ល",
+            English: "Royal Ploughing Ceremony"
         });
     } else if (data.monthIndex == 5 && data.day == 15 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យវិសាខបូជា (Visakh Bochea Day)"
+            description: "ពិធីបុណ្យវិសាខបូជា",
+            English: "Visak Bochea Day"
         });
     } else if (data.monthIndex == 9 && data.day == 14 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី១ (Pchum Ben Day one)"
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 9 && data.day == 15 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី២ (Pchum Ben Day two)"
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 10 && data.day == 1 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌថ្ងៃទី៣ (Pchum Ben Day three)"
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 11 && data.day == 14 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី១ (Water Festival Day one)"
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី១",
+            English: "Water Festival Day"
         });
     } else if (data.monthIndex == 11 && data.day == 15 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី២ (Water Festival Day two)"
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី២ ",
+            English: "Water Festival Day "
         });
     } else if (data.monthIndex == 11 && data.day == 1 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី៣ (Water Festival Day three)"
+            description: "ពិធីបុណ្យភអ៊ុំទូកថ្ងៃទី៣",
+            English: "Water Festival Day"
         });
     }
 }
