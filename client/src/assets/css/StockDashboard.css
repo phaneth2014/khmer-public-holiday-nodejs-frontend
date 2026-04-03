@@ -22,8 +22,8 @@
 }
 
 .dark-mode .stat-card {
-  background: #1a1c3d;
-  border-color: #2c2f48;
+  background: #111;
+  border-color: #222;
   color: #e5e7eb;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .dark-mode .chart-card {
-  background: #1a1c3d;
+  background: #111;
   color: #e5e7eb;
   box-shadow: 0 1px 3px rgba(255,255,255,0.05);
 }
@@ -146,10 +146,11 @@
 
 
 .dark-mode .watchlist-card {
-  background: #1a1c3d;
+  background: #111;
   color: #e5e7eb;
   box-shadow: 0 1px 3px rgba(255,255,255,0.05);
 }
+
 .watchlist-header {
   display: flex;
   justify-content: space-between;
