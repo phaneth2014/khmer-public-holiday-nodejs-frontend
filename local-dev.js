@@ -11,6 +11,8 @@ import {
     requestHandler
 } from "./netlify/controllers/data.controller.js";
 
+import { fetchExchangeRates, fetchNBCRates } from "./netlify/controllers/RestApi.controller.js";
+
 import { register,login,checkToken } from "./netlify/controllers/auth.controller.js";
 
 const app = express();
@@ -20,6 +22,9 @@ app.use(express.json());
 
 app.get("/api/holidays", getHolidays);
 app.get("/api/exchange-rate", getExchangeRate);
+
+app.get("/api/fetch-exchange-rates", fetchExchangeRates);
+app.get("/api/fetch-nbc-rates", fetchNBCRates);
 
 app.post('/api/register', register);
 app.post('/api/login', login);
