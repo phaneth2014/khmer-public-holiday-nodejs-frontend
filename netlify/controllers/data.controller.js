@@ -73,6 +73,19 @@ export const getHolidays = async (req, res) => {
     }
 };
 
+function formatDate(date) {
+    return new Date(date).toLocaleString('en-CA', {
+        timeZone: 'Asia/Phnom_Penh',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    }).replace(',', '');
+}
+
 export const getExchangeRate = async (req, res) => {
     try {
         const date = req.query.date || new Date();
@@ -86,7 +99,7 @@ export const getExchangeRate = async (req, res) => {
             let data = result.rows;
 
             if (month) {
-               result = await pool.query('SELECT * FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
+                result = await pool.query('SELECT * FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
                 data = result.rows;
             }
             const exchangeRateData = [{
@@ -94,7 +107,17 @@ export const getExchangeRate = async (req, res) => {
                 "BHD": 350,
                 "date": date
             }];
-            res.status(201).json({ year,month:month||date.getMonth()+1,data, source: 'Nation Bank of Cambodia', message: "response successfully" });
+
+            const formattedRows = data.map(row => ({
+                ...row,
+                created_at: formatDate(row.created_at),
+                updated_at: formatDate(row.updated_at),
+                date: new Date(row.date).toISOString().split('T')[0] // Format date as YYYY-MM-DD
+            }));
+
+            res.json(formattedRows);
+
+            res.status(201).json({ year, month: month || date.getMonth() + 1, data, source: 'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }
