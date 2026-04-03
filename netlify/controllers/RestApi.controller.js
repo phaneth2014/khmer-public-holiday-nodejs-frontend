@@ -14,21 +14,25 @@ export const fetchExchangeRates = async (req, res) => {
 export const fetchNBCRates = async (req, res) => {
     try {
         const response = await fetchAndStoreNBCRates();
+        const today = new Date().toISOString().split('T')[0]; // Get current date in YYYY-MM-DD format
         if (response.length > 0) {
-            const rate = await db.query('SELECT * FROM exchange_rates ORDER BY date DESC LIMIT 1');
-            const latestRate = new Date(rate.rows[0].date).toISOString().split('T')[0];
+            const rate = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates ORDER BY id DESC LIMIT 1');
+            const latestRate = (rate.rows[0].date);
 
-            if (latestRate === response[0].date) {
-                console.log("Latest exchange rate:", rate.rows[0]);
+            if (latestRate === today) {
+                console.log("found:", rate.rows[0]);
+               
             } else {
+                console.log("not found", rate.rows[0], today, latestRate);
+                
                 const query = await db.query(`
                     INSERT INTO exchange_rates (currency, rate, date, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *;
-                `, [response[0].currency, response[0].rate, response[0].date]);
-
+                `, [response[0].currency, response[0].rate, today]);
+                
                 console.log(`Inserted ${query.rowCount} rows.`);
-                res.status(200).json(response, { message: "Exchange rate fetched and stored successfully" });
+                
             }
-            
+            res.status(200).json({ ...response[0], message: "Exchange rate fetched and stored successfully" });
         } else {
             res.status(404).json({ error: "No exchange rates found" });
         }

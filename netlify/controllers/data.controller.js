@@ -110,14 +110,13 @@ export const getExchangeRate = async (req, res) => {
 
             const formattedRows = data.map(row => ({
                 ...row,
-                created_at: formatDate(row.created_at),
-                updated_at: formatDate(row.updated_at),
+                rate: parseFloat(row.rate),
+                created_at: new Date(row.created_at).toISOString().replace('T', ' ').split('.')[0],
+                updated_at:  new Date(row.updated_at).toISOString().replace('T', ' ').split('.')[0],
                 date: new Date(row.date).toISOString().split('T')[0] // Format date as YYYY-MM-DD
             }));
 
-            res.json(formattedRows);
-
-            res.status(201).json({ year, month: month || date.getMonth() + 1, data, source: 'Nation Bank of Cambodia', message: "response successfully" });
+            res.status(201).json({ year, month: month || date.getMonth() + 1, formattedRows, source: 'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }

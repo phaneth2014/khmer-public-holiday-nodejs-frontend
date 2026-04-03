@@ -35474,7 +35474,15 @@ var getExchangeRate = async (req, res) => {
         "BHD": 350,
         "date": date
       }];
-      res.status(201).json({ year, month: month || date.getMonth() + 1, data, source: "Nation Bank of Cambodia", message: "response successfully" });
+      const formattedRows = data.map((row) => ({
+        ...row,
+        rate: parseFloat(row.rate),
+        created_at: new Date(row.created_at).toISOString().replace("T", " ").split(".")[0],
+        updated_at: new Date(row.updated_at).toISOString().replace("T", " ").split(".")[0],
+        date: new Date(row.date).toISOString().split("T")[0]
+        // Format date as YYYY-MM-DD
+      }));
+      res.status(201).json({ year, month: month || date.getMonth() + 1, formattedRows, source: "Nation Bank of Cambodia", message: "response successfully" });
     } else {
       res.status(500).json({ message: "data not found" });
     }
