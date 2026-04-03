@@ -18,8 +18,8 @@ export const fetchExchangeRates = async (req, res) => {
             const latestRate = (row.rows[0].date);
 
             if (latestRate === date) {
-                console.log("found:", row.rows[0]);
-               res.status(200).json({  message: "Exchange rate found for today" });
+                console.log("found:", row.rows[0], "Exchange rate already exists for today" );
+                res.status(200).json({  message: "Exchange rate already exists for today" });
             } else {
                 console.log("not found", row.rows[0], date, latestRate);                
                 const query = await db.query(`

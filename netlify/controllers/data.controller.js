@@ -95,11 +95,11 @@ export const getExchangeRate = async (req, res) => {
         if (date) {
             const pool = db.query ? db : db.default;
 
-            let result = await pool.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates WHERE date = $1', [date]);
+            let result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE date = $1', [date]);
             let data = result.rows;
 
             if (month) {
-                result = await pool.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
+                result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
                 data = result.rows;
             }
             const exchangeRateData = [{
@@ -111,12 +111,10 @@ export const getExchangeRate = async (req, res) => {
             const formattedRows = data.map(row => ({
                 ...row,
                 rate: parseFloat(row.rate),
-                created_at: new Date(row.created_at).toISOString().replace('T', ' ').split('.')[0],
-                updated_at:  new Date(row.updated_at).toISOString().replace('T', ' ').split('.')[0],
                 date: new Date(row.date).toISOString().split('T')[0] // Format date as YYYY-MM-DD
             }));
 
-            res.status(201).json({ year, month: month || date.getMonth() + 1, formattedRows, source: 'Nation Bank of Cambodia', message: "response successfully" });
+            res.status(201).json({ year, month: month || date.getMonth() + 1, date: date.toISOString ? date.toISOString().split('T')[0] : new Date().toISOString().split('T')[0], data: formattedRows, source: 'Nation Bank of Cambodia', message: "response successfully" });
         } else {
             res.status(500).json({ message: "data not found" });
         }

@@ -19,34 +19,48 @@ export default function DataApi() {
     "holidays": [
       {
         "date":"${now.getFullYear()+1}-01-01",
-        "description":"បុណ្យចូលឆ្នាំសាកល International New Year's Day"
+        "description":"បុណ្យចូលឆ្នាំសាកល",
+        "English":"International New Year's Day"
+      },
+      {
+        "date":"${now.getFullYear()+1}-01-07",
+        "description":"ទិវាជ័យជម្នះលើរបបប្រល័យពូជសាសន៍",
+        "English":"Victory Day"
       },
       {
         "date":"${now.getFullYear()+1}-04-14",
-        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ",
+        "English":"Khmer New Year's Day"
       },
       {
         "date":"${now.getFullYear()+1}-04-15",
-        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ",
+        "English":"Khmer New Year's Day"
       },
       {
         "date":"${now.getFullYear()+1}-04-16",
-        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ (Khmer New Year's Day)"
+        "description":"បុណ្យចូលឆ្នាំប្រពៃណីខ្មែរ",
+        "English":"Khmer New Year's Day"
       }
     ]
   }`;
   const exchange =`
   {
-    "date": "2026-03-23",
-    "currency": "KHR",
-    "exchange_rates": {
-      "USD": 4100,
-      "EUR": 4450,
-      "THB": 120
-    },
-    "source": "National Bank of Cambodia"
-  }`;
-  const exchange_month = `https://khmer-calendar.netlify.app/api/exchange-rate?month=3&year=2026`;
+    "year": 2026,
+    "month": 4,
+    "date": "2026-04-03",
+    "data": [
+        {
+            "id": "490",
+            "currency": "USD",
+            "rate": 4000,
+            "date": "2026-04-03"
+        }
+    ],
+    "source": "Nation Bank of Cambodia",
+    "message": "response successfully"
+}`;
+  const exchange_month = `https://khmer-calendar.netlify.app/api/exchange-rate?month=${now.getMonth() + 1}&year=${now.getFullYear()}`;
   const guideline = `
   async function getHoliday (){
     try{
