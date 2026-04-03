@@ -23,7 +23,7 @@ app.use(express.json());
 app.get("/api/holidays", getHolidays);
 app.get("/api/exchange-rate", getExchangeRate);
 
-app.get("/api/fetch-exchange-rates", fetchExchangeRates);
+app.get("/api/post-exchange-rate", fetchExchangeRates);
 app.get("/api/fetch-nbc-rates", fetchNBCRates);
 
 app.post('/api/register', register);
