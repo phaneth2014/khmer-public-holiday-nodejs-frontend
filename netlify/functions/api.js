@@ -29,7 +29,7 @@ const publicCors = cors({
 });
 
 const privateCors = cors({
-  origin: ["https://khmer-calendar.netlify.app"],
+  origin: ["https://khmer-calendar.netlify.app","http://116.212.129.18","http://175.100.112.35"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 });
@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 // Use public configuration
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
-app.get("/api/post-exchange-rate", publicCors, fetchExchangeRates);
+app.get("/api/post-exchange-rate", privateCors, fetchExchangeRates);
 
 app.get("/api/fetch-nbc-rates", privateCors, fetchNBCRates);
 // Use private configuration
