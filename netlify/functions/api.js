@@ -40,7 +40,7 @@ app.use(express.urlencoded({ extended: true }));
 // Use public configuration
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
-app.get("/api/post-exchange-rate", privateCors, fetchExchangeRates);
+app.post("/api/post-exchange-rate", privateCors, fetchExchangeRates);
 
 app.get("/api/fetch-nbc-rates", privateCors, fetchNBCRates);
 // Use private configuration

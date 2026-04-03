@@ -2,8 +2,9 @@ import db from '../config/database.js';
 
 export const fetchExchangeRates = async (req, res) => {
     try {
-    
-        const { date, rate } = req.query;
+        console.log("Received request to fetch exchange rates with body:", req.body);
+
+        const { date, rate } = req.body;
 
         if (!date || !rate) {
             console.error("Missing date or rate parameter");
@@ -13,7 +14,7 @@ export const fetchExchangeRates = async (req, res) => {
             console.log("Received date:", date, "and rate:", rate);
         }
         // Further processing with the provided date and rate
-       const row = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates ORDER BY date DESC LIMIT 1');
+       const row = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates WHERE date = $1 ORDER BY date DESC LIMIT 1', [date]);
             const latestRate = (row.rows[0].date);
 
             if (latestRate === date) {

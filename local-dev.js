@@ -1,6 +1,5 @@
 import express from "express";
 
-import cors from "cors";
 import { verifyToken } from "./netlify/middleware/auth.middleware.js";
 import {
     getData,
@@ -17,13 +16,13 @@ import { register,login,checkToken } from "./netlify/controllers/auth.controller
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/holidays", getHolidays);
 app.get("/api/exchange-rate", getExchangeRate);
 
-app.get("/api/post-exchange-rate", fetchExchangeRates);
+app.post("/api/post-exchange-rate", fetchExchangeRates);
 app.get("/api/fetch-nbc-rates", fetchNBCRates);
 
 app.post('/api/register', register);
