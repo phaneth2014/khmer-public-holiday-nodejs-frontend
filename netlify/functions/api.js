@@ -16,6 +16,7 @@ import {
 } from "../controllers/data.controller.js";
 
 import { register,login,checkToken,loginUser } from "../controllers/auth.controller.js";
+import {  fetchNBCRates } from "../controllers/RestApi.controller.js";
 
 dotenv.config()
 
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
 
+app.get("/api/fetch-nbc-rates", privateCors, fetchNBCRates);
 // Use private configuration
 app.post('/api/register', privateCors, register);
 app.post('/api/login', privateCors, login);

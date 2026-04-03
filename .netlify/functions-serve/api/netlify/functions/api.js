@@ -37321,6 +37321,47 @@ var loginUser = async (req, res) => {
   }
 };
 
+// netlify/controllers/RestApi.controller.js
+var fetchNBCRates = async (req, res) => {
+  try {
+    const response = await fetchAndStoreNBCRates();
+    const today2 = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+    if (response.length > 0) {
+      const rate = await database_default.query("SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates ORDER BY id DESC LIMIT 1");
+      const latestRate = rate.rows[0].date;
+      if (latestRate === today2) {
+        console.log("found:", rate.rows[0]);
+      } else {
+        console.log("not found", rate.rows[0], today2, latestRate);
+        const query = await database_default.query(`
+                    INSERT INTO exchange_rates (currency, rate, date, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *;
+                `, [response[0].currency, response[0].rate, today2]);
+        console.log(`Inserted ${query.rowCount} rows.`);
+      }
+      res.status(200).json({ ...response[0], message: "Exchange rate fetched and stored successfully" });
+    } else {
+      res.status(404).json({ error: "No exchange rates found" });
+    }
+  } catch (error) {
+    console.error("Error fetching NBC rates:", error);
+    res.status(500).json({ error: "Failed to fetch NBC rates" });
+  }
+};
+var fetchAndStoreNBCRates = async () => {
+  const response = await fetch("https://www.nbc.gov.kh/english/economic_research/exchange_rate.php");
+  const data = await response.text();
+  const content = data.indexOf("Official Exchange Rate");
+  if (content !== -1) {
+    const ratecontent = data.substring(content + 47, content + 51).trim();
+    const rateDate = (/* @__PURE__ */ new Date()).toISOString().split("T")[0];
+    const rate = parseInt(ratecontent.trim());
+    const arr = [{ date: rateDate, rate, currency: "USD", source: "NBC" }];
+    return arr;
+  } else {
+    throw new Error("Exchange rate not found in NBC response");
+  }
+};
+
 // netlify/functions/api.js
 import_dotenv6.default.config();
 var app = (0, import_express.default)();
@@ -37338,6 +37379,7 @@ app.use(import_express.default.json());
 app.use(import_express.default.urlencoded({ extended: true }));
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
+app.get("/api/fetch-nbc-rates", privateCors, fetchNBCRates);
 app.post("/api/register", privateCors, register);
 app.post("/api/login", privateCors, login);
 app.post("/api/login-user", privateCors, loginUser);
