@@ -14,7 +14,7 @@ export const fetchExchangeRates = async (req, res) => {
             console.log("Received date:", date, "and rate:", rate);
         }
         // Further processing with the provided date and rate
-       const row = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates WHERE date = $1 ORDER BY date DESC LIMIT 1', [date]);
+       const row = await db.query('SELECT id, currency, rate, date::text as date, created_at, updated_at FROM exchange_rates ORDER BY date DESC LIMIT 1');
             const latestRate = (row.rows[0].date);
 
             if (latestRate === date) {
