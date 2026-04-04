@@ -30,6 +30,7 @@ export const fetchExchangeRates = async (req, res) => {
             }
             
     } catch (error) {
+        console.log('request: ', req.body);
         console.error("Error fetching exchange rates:", error);
         res.status(500).json({ error: "Failed to fetch exchange rates" });
     }
