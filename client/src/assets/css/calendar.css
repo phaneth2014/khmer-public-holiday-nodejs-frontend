@@ -70,8 +70,8 @@
 
 /* Today highlight (matches your blue box) */
 .day.today {
-  background-color: #f69697;
-  color: white;
+  background-color: #f80303;
+  color: white !important;
   border-radius: 4px;
 }
 
