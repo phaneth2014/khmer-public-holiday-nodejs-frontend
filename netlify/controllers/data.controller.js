@@ -123,6 +123,43 @@ export const getExchangeRate = async (req, res) => {
     }
 };
 
+export const getExchangeRateLast7days = async (req, res) => {
+    try {
+        const date = req.query.date || new Date();
+        const month = req.query.month;
+        const year = req.query.year || new Date().getFullYear();
+
+        if (date) {
+            const pool = db.query ? db : db.default;
+
+            let result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE date = $1', [date]);
+            let data = result.rows;
+
+            if (month) {
+                result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2 ORDER BY date DESC LIMIT 7', [month, year]);
+                data = result.rows;
+            }
+            const exchangeRateData = [{
+                "USD": 4001,
+                "BHD": 350,
+                "date": date
+            }];
+
+            const formattedRows = data.map(row => ({
+                ...row,
+                rate: parseFloat(row.rate),
+                date: new Date(row.date).toISOString().split('T')[0] // Format date as YYYY-MM-DD
+            }));
+
+            res.status(201).json({ year, month: month || date.getMonth() + 1, date: date.toISOString ? date.toISOString().split('T')[0] : new Date().toISOString().split('T')[0], data: formattedRows, source: 'Nation Bank of Cambodia', message: "response successfully" });
+        } else {
+            res.status(500).json({ message: "data not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 export const getUsers = async (req, res) => {
     try {
         const pool = db.query ? db : db.default;

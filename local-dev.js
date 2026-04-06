@@ -8,7 +8,8 @@ import {
     getExchangeRate,
     getUsers,
     getUsersList,
-    requestHandler
+    requestHandler,
+    getExchangeRateLast7days
 } from "./netlify/controllers/data.controller.js";
 
 import { fetchExchangeRates, fetchNBCRates } from "./netlify/controllers/RestApi.controller.js";
@@ -27,7 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/holidays", getHolidays);
-app.get("/api/exchange-rate", getExchangeRate);
+app.get("/api/exchange-rate",privateCors, getExchangeRate);
+app.get("/api/last-exchange-rate",privateCors, getExchangeRateLast7days);
 
 app.post("/api/post-exchange-rate", fetchExchangeRates);
 app.get("/api/fetch-nbc-rates", fetchNBCRates);

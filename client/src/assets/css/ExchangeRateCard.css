@@ -156,6 +156,10 @@
   padding-top: 24px;
 }
 
+.dark-mode .card-footer{
+  border-color: #222;
+}
+
 .add-btn {
   display: flex;
   align-items: center;

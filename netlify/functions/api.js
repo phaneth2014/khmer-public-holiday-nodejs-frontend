@@ -8,6 +8,7 @@ import {
     getData,
     getHolidays,
     getExchangeRate,
+    getExchangeRateLast7days,
     getUsers,
     getUsersList,
     requestHandler,
@@ -40,6 +41,8 @@ app.use(express.urlencoded({ extended: true }));
 // Use public configuration
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
+
+app.get("/api/last-exchange-rate", privateCors, getExchangeRateLast7days);
 app.post("/api/post-exchange-rate", privateCors, fetchExchangeRates);
 
 app.get("/api/fetch-nbc-rates", privateCors, fetchNBCRates);

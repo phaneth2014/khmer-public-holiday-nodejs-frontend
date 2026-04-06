@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
 import {
-  convertToKhmerNumerals,convertNumString
+  convertToKhmerNumerals,convertNumString,convertEngToKhmerMonth
 } from "../services/convertToKhmerNum.js";
 
 export default function Holiday() {
@@ -22,7 +22,7 @@ export default function Holiday() {
       const groupedByMonth = Object.groupBy(sortedHolidays, ({ date }) => {
         const d = new Date(date);
         // Returns month name (e.g., "January")
-        return d.toLocaleString("km-KH", { month: "long" });
+        return d.toLocaleString("en-EN", { month: "long" });
       });
 
       // console.log(groupedByMonth);
@@ -53,11 +53,11 @@ export default function Holiday() {
         className="holiday-list-ui"
         style={{ border: "none", width: "100%" }}
       >
-        <h3 className="khmer-font">ពព្រឹត្តិការណ៍ប្រចាំឆ្នាំ {convertToKhmerNumerals(year)}</h3>
+      
         <div className="holiday-list-container">
           {Object.entries(holidays).map(([month, date]) => (
             <div key={month}>
-              <h3 className="khmer-font">{(month)} {convertToKhmerNumerals(year)}</h3>
+              <h3 className="khmer-font">{convertEngToKhmerMonth(month)} {convertToKhmerNumerals(year)}</h3>
               <ul className="holiday-list">
                 {date.map((d, index) => (
                   <li key={index} style={{ background:"transparent" }}>
