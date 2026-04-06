@@ -15,7 +15,8 @@ export default function ProfileMenu() {
           setUser(null);
         }
       }
-    }, [user]);
+      console.log(token)
+    }, []);
   return (
     <>{user && <li>
           <NavLink to="/settings" title="Settings">

@@ -38,6 +38,10 @@ export const convertEngToKhmerMonth = (month) => {
   return khMonths[monthIndex] || "";
 };
 
+export const convertNumString =(num)=> {
+    return String(num).padStart(2, '0');
+}
+
 export const convertToKhmerNumerals = (num) => {
   const khmerDigits = ["០", "១", "២", "៣", "៤", "៥", "៦", "៧", "៨", "៩"];
   return num

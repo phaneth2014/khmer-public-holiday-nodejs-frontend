@@ -99,7 +99,7 @@ export const getExchangeRate = async (req, res) => {
             let data = result.rows;
 
             if (month) {
-                result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2', [month, year]);
+                result = await pool.query('SELECT id, currency, rate, date::text as date FROM exchange_rates WHERE EXTRACT(MONTH FROM date) = $1 AND EXTRACT(YEAR FROM date) = $2 ORDER BY date DESC', [month, year]);
                 data = result.rows;
             }
             const exchangeRateData = [{

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/calendar.css";
 import {
-  convertToKhmerNumerals
+  convertToKhmerNumerals,convertNumString
 } from "../services/convertToKhmerNum.js";
 
 export default function Holiday() {
@@ -57,12 +57,12 @@ export default function Holiday() {
         <div className="holiday-list-container">
           {Object.entries(holidays).map(([month, date]) => (
             <div key={month}>
-              <h3 className="khmer-font">{(month)} </h3>
+              <h3 className="khmer-font">{(month)} {convertToKhmerNumerals(year)}</h3>
               <ul className="holiday-list">
                 {date.map((d, index) => (
                   <li key={index} style={{ background:"transparent" }}>
-                    <span className="holiday-date" style={{ fontSize: "24px", fontWeight: "bold" }}>
-                      {new Date(d.date).getDate()}
+                    <span className="holiday-date" style={{ fontSize: "20px", fontWeight: "bold" }}>
+                      { convertNumString(new Date(d.date).getDate())}
                     </span>{" "}
                     <span className="holiday-name">{d.description}</span>
                   </li>
