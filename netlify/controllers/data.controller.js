@@ -141,7 +141,7 @@ export const getExchangeRateLast7days = async (req, res) => {
                         SELECT id, currency, rate, date
                         FROM exchange_rates
                         ORDER BY date DESC
-                        LIMIT 7
+                        LIMIT 8
                     ) sub
                     ORDER BY date ASC;`);
                 data = result.rows;

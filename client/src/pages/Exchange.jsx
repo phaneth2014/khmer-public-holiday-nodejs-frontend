@@ -8,6 +8,7 @@ import {
   Minus,
 } from "lucide-react";
 import MyChart from "../components/MyChart";
+import  USD from '../assets/images/usd-khr.svg';
 
 export default function Exchange() {
   const [exchange, setExchange] = useState([]);
@@ -21,7 +22,6 @@ export default function Exchange() {
       ? import.meta.env.VITE_APP_URL
       : import.meta.env.VITE_BACKEND_URL;
 
-  console.log(baseUrl);
 
   useEffect(() => {
     const getData = async () => {
@@ -66,10 +66,11 @@ export default function Exchange() {
 
         {/* Currency List */}
         <div className="currency-list">
-          {currency.map((c) => (
+          {currency.map((c,i) => ( i<6 &&
+            
             <div key={c.id} className="currency-row">
               <div className="currency-info">
-                <div className="flag-circle">{"us"}</div>
+                <div className="flag-circle"><img src={USD} width="20" height="20" /></div>
                 <div className="currency-name">{"KHR/USD"}</div>
               </div>
 
@@ -77,7 +78,21 @@ export default function Exchange() {
                 <span className="change-value">{c.date}</span>
               </div>
 
-              <div className="rate-cell">{c.rate}</div>
+              <div className="rate-cell">
+                {i<6 && (<div>
+                  <div className="trend-icon" style={{ backgroundColor: c.rate > currency[i+1].rate ? '#f0fdf4' : '#fef2f2' }}>
+                  {c.rate > currency[i+1].rate ? (
+                    <ArrowUpRight size={10} color="#22c55e" />
+                  ) : (
+                    <ArrowDownRight size={10} color="#ef4444" />
+                  )}
+                   <span className="change-value" style={{ color: c.rate > currency[i+1].rate ? '#22c55e' : '#f87171' }}>
+                  
+                </span>
+                </div>
+               
+                </div>)}
+                {c.rate}</div>
             </div>
           ))}
         </div>
