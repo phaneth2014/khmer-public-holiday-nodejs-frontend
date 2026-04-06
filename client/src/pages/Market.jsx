@@ -80,7 +80,7 @@ export default function Market() {
             ))}
           </div>
 
-          <div style={{ height: 300 }}>
+          <div style={{ height: 300, width:"100%" }}>
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={data}>
                 <CartesianGrid vertical={false} stroke="#f1f3f5" />

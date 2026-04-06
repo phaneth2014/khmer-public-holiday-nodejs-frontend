@@ -7,10 +7,11 @@ import {
   ArrowDownRight,
   Minus,
 } from "lucide-react";
+import MyChart from "../components/MyChart";
 
 export default function Exchange() {
-  const [activeTab, setActiveTab] = useState("Exchange Rates");
   const [exchange, setExchange] = useState([]);
+  const [currency, setCurrency] = useState([]);
 
   const year = new Date().getFullYear();
   const month = new Date().getMonth();
@@ -22,65 +23,6 @@ export default function Exchange() {
 
   console.log(baseUrl);
 
-  let currencies = [
-    {
-      id: "EUR",
-      name: "Euro",
-      flag: "🇪🇺",
-      change: "+ 3%",
-      trend: "up",
-      rate: "1.17424",
-    },
-    {
-      id: "USD",
-      name: "American dollar",
-      flag: "🇺🇸",
-      change: "- 0.1",
-      trend: "down",
-      rate: "1.27375",
-    },
-    {
-      id: "GBP",
-      name: "British Pound",
-      flag: "🇬🇧",
-      change: "- 0.2%",
-      trend: "down",
-      rate: "0.85162",
-    },
-    {
-      id: "CAD",
-      name: "Canadian dollar",
-      flag: "🇨🇦",
-      change: "+ 0.1%",
-      trend: "up",
-      rate: "1.48218",
-    },
-    {
-      id: "SEK",
-      name: "Swedish kronor",
-      flag: "🇸🇪",
-      change: "+ 0.2%",
-      trend: "up",
-      rate: "13.59391",
-    },
-    {
-      id: "NOK",
-      name: "Norwegian kroner",
-      flag: "🇳🇴",
-      change: "- 0.1%",
-      trend: "down",
-      rate: "13.66425",
-    },
-    {
-      id: "DKK",
-      name: "Danish kroner",
-      flag: "🇩🇰",
-      change: "+ 1.2%",
-      trend: "up",
-      rate: "8.76116",
-    },
-  ];
-
   useEffect(() => {
     const getData = async () => {
       const res = await fetch(
@@ -88,6 +30,12 @@ export default function Exchange() {
       ).then((res) => res.json());
 
       setExchange(res.data);
+
+      const sorted = [...res.data].sort(
+        (a, b) => new Date(b.date) - new Date(a.date),
+      );
+
+      setCurrency(sorted);
     };
     getData();
   }, [year, month]);
@@ -97,65 +45,36 @@ export default function Exchange() {
       <div className="exchange-card">
         {/* Header */}
         <div className="card-header">
-          <h2>Exchange Rates</h2>
+          <h2 className="khmer-font">អាត្រាប្តូរប្រាក់ដុល្លារ</h2>
         </div>
 
-        {/* Tab Toggle */}
-        <div className="tab-container">
-          {["Currency Calculator", "Exchange Rates"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`tab-btn ${activeTab === tab ? "active" : ""}`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
+        <MyChart data={exchange} />
         {/* List Header */}
         <div className="list-section">
-          <h3>Popular</h3>
+          <h3 className="khmer-font">បង្ហាញរយៈពេល ៧ថ្ងៃចុងក្រោយ</h3>
           <div className="table-header">
             <div>Currency</div>
-            <div style={{ textAlign: "center" }}>
-              Change{" "}
-              <span style={{ color: "#fca5a5", fontSize: "8px" }}>CHF</span>
+            <div className="khmer-font" style={{ textAlign: "center" }}>
+              ថ្ងៃខែឆ្នាំ{" "}
+              <span style={{ color: "#fca5a5", fontSize: "8px" }}></span>
             </div>
-            <div style={{ textAlign: "right" }}>Rate</div>
+            <div className="khmer-font" style={{ textAlign: "right" }}>
+              អាត្រា
+            </div>
           </div>
         </div>
 
         {/* Currency List */}
         <div className="currency-list">
-          {currencies.map((c) => (
+          {currency.map((c) => (
             <div key={c.id} className="currency-row">
               <div className="currency-info">
-                <div className="flag-circle">{c.flag}</div>
-                <div className="currency-name">
-                  {c.id} <span className="currency-full-name">- {c.name}</span>
-                </div>
+                <div className="flag-circle">{"us"}</div>
+                <div className="currency-name">{"KHR/USD"}</div>
               </div>
 
               <div className="change-cell">
-                <div
-                  className="trend-icon"
-                  style={{
-                    backgroundColor: c.trend === "up" ? "#f0fdf4" : "#fef2f2",
-                  }}
-                >
-                  {c.trend === "up" ? (
-                    <ArrowUpRight size={10} color="#22c55e" />
-                  ) : (
-                    <ArrowDownRight size={10} color="#ef4444" />
-                  )}
-                </div>
-                <span
-                  className="change-value"
-                  style={{ color: c.trend === "up" ? "#22c55e" : "#f87171" }}
-                >
-                  {c.change}
-                </span>
+                <span className="change-value">{c.date}</span>
               </div>
 
               <div className="rate-cell">{c.rate}</div>
