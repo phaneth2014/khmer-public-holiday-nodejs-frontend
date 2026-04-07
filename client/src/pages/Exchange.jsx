@@ -66,7 +66,7 @@ export default function Exchange() {
 
         {/* Currency List */}
         <div className="currency-list">
-          {currency.map((c,i) => ( i<6 &&
+          {currency.map((c,i) => ( i<7 &&
             
             <div key={c.id} className="currency-row">
               <div className="currency-info">
@@ -79,7 +79,7 @@ export default function Exchange() {
               </div>
 
               <div className="rate-cell">
-                {i<6 && (<div>
+                {i<7 && (<div>
                   <div className="trend-icon" style={{ backgroundColor: c.rate > currency[i+1].rate ? '#f0fdf4' : '#fef2f2' }}>
                   {c.rate > currency[i+1].rate ? (
                     <ArrowUpRight size={10} color="#22c55e" />
