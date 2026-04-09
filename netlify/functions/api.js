@@ -13,7 +13,8 @@ import {
     getUsersList,
     requestHandler,
     checkEnv,
-   pgconnection
+   pgconnection,
+   storeDeviceTracking
 } from "../controllers/data.controller.js";
 
 import { register,login,checkToken,loginUser } from "../controllers/auth.controller.js";
@@ -41,6 +42,8 @@ app.use(express.urlencoded({ extended: true }));
 // Use public configuration
 app.get("/api/holidays", publicCors, getHolidays);
 app.get("/api/exchange-rate", publicCors, getExchangeRate);
+
+app.post('/api/track-device', privateCors, storeDeviceTracking);
 
 app.get("/api/last-exchange-rate", privateCors, getExchangeRateLast7days);
 app.post("/api/post-exchange-rate", privateCors, fetchExchangeRates);

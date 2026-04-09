@@ -189,3 +189,46 @@ export const getUsersList = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const storeDeviceTracking = async (req, res) => {
+    const {
+        ip_address,
+        device_type,
+        os_name,
+        browser_name,
+        browser_version,
+        city,
+        isp,
+        user_agent
+    } = req.body;    
+
+    const queryText = `
+    INSERT INTO device_trackings (
+      ip_address, device_type, os_name, browser_name, 
+      browser_version, city, isp, user_agent
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+    RETURNING id;
+  `;
+
+    const values = [
+        ip_address,
+        device_type,
+        os_name,
+        browser_name,
+        browser_version,
+        city,
+        isp,
+        user_agent
+    ];
+
+    try {
+        const result = await sql.query(queryText, values);
+        res.status(201).json({
+            success: true,
+            tracking_id: result.rows[0].id
+        });
+    } catch (err) {
+        console.error('Database Error:', err);
+        res.status(500).json({ error: 'Failed to log device data' });
+    }
+};

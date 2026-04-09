@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import ThemeToggle from "../components/ThemeToggle";
 import ProfileMenu from "../components/ProfileMenu";
 
+
 export default function Header() {
   const [sidebar, setSidebar] = useState(false);
 
@@ -15,6 +16,26 @@ export default function Header() {
     setSidebar(false);
   }
 
+  const saveTrackingData = async (data) => {
+  try {
+    await fetch(`${import.meta.env.VITE_APP_URL}/api/track-device`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ip_address: data.ip,      // from ipapi.co
+        device_type: data.type,   // from react-device-detect
+        os_name: data.os,
+        browser_name: data.browser,
+        user_agent: navigator.userAgent,
+        // ... include other fields
+      }),
+    });
+  } catch (error) {
+    console.error("Storage failed", error);
+  }
+};
+
+saveTrackingData();
   return (
     <nav className="nav-header">
       <label className="menu-icon" onClick={menuToggle}>
@@ -68,7 +89,7 @@ export default function Header() {
         <li>
           <ThemeToggle />
         </li>
-
+          
         <ProfileMenu/>
       </ul>
     </nav>

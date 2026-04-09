@@ -1,4 +1,6 @@
 import React from "react";
+import DeviceMonitor from "../components/DeviceMonitor";
+import IPTracker from "../components/IPTracker";
 
 export default function About() {
   return (
@@ -48,6 +50,8 @@ export default function About() {
         បើអ្នកមានសំណួរ ឬចង់ផ្តល់មតិយោបល់ សូមទំនាក់ទំនងមកយើងខ្ញុំតាមរយៈអ៊ីមែល{" "}
         <a href="mailto:phaneth2014@gmail.com">phaneth2014@gmail.com</a>
       </p>
+      <DeviceMonitor />
+      <IPTracker/>
     </section>
   );
 }
