@@ -1,13 +1,13 @@
 import sql from '../config/db.js';
 
 export const Rate = {
-    async create({ rates, date }) {
-        const [rate] = await sql`
+   async create({ rate, date }) { // Changed 'rates' to 'rate'
+        const [result] = await sql`
             INSERT INTO exchange_rates (rate, date)
-            VALUES (${rates}, ${date})
+            VALUES (${rate}, ${date})
             RETURNING id, rate, date
         `;
-        return user;
+        return result;
     },
 
     async findByDate(date) {
@@ -18,14 +18,14 @@ export const Rate = {
     },
 
     async findAll() {
-        const [rates] = await sql`
-            SELECT id, currency,rate,date::text as date FROM exchange_rates 
+        const rates = await sql`
+            SELECT * FROM exchange_rates 
         `;
         return rates;
     },
 
     async findLast7Day(){
-        const [rates] = await sql`
+        const rates = await sql`
             SELECT id, currency, rate, date::text as date
                     FROM (
                         SELECT id, currency, rate, date

@@ -1,5 +1,5 @@
 import db from '../config/db.js';
-import {Rate} from '../models/exchangerate.js';
+import { Rate } from '../models/exchangerate.js';
 
 export const fetchExchangeRates = async (req, res) => {
     try {
@@ -11,28 +11,25 @@ export const fetchExchangeRates = async (req, res) => {
             console.error("Missing date or rate parameter");
             return res.status(400).json({ error: "Missing date or rate parameter" });
         }
-        if(date && rate) {
-            console.log("Received date:", date, "and rate:", rate);
-        }
-        // Further processing with the provided date and rate
-            const row = await Rate.findByDate(date);
-            const getdate = new Date(row.date).toISOString().split('T')[0];
-            console.log(row.date,getdate);
-            const latestRate = getdate;
 
-            if (latestRate === date) {
-                console.log("found:", row, "Exchange rate already exists for today" );
-                res.status(200).json({  message: "Exchange rate already exists for today" });
-            } else {
-                console.log("not found", row, date, latestRate);                
-                // const query = await Rate.create(rate,date);          
-                // console.log(`Inserted ${query.rowCount} rows.`);               
-                res.status(200).json({  message: "Exchange rate fetched and stored successfully" }); 
-            }
+        // const row = Rate.findByDate(date);
+
+        // if(row){
+        //    return res.status(200).json({ message: "Exchange rate already exist for today", row });
             
+        // }
+
+        if (date && rate) {
+            console.log("Received date:", date, "and rate:", rate);
+            const query = await Rate.create({ rate, date });
+            console.log(`Inserted ${query.rowCount} rows.`);
+           return res.status(200).json({ message: "Exchange rate fetched and stored successfully" });
+        }
+       
+
     } catch (error) {
         console.log('request: ', req.body);
-        console.error("Error fetching exchange rates:", error);
+        // console.error("Error fetching exchange rates:", error);
         res.status(500).json({ error: "Failed to fetch exchange rates" });
     }
 };
@@ -47,16 +44,16 @@ export const fetchNBCRates = async (req, res) => {
 
             if (latestRate === today) {
                 console.log("found:", rate.rows[0]);
-               
+
             } else {
                 console.log("not found", rate.rows[0], today, latestRate);
-                
+
                 const query = await db.query(`
                     INSERT INTO exchange_rates (currency, rate, date, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING *;
                 `, [response[0].currency, response[0].rate, today]);
-                
+
                 console.log(`Inserted ${query.rowCount} rows.`);
-                
+
             }
             res.status(200).json({ ...response[0], message: "Exchange rate fetched and stored successfully" });
         } else {
