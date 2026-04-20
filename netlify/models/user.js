@@ -1,16 +1,26 @@
 import sql from '../config/db.js';
 
-export default class User {
-  static async create({ name, email }) {
-    const result = await sql.query(
-      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-      [name, email]
-    );
-    return result.rows[0];
-  }
+export const User = {
+    async create({ name, email, password }) {
+        const [user] = await sql`
+            INSERT INTO users (name, email, password)
+            VALUES (${name}, ${email}, ${password})
+            RETURNING id, name, email
+        `;
+        return user;
+    },
 
-  static async findAll() {
-    const result = await sql.query('SELECT * FROM users');
-    return result.rows;
-  }
-}
+    async findByEmail(email) {
+        const [user] = await sql`
+            SELECT * FROM users WHERE email = ${email}
+        `;
+        return user;
+    },
+
+    async findAll() {
+        const [user] = await sql`
+            SELECT id, name, email, created_at, updated_at, uuid FROM users 
+        `;
+        return user;
+    }
+};

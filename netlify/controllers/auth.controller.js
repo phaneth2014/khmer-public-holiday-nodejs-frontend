@@ -1,91 +1,140 @@
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'; // Use bcryptjs for better compatibility
 import dotenv from "dotenv";
-import pool from "../config/database.js";
+import pool from "../config/db.js";
+import { User } from "../models/user.js";
 
 dotenv.config();
 
-export async function register(req, res) {
+const JWT_SECRET = process.env.JWT_SECRET || '4a73bb24-f705-48e4-aa5e-8356245cfb5a';
+const JWT_EXPIRED = process.env.JWT_EXPIRES_IN || '1d';
+
+export const register = async (req, res) => {
+  const { name, email, password, confirmPassword } = req.body;
+
   try {
-    const { name, email, password, confirmPassword } = req.body;
 
     // 1. Validation
     if (password !== confirmPassword) {
       return res.status(400).json({ message: "Passwords do not match!" });
     }
-
-    // 2. Check existence
-    const checkUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-    if (checkUser.rows.length > 0) {
-      return res.status(409).json({ message: "User already exists with this email!" });
-    }
-
-    // 3. Hash
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    // 4. Insert (Note the variable name change to 'result' for clarity)
-    const result = await pool.query(
-      'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, name, email, role',
-      [name, email, hashedPassword, 'user'] // Default role added
-    );
-
-    // Extract the actual user record
-    const user = result.rows[0];
-
-    // 5. Sign Token (Using the data from 'user')
-    const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
-    );
-
-    // 6. Success Response
-    res.status(201).json({
-      token,
-      data: user, // Sends back the user info without the password
-      message: "Registration successful!"
-    });
-
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({ name, email, password: hashedPassword });
+    const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRED });
+    res.status(201).json({ message: "User registered", data:user, token });
   } catch (err) {
-    console.error("Register Error:", err);
-    res.status(500).json({ error: "Internal Server Error", message: err });
+    res.status(500).json({ error: "Registration failed or email exists" });
   }
-}
+};
 
-export async function login(req, res) {
-  try {
+export const login = async (req, res) => {
     const { email, password } = req.body;
-    const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    try {
+        const user = await User.findByEmail(email);
+        if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
-    if (result.rows.length === 0) {
-      return res.status(401).json({ message: "Invalid email or password" });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
+
+        const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRED });
+        res.status(200).json({ data: user, token, message: "Logon your user successed" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const users = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.status(201).json({ message: "Users", users });
+    } catch (err){
+        res.status(500).json({ error: err.message });
     }
 
-    const user = result.rows[0];
+};
 
-    // Laravel hashes often start with $2y$. 
-    // bcryptjs handles $2y$ and $2b$ identically.
-    const isMatch = await bcrypt.compare(password, user.password);
+// export async function register(req, res) {
+//   try {
+//     const { name, email, password, confirmPassword } = req.body;
 
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
+//     // 1. Validation
+//     if (password !== confirmPassword) {
+//       return res.status(400).json({ message: "Passwords do not match!" });
+//     }
 
-    // Success...
-    const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
-      process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
-      { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
-    );
+//     // 2. Check existence
+//     const checkUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+//     if (checkUser.rows.length > 0) {
+//       return res.status(409).json({ message: "User already exists with this email!" });
+//     }
 
-    delete user.password;
-    res.status(200).json({ data: user, token, message: "Logon your user successed" });
+//     // 3. Hash
+//     const saltRounds = 10;
+//     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-  } catch (err) {
-    res.status(500).json({ error: "Internal Server Error", message:err });
-  }
-}
+//     // 4. Insert (Note the variable name change to 'result' for clarity)
+//     const result = await pool.query(
+//       'INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id, name, email, role',
+//       [name, email, hashedPassword, 'user'] // Default role added
+//     );
+
+//     // Extract the actual user record
+//     const user = result.rows[0];
+
+//     // 5. Sign Token (Using the data from 'user')
+//     const token = jwt.sign(
+//       { id: user.id, email: user.email, role: user.role },
+//       process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
+//       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
+//     );
+
+//     // 6. Success Response
+//     res.status(201).json({
+//       token,
+//       data: user, // Sends back the user info without the password
+//       message: "Registration successful!"
+//     });
+
+//   } catch (err) {
+//     console.error("Register Error:", err);
+//     res.status(500).json({ error: "Internal Server Error", message: err });
+//   }
+// }
+
+// export async function login(req, res) {
+//   try {
+//     const { email, password } = req.body;
+//     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+
+//     if (result.rows.length === 0) {
+//       return res.status(401).json({ message: "Invalid email or password" });
+//     }
+
+//     const user = result.rows[0];
+
+//     // Laravel hashes often start with $2y$. 
+//     // bcryptjs handles $2y$ and $2b$ identically.
+//     const isMatch = await bcrypt.compare(password, user.password);
+
+//     if (!isMatch) {
+//       return res.status(401).json({ message: "Invalid email or password" });
+//     }
+
+//     // Success...
+//     const token = jwt.sign(
+//       { id: user.id, email: user.email, role: user.role },
+//       process.env.JWT_SECRET || "4a73bb24-f705-48e4-aa5e-8356245cfb5a",
+//       { expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
+//     );
+
+//     delete user.password;
+//     res.status(200).json({ data: user, token, message: "Logon your user successed" });
+
+//   } catch (err) {
+//     res.status(500).json({ error: "Internal Server Error", message: err });
+//   }
+// }
 
 export const checkToken = async (req, res) => {
   const authHeader = req.headers['authorization'];
@@ -100,7 +149,7 @@ export const checkToken = async (req, res) => {
 
     console.log(`Expires at: ${expirationDate}`);
     console.log(`Is it expired? ${isExpired}`);
-    res.status(200).json({ decoded,expire_at:expirationDate,token, message: "success" });
+    res.status(200).json({ decoded, expire_at: expirationDate, token, message: "success" });
   }
 }
 
@@ -115,7 +164,7 @@ export async function getUsers(req, res) {
 
 export async function getCheck(req, res) {
   try {
-        res.status(200).json({message:"users route is working from user controller"});
+    res.status(200).json({ message: "users route is working from user controller" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -1,6 +1,6 @@
 
 import User from '../models/user.js';
-import pool from '../config/database.js';
+import pool from '../config/db.js';
 
 export async function createUser(req, res) {
   try {
