@@ -10,12 +10,19 @@
 
 # 1. Specific rule for the IP lookup (Bypasses AdBlockers)
 [[redirects]]
-  from = "/api/get-ip"
+  from = "/api/get-location"
   to = "https://ipapi.co/json/"
   status = 200
   force = true
 
-# backend 2. Your existing wildcard rule for other functions
+# 2. Specific rule for the IP lookup (Bypasses AdBlockers)
+[[redirects]]
+  from = "/api/get-ip"
+  to = "https://api.ipify.org?format=json"
+  status = 200
+  force = true
+
+# backend 3. Your existing wildcard rule for other functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"

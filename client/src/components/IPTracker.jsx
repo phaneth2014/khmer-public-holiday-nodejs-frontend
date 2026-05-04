@@ -8,9 +8,16 @@ const IPTracker = () => {
     fetch('https://khmer-calendar.netlify.app/api/get-ip')
       .then(res => res.json())
       .then(json => {
-        setData({ ip: json.ip, isp: json.org, city: json.city, country: json.country, lat: json.lat, lon: json.lon });
+        setData({ ip: json.ip, isp: json.org,  });
       })
-      .catch(() => setData({ ip: 'Blocked by AdBlocker', isp: 'N/A', city: 'Unknown', country: 'Unknown', lat: 'Unknown', lon: 'Unknown' }));
+      .catch(() => setData({ ip: 'Blocked by AdBlocker', isp: 'N/A' }));
+
+    fetch('https://khmer-calendar.netlify.app/api/get-location')
+      .then(res => res.json())
+      .then(json => {
+        setData(prev => ({ ...prev, isp: json.isp, city: json.city, country: json.country, lat: json.lat, lon: json.lon }));
+      })
+      .catch(() => setData(prev => ({ ...prev, isp: 'N/A', city: 'Unknown', country: 'Unknown', lat: 'Unknown', lon: 'Unknown' })));
   }, []);
 
   return (
