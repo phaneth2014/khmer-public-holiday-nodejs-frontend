@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { Plus, ChevronRight, TrendingUp, TrendingDown } from "lucide-react";
 import CryptoPrice from "../components/CryptoPrice";
+import IPTracker from "../components/IPTracker";
 
 // Mock data for the chart
 const data = [
@@ -121,7 +122,9 @@ export default function Market() {
             </div>
           ))}
         </div>
+         <IPTracker/>
       </div>
+     
     </div>
   );
 }

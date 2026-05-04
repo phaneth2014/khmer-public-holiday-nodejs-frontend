@@ -5,7 +5,7 @@ const IPTracker = () => {
 
   useEffect(() => {
     // Fetching from a secure IP service
-    fetch('https://ipapi.co/json/')
+    fetch('https://api.ipify.org/?format=json')
       .then(res => res.json())
       .then(json => {
         setData({ ip: json.ip, isp: json.org });

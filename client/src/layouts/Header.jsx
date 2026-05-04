@@ -16,27 +16,7 @@ export default function Header() {
     setSidebar(false);
   }
 
-  const saveTrackingData = async (data) => {
-  try {
-    await fetch(`${import.meta.env.VITE_APP_URL}/api/track-device`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ip_address: data.ip,      // from ipapi.co
-        device_type: data.type,   // from react-device-detect
-        os_name: data.os,
-        browser_name: data.browser,
-        user_agent: navigator.userAgent,
-        // ... include other fields
-      }),
-    });
-  } catch (error) {
-    console.error("Storage failed", error);
-  }
-};
-
-saveTrackingData();
-  return (
+   return (
     <nav className="nav-header">
       <label className="menu-icon" onClick={menuToggle}>
         ᯓ
