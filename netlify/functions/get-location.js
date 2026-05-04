@@ -3,7 +3,8 @@ import axios  from "axios";
 exports.handler = async (event, context) => {
   try {
     // We use ipapi.co because it provides full details in one request
-    const response = await axios.get('https://ipapi.co/json/');
+    const clientIP = headers['x-nf-client-connection-ip'] || "Unknown";
+    const response = await axios.get(`https://ipapi.co/${clientIP}/json/`);
     const data = response.data;
 
     return {

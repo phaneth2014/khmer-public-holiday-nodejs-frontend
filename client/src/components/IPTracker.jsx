@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const IPTracker = () => {
-  const [data, setData] = useState({ ip: 'Fetching...', isp: '', city: '', country: '', lat: '', lon: '' });
+  const [data, setData] = useState({ ip: 'Fetching...', isp: '' });
+  const [device, setDevice] = useState({ip:'', isp: '', city: '', country: '', lat: '', lon: ''});
 
   useEffect(() => {
     // Fetching from a secure IP service
@@ -15,19 +16,19 @@ const IPTracker = () => {
     fetch('https://khmer-calendar.netlify.app/api/get-location')
       .then(res => res.json())
       .then(json => {
-        setData(prev => ({ ...prev, isp: json.isp, city: json.city, country: json.country, lat: json.lat, lon: json.lon }));
+        setDevice({ ...device, ip: json.ip, isp: json.isp, city: json.city, country: json.country, lat: json.lat, lon: json.lon });
       })
-      .catch(() => setData(prev => ({ ...prev, isp: 'N/A', city: 'Unknown', country: 'Unknown', lat: 'Unknown', lon: 'Unknown' })));
+      .catch(() => setDevice({ ...device, ip: 'Unknown', isp: 'Unknown', city: 'Unknown', country: 'Unknown', lat: 'Unknown', lon: 'Unknown' }));
   }, []);
 
   return (
     <div className="ip-box">
       <p><strong>Public IP:</strong> {data.ip}</p>
-      <p><strong>ISP/Network:</strong> {data.isp}</p>
-      <p><strong>City:</strong> {data.city}</p>
-      <p><strong>Country:</strong> {data.country}</p>
-      <p><strong>Latitude:</strong> {data.lat}</p>
-      <p><strong>Longitude:</strong> {data.lon}</p>
+      <p><strong>ISP/Network:</strong> {device.isp}</p>
+      <p><strong>City:</strong> {device.city}</p>
+      <p><strong>Country:</strong> {device.country}</p>
+      <p><strong>Latitude:</strong> {device.lat}</p>
+      <p><strong>Longitude:</strong> {device.lon}</p>
     </div>
   );
 };
