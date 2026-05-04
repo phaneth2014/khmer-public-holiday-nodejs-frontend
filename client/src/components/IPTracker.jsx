@@ -5,7 +5,7 @@ const IPTracker = () => {
 
   useEffect(() => {
     // Fetching from a secure IP service
-    fetch('https://api.ipify.org/?format=json')
+    fetch('https://khmer-calendar.netlify.app/api/get-ip')
       .then(res => res.json())
       .then(json => {
         setData({ ip: json.ip, isp: json.org });

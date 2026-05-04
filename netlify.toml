@@ -8,7 +8,14 @@
   node_bundler = "esbuild"
   external_node_modules = ["pg"]
 
-# backend
+# 1. Specific rule for the IP lookup (Bypasses AdBlockers)
+[[redirects]]
+  from = "/api/get-ip"
+  to = "https://api.ipify.org?format=json"
+  status = 200
+  force = true
+
+# backend 2. Your existing wildcard rule for other functions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
