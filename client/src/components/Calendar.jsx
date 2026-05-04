@@ -103,7 +103,7 @@ const Calendar = () => {
       days.push(
         <div
           key={d}
-          className={`day holiday `}
+          className={`day ${isToday ? "today" : "holiday"} `}
           style={{ color: "green" }}
           onClick={() => handleOpenModal(d)}
         >
