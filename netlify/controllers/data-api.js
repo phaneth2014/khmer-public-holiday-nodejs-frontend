@@ -137,19 +137,19 @@ function addHoliday(data, day) {
         khmer_holidays.push({
             date: dd,
             description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី១",
-            English: "Pchum Ben Day"
+            English: "Pchum Ben Day 1"
         });
     } else if (data.monthIndex == 9 && data.day == 15 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
             description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី២",
-            English: "Pchum Ben Day"
+            English: "Pchum Ben Day 2"
         });
     } else if (data.monthIndex == 10 && data.day == 1 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
             description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី៣",
-            English: "Pchum Ben Day"
+            English: "Pchum Ben Day 3"
         });
     } else if (data.monthIndex == 11 && data.day == 14 && data.moonPhase == 0) {
         khmer_holidays.push({
@@ -175,9 +175,9 @@ function addHoliday(data, day) {
 function checkKhmerHoliday(date) {
     let now = date;
     let mn5 = new Date(now.getFullYear(), 4, 1);
-    let mn9 = new Date(now.getFullYear(), 9, 1);
-    let mn10 = new Date(now.getFullYear(), 10, 1);
-    let mn11 = new Date(now.getFullYear(), 11, 1);
+    let mn9 = new Date(now.getFullYear(), 8, 1);
+    let mn10 = new Date(now.getFullYear(), 9, 1);
+    let mn11 = new Date(now.getFullYear(), 10, 1);
     let lastDay5 = new Date(mn5.getFullYear(), mn5.getMonth() + 1, 0);
     let lastDay9 = new Date(mn9.getFullYear(), mn9.getMonth() + 1, 0);
     let lastDay10 = new Date(mn10.getFullYear(), mn10.getMonth() + 1, 0);
