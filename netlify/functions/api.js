@@ -31,7 +31,7 @@ const publicCors = cors({
 });
 
 const privateCors = cors({
-  origin: ["https://khmer-calendar.netlify.app","http://116.212.129.18","http://175.100.112.35"],
+  origin: ["https://khmer-calendar.netlify.app","https://ipapi.co/json/","http://116.212.129.18","http://175.100.112.35"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 });

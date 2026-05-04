@@ -20,7 +20,7 @@ import { register,login,checkToken } from "./netlify/controllers/auth.controller
 const app = express();
 
 const privateCors = cors({
-  origin: ["http://localhost:4000"],
+  origin: ["http://localhost:4000", "https://ipapi.co/json/", "https://khmer-calendar.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 });
