@@ -11,7 +11,7 @@
 # 1. Specific rule for the IP lookup (Bypasses AdBlockers)
 [[redirects]]
   from = "/api/get-ip"
-  to = "https://api.ipify.org?format=json"
+  to = "https://ipapi.co/json/"
   status = 200
   force = true
 

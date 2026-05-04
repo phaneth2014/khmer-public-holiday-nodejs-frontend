@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import MyChart from "../components/MyChart";
 import  USD from '../assets/images/usd-khr.svg';
-import IPTracker from "../components/IPTracker";
+
 
 export default function Exchange() {
   const [exchange, setExchange] = useState([]);
@@ -114,7 +114,7 @@ export default function Exchange() {
             })}
           </p>
         </div>
-         <IPTracker/>
+  
       </div>
      
     </div>

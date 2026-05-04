@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import IPTracker from "../components/IPTracker";
+
 import "../assets/css/calendar.css";
 import {
   convertToKhmerNumerals,convertNumString,convertEngToKhmerMonth
@@ -83,7 +83,7 @@ export default function Holiday() {
           ))} */}
         </div>
       </div>
-      <IPTracker />
+
     </div>
   );
 }

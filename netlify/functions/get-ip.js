@@ -1,27 +1,53 @@
 // netlify/functions/get-ip.js
-exports.handler = async (event, context) => {
-  // Use lowercase keys - Netlify headers are usually normalized to lowercase
-  const headers = event.headers;
-  
-  const clientIP = headers['x-nf-client-connection-ip'] || "Unknown";
-  const city = headers['x-nf-client-header-city'] || "Unknown";
-  const country = headers['x-nf-client-header-country'] || "Unknown";
-  
-  // Safe splitting for Lat/Lon
-  const latLong = headers['x-nf-client-header-lat-long'] || "";
-  const [lat, lon] = latLong ? latLong.split(',') : ["0", "0"];
+import axios  from "axios";
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ 
-      ip: clientIP, 
-      city, 
-      country, 
-      lat: lat.trim(), 
-      lon: lon.trim() 
-    }),
-  };
+exports.handler = async (event, context) => {
+  try {
+    // We use ipapi.co because it provides full details in one request
+    const response = await axios.get('https://ipapi.co/json/');
+    const data = response.data;
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        ip: data.ip,
+        city: data.city,
+        country: data.country_name,
+        lat: data.latitude,
+        lon: data.longitude,
+        isp: data.org
+      }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Failed to fetch geo data" }),
+    };
+  }
 };
+// exports.handler = async (event, context) => {
+//   // Use lowercase keys - Netlify headers are usually normalized to lowercase
+//   const headers = event.headers;
+  
+//   const clientIP = headers['x-nf-client-connection-ip'] || "Unknown";
+//   const city = headers['x-nf-client-header-city'] || "Unknown";
+//   const country = headers['x-nf-client-header-country'] || "Unknown";
+  
+//   // Safe splitting for Lat/Lon
+//   const latLong = headers['x-nf-client-header-lat-long'] || "";
+//   const [lat, lon] = latLong ? latLong.split(',') : ["0", "0"];
+
+//   return {
+//     statusCode: 200,
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({ 
+//       ip: clientIP, 
+//       city, 
+//       country, 
+//       lat: lat.trim(), 
+//       lon: lon.trim() 
+//     }),
+//   };
+// };
