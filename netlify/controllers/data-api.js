@@ -136,19 +136,19 @@ function addHoliday(data, day) {
     } else if (data.monthIndex == 9 && data.day == 14 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី១",
             English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 9 && data.day == 15 && data.moonPhase == 1) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី២",
             English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 10 && data.day == 1 && data.moonPhase == 0) {
         khmer_holidays.push({
             date: dd,
-            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ",
+            description: "ពិធីបុណ្យភ្ជុំបិណ្ឌ ថ្ងៃទី៣",
             English: "Pchum Ben Day"
         });
     } else if (data.monthIndex == 11 && data.day == 14 && data.moonPhase == 0) {
