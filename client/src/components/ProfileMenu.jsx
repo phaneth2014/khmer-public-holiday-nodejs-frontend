@@ -18,7 +18,7 @@ export default function ProfileMenu({authenticated}) {
       console.log(token)
     }, []);
   return (
-    <>{user || authenticated && <li>
+    <>{ authenticated && <li>
           <NavLink to="/settings" title="Settings">
             <i className="bi bi-user"></i> Account
           </NavLink>
