@@ -19,8 +19,8 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match!" });
     }
     
-     const user = await User.findByEmail(normalizedEmail);
-    if (user) {
+    const usercheck = await User.findByEmail(normalizedEmail);
+    if (usercheck) {
       return res.status(400).json({ message: "Email already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);

@@ -80,7 +80,7 @@ export default function Login() {
             />
             {errors && (
               <p style={{ color: "red" }}>
-                {errors.message || JSON.stringify(errors.error)}
+                {errors.message || JSON.stringify(errors)}
               </p>
             )}
           </div>
