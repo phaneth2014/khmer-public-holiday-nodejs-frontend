@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
-export default function ProfileMenu() {
+export default function ProfileMenu({authenticated}) {
     const [user, setUser] = React.useState(null);
     useEffect(() => {
-      const token = localStorage.getItem('token');
+      const token = authenticated ? localStorage.getItem('token') : null;
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setUser(token ? jwtDecode(token) : null);
       if (token) {
@@ -18,7 +18,7 @@ export default function ProfileMenu() {
       console.log(token)
     }, []);
   return (
-    <>{user && <li>
+    <>{user || authenticated && <li>
           <NavLink to="/settings" title="Settings">
             <i className="bi bi-user"></i> Account
           </NavLink>

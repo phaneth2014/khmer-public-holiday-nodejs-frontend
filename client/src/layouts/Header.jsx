@@ -70,7 +70,7 @@ export default function Header() {
           <ThemeToggle />
         </li>
           
-        <ProfileMenu/>
+        <ProfileMenu authenticated={!!localStorage.getItem('token')}/>
       </ul>
     </nav>
   );
