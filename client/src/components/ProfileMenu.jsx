@@ -15,7 +15,7 @@ export default function ProfileMenu({authenticated}) {
           setUser(null);
         }
       }
-      console.log(token)
+      console.log(user)
     }, []);
   return (
     <>{ authenticated && <li>
@@ -23,7 +23,7 @@ export default function ProfileMenu({authenticated}) {
             <i className="bi bi-user"></i> Account
           </NavLink>
         </li>}
-        {!user && <><li id="account-login">
+        {!authenticated && <><li id="account-login">
           <NavLink to="/register" title="Register">
             <i className="bi bi-person"></i> ចុះឈ្មោះ
           </NavLink>
