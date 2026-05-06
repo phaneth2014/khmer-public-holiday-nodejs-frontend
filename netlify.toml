@@ -16,8 +16,7 @@ package = "@netlify/plugin-csp-nonce"
 [[headers]]
   for = "/*"
   [headers.values]
-    # We use __CSP_NONCE__ as a placeholder that the plugin will replace
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'nonce-__CSP_NONCE__'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://khmer-calendar.netlify.app;"
+    Content-Security-Policy = "default-src 'self'; script-src 'nonce-__CSP_NONCE__' 'strict-dynamic' 'unsafe-eval' https: http:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data:; connect-src 'self' https://khmer-calendar.netlify.app; report-uri /.netlify/functions/__csp-violations;"
 
 # 1. Specific rule for the IP lookup (Bypasses AdBlockers)
 [[redirects]]
