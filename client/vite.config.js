@@ -8,5 +8,6 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 1000, // Set limit to 1000kB instead of 500kB
+    assetsInlineLimit: 0, // Disable inlining of assets to avoid large chunks
   },
 })

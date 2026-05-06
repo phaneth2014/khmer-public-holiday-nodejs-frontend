@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@netlify/plugin-csp-nonce": "^1.6.2",
     "@phaneth_pho/react-useform-api": "^1.0.9",
     "axios": "^1.13.6",
     "bootstrap-icons": "^1.13.1",
+    "crypto": "^1.0.1",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
     "frappe-charts": "^1.6.2",
