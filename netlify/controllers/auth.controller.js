@@ -11,7 +11,7 @@ const JWT_EXPIRED = process.env.JWT_EXPIRES_IN || '1d';
 
 export const register = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
-
+  const normalizedEmail = email ? email.toLowerCase().trim() : '';
   try {
 
     // 1. Validation
@@ -19,8 +19,12 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match!" });
     }
     
+     const user = await User.findByEmail(normalizedEmail);
+    if (user) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword });
+    const user = await User.create({ name, email: normalizedEmail, password: hashedPassword });
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRED });
     res.status(201).json({ message: "User registered", data:user, token });
   } catch (err) {
@@ -30,8 +34,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     const { email, password } = req.body;
+    const normalizedEmail = email ? email.toLowerCase().trim() : '';
     try {
-        const user = await User.findByEmail(email);
+        const user = await User.findByEmail(normalizedEmail);
         if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
         const isMatch = await bcrypt.compare(password, user.password);
